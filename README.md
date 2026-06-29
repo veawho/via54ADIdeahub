@@ -56,6 +56,19 @@ via54MedCreativeDB/
 pip install -r requirements.txt
 ```
 
+
+## 🔗 集成 (v1.1.0 新增)
+
+via54MedCreativeDB v1.1.0 跟踪 3 个高星 RAG / Vector DB / AI scraper 项目, 评估 qdrant 集成:
+
+- [qdrant/qdrant](https://github.com/qdrant/qdrant) (25K) - Vector database
+- [chroma-core/chroma](https://github.com/chroma-core/chroma) (18K) - AI-native embedding database
+- [ScrapeGraphAI/Scrapegraph-ai](https://github.com/ScrapeGraphAI/Scrapegraph-ai) (27.8K) - Python scraper based on AI
+
+详见 [integrations/README.md](integrations/README.md) 和 [REFERENCES.md](REFERENCES.md).
+
+---
+
 ## 快速开始
 
 ```bash

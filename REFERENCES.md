@@ -33,6 +33,19 @@
 
 ---
 
+
+## Top 高星项目 (2026-06-29 audit, by stars)
+
+| Project | ★ Stars | 描述 | Link |
+|---------|---------|------|------|
+| qdrant/qdrant | 25,000 | Vector database (search engine) | [GitHub](https://github.com/qdrant/qdrant) |
+| chroma-core/chroma | 18,000 | AI-native open-source embedding database | [GitHub](https://github.com/chroma-core/chroma) |
+| ScrapeGraphAI/Scrapegraph-ai | 27,825 | Python scraper based on AI | [GitHub](https://github.com/ScrapeGraphAI/Scrapegraph-ai) |
+
+_Inspired by these projects, see CHANGELOG for integration plans._
+
+---
+
 ## English
 
 This project is part of the via54 series. Explore the via54 ecosystem:
