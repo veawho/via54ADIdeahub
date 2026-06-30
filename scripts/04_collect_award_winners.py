@@ -341,6 +341,39 @@ SEED_URLS = {
 }
 
 
+
+
+def _validate_source_domain(award: str, source_url: str) -> bool:
+    """数据源 domain 必须匹配奖项官方 domain — 否则不写
+    
+    防止 subagent 时代 SearXNG 返回其他汇总页导致误标
+    """
+    if not source_url:
+        return False
+    from urllib.parse import urlparse
+    domain = urlparse(source_url).netloc.lower()
+    
+    valid_domains = {
+        "Webby": ["webbyawards.com"],
+        "Clio": ["clios.com", "clioawards.com"],
+        "DAD": ["dandad.org"],
+        "Effie_Awards": ["effie.org", "apaceffie.com", "effie-europe.com", "current.effie.org", "effie-greaterchina.cn"],
+        "Cannes_Lions": ["canneslions.com", "lionswork.com"],
+        "One_Show": ["theoneclubforcery.com", "oneclub.org", "theoneclub.com"],
+        "LIA": ["liaawards.com"],
+        "Spikes_Asia": ["spikes.asia", "spikes-asia.com"],
+        "ADC_Annual": ["adcglobal.org", "aiga.org", "creativeclub.com"],
+        "Long_Xi": ["longxiawards.com.cn", "longxiaward.com"],
+    }
+    domains = valid_domains.get(award, [])
+    if not domains:
+        return True  # 未知奖项不强制校验
+    # 信任主源 + s3 镜像 (Effie PDF)
+    if "s3.amazonaws.com" in domain and any(d in domain or "effie" in domain for d in []):
+        return True
+    return any(d in domain for d in domains)
+
+
 def _try_delete_placeholder(award, subaward, year, tier):
     """Bug fix #3: 失败时主动删 placeholder"""
     fname = f"{year}_{subaward}_{tier.replace(' ', '_')}_winners.md"
@@ -579,6 +612,10 @@ def collect_one(award: str, subaward: str, year: int, tier: str, output_root: Pa
             "source_url": source_url,
             "out_path": str(out_path),
         }
+    # 数据源 domain 校验
+    if not _validate_source_domain(award, source_url):
+        print(f"  [FAIL] 数据源 {source_url} 与奖项 {award} 不匹配 (汇总页误标防护)")
+        return {"status": "domain_mismatch", "source": source_url, "award": award}
     write_winners_md(out_path, award, subaward, year, tier, winners, source_url)
 
     return {
