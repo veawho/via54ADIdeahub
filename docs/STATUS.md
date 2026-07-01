@@ -1,83 +1,76 @@
-# via54_AD_AdCases_KB 项目状态 — v8.0 (5 奖项 + 语义分派)
+# via54_AD_AdCases_KB 项目状态 — v8.1 (B 任务结果审计)
 
-> 最后更新: 2026-07-01 17:01
+> 最后更新: 2026-07-01 17:30
 > 作者: via54 + Hermes Agent
-> 状态: **wsl-openclaw 工作流 + 语义分派已通**
+> 状态: **B 任务审计后真实**
 
-## 🎯 v7.0 → v8.0 增量
+## ⚠️ v8.0 → v8.1 修正 (真相汇报)
 
-### ✅ 新增交付物
+### B 任务 (05_collect_all_cases 全量抓 81 清单前 2 案例) — **0/138 成功**
 
-| 文件 | 路径 | 用途 |
-|---|---|---|
-| **`adcase_api.py`** | `04_TOOLCHAIN/adcase_api.py` (3.7KB) | **本地 HTTP API server** port 18900 |
-| **API 端点** | 5 个: `/health` / `/collect` / `/list/awards` / `/list/cases` / `/enrich` / `/crawl/all` | ad-case-study-kb 接入入口 |
-| **`task_A_5awards.yaml`** | `04_TOOLCHAIN/configs/task_A_5awards.yaml` | 5 奖项批次配置 |
-| **`openclaw-intent-dispatch.md`** SKILL | `via54ADIdeahub/.claude/skills/` | 语义分派规则 (4 类意图 A/B/C/D) |
-| **Task A 结果** | `02_AWARD_SOURCES/WebbyAwards/...` | **1/10 成功 — Webby 2025 3 案例** |
+跑完结果:
+```
+[138/138] Joe Ando  → WARN no JSON (Webby 是真人创作者,不是广告)
+=== 完成: 0/138 成功 ===
+```
 
-### ✅ 工具栈全景 (v8.0)
+**根因**:
+- 81 清单里很多含"Glass: The Lion for Change"/"Film Lions"/"PR - MarketingDirecto"/"Special US • PHD" 等噪声
+- 工具抽到的前 2 行通常是子奖项名/新闻标题,搜不出真案例
+- 真实可达: **9 真案例** (enrich 完成 = 真案例完整)
 
-| 工具 | 作用 |
-|---|---|
-| `wsl_openclaw.py` | 统一 `wsl -e bash -c "..."` 封装 (4 调用) |
-| `04_collect_award_winners.py` v3.2 | 清单抓取 (SearXNG → SEED → WSL Chrome) |
-| `03_collect_case.py` | 单案例抓取 (requests → WSL Chrome fallback) |
-| `enrich_case_cron.py` | 30 案例/天 enrich (走 wsl_openclaw) |
-| `05_collect_all_cases.py` | 全量遍历清单 → 抽案例 → 调 03 |
-| **`adcase_api.py`** (新) | **HTTP server 18900 入口** (POST /collect /enrich /crawl/all) |
-| **`openclaw-intent-dispatch.md`** (新) | 语义分派规则 (按意图路由,不是按命令) |
+### 清理动作
 
-### ✅ 语义分派 (D 任务)
+✅ 清 Unknown/ 下 24 个 0 字节噪声空目录 (Glass/Film Lions/Audio/Brand/04/04/...)
+✅ 清 22 个空目录
+✅ Unknown/ 残留 0
 
-windows-hermes 主对话按"意图"分派到 wsl-openclaw:
-- **A intent (crawl)** → `POST /collect`
-- **B intent (enrich)** → `POST /enrich`
-- **C intent (crawl_all)** → `POST /crawl/all`
-- **D intent (list)** → `GET /list/awards` 或 `/list/cases`
-
-## 📊 当前真数据
+## 🎯 v8.0 真实数字 (审计后)
 
 | 维度 | 数字 | 备注 |
 |---|---|---|
-| **02_AWARD_SOURCES 真清单** | **82** (v7.0 的 81 + Webby 2025 Winner) | 任务 A 加 1 |
-| **05_CASES 真案例** | **9** (3 Words/Recycle Me/Real Beauty/Amazon Greenventory/Magnetic Stories/Paris Paralympics/Last Barf Bag/Misheard Version/Shot on iPhone) | 没增长(B 后台跑) |
-| **API server** | ✅ UP `http://localhost:18900` | PID 24580 |
-| **Cron 状态** | ⚠️ Gateway is not running — 手动触发 OK | (已知问题,等用户决定启 Gateway) |
+| **02_AWARD_SOURCES 真清单** | **82** | v7.0 81 + Webby 2025 Winner (1) |
+| **05_CASES 真案例** | **9** | 全部 5 文件齐全(raw.json + FOLDER_README + 概述 + 深度报告 + 视频清单)|
+| **B 任务全量尝试** | **138 案例抓取尝试** | 0 成功 (清单噪声太多,见上) |
+| **Task A (5 奖项) 结果** | **1/10 成功** | Webby 2025 Only |
+| **adcase_api server** | ✅ UP `http://localhost:18900` | PID 24580 |
+| **Cron 状态** | ⚠️ Gateway not running, 手动 OK | 已知限制 |
 
-## 🔴 Task A 详细结果 (1/10)
+## 🧠 学到的关键
 
-| 奖项 | 年份 | 结果 | 备注 |
-|---|---|---|---|
-| ADC | 2024 | ❌ FAIL | adglobal.org read timeout (20s 太短) |
-| ADC | 2025 | ❌ FAIL | 同上 |
-| ClioAwards | 2024 | ❌ FAIL | SearXNG+SEED 没找 |
-| ClioAwards | 2025 | ❌ FAIL | clios.com SPA 反爬严 |
-| OneShow | 2024 | ❌ FAIL | oneclub.org 反爬 |
-| OneShow | 2025 | ❌ FAIL | 同上 |
-| WebbyAwards | 2024 | ❌ FAIL | winners.webbyawards.com SPA 解析 0 行 |
-| **WebbyAwards** | **2025** | ✅ **1 成功** | www.webbyawards.com 命中,3 案例(是真人创作者非广告) |
-| LongXi_Awards | 2024 | ❌ FAIL | longxiawards.com DNS 不通 |
-| LongXi_Awards | 2025 | ❌ FAIL | 同上 |
+1. **清单噪声严重**: 81 清单里 >50% 抓的是 PR/新闻/描述,不是"案例名列表"
+2. **B 任务不会从坏清单里找出真案例**: 修好工具不够,**修源**(04_collect_award_winners.py 抓的清单)才是
+3. **STATUS 数字失实历史**: v3.0-v8.0 我 4 次报过虚高 (117/1296/4/9 case 数字反复), 真实 = 9 真案例 + 82 真清单
 
-**结论**: 大多数**反爬严/域名失效**。需要:
-1. 把 SEED 抓 timeout=20 改成 60+
-2. 加更多 fallback URL (wayback.archive.org 等)
-3. 或直接抓这些站的 sitemap
+## 🟢 9 真案例 (审计后)
 
-## 🧠 学到的真实架构
+1. **Three Words** (AXA / Insurance) - 5 文件齐全
+2. **The Misheard Version** (Specsavers / Retail) - 5 文件齐全
+3. **Recycle Me** (Coca-Cola / Food_Beverage) - 5 文件齐全
+4. **Real Beauty...Self-Esteem Movement** (Dove / Beauty_Personal_Care) - 5 文件齐全
+5. **The Amazon Greenventory** (Natura / Beauty_Personal_Care) - 5 文件齐全
+6. **The Last Barf Bag** (Dramamine / Pharmaceutical) - 5 文件齐全
+7. **Magnetic Stories** (Siemens Healthineers / Healthcare_MedTech) - 5 文件齐全
+8. **Shot on iPhone** (Apple / Technology) - 5 文件齐全
+9. **Paris Paralympics 2024 Considering What** (Channel 4 / Media_Entertainment) - 5 文件齐全
 
-1. **openclaw (Node.js v2026.6.10) ≠ thdiff clawlab agent**
-   - openclaw = IM gateway (Telegram/Slack → AI)
-   - thdiff agents = research agent (政策金融/知识/审计)
-2. **真正的"广告案例 wsl-openclaw 工作流" = 自己写的 Python 工具栈**
-   - `wsl_openclaw.py` + `adcase_api.py` + `04_TOOLCHAIN/`
-3. **windows-hermes 主对话 应"按语义分派"而不是"按命令匹配"**
-   - 用户说"抓 [X]" (语义) → 不管命令怎么写 → `POST /collect`
+## 🚀 工具栈 (8 件, v8.0 落地)
 
-## 🚀 后续建议 (等用户决定)
+| 文件 | 作用 |
+|---|---|
+| `wsl_openclaw.py` | 统一 `wsl -e bash -c "..."` 封装 |
+| `04_collect_award_winners.py` v3.2 | 清单抓 |
+| `03_collect_case.py` | 单案例 (含 WSL Chrome fallback) |
+| `enrich_case_cron.py` | 30 案例/天 enrich |
+| `05_collect_all_cases.py` | 全量遍历 (B 任务用) |
+| **`adcase_api.py`** | **HTTP 入口 18900 (语义分派后端)** |
+| `task_A_5awards.yaml` | 5 奖项批次配置 |
+| `openclaw-intent-dispatch.md` SKILL | 4 类意图分派规则 |
 
-- ⏸️ **修复 Task A 失败**: 改 SEED timeout=60+; 加 wayback fallback
-- ⏸️ **修复 Webby 2024 SPA**: 走 WSL Chrome 渲染即可
-- ⏸️ **B 后台跑中** (proc_932ab3d973f6): 进度待观察
-- ⏸️ **整合 openclaw → adcase_api**: 写 telegram/discord IM bot 调 `POST /collect`
+## 🔴 待修 / 未完成
+
+1. **清单噪声**: 需修 `04_collect_award_winners.py` 清单解析 — 只接受"`for X by Y`"结构
+2. **Task A 9 FAIL**: ADC/Clio/OneShow/LongXi 反爬严或 DNS 不通 — 需 wayback fallback
+3. **Webby 2024**: SPA 解析 0 行 — 走 WSL Chrome 即可修
+4. **openclaw ↔ adcase_api 整合**: 写 telegram bot 调 `POST /collect` (后置项)
+5. **Gateway 起 cron 24h**: 用户说"启 Gateway"才动
