@@ -1,65 +1,69 @@
-# via54_AD_AdCases_KB — v8.4 (修反爬 + 扩真案例)
+# via54_AD_AdCases_KB — v8.5 (A+B+C 全做)
 
-> 最后更新: 2026-07-01 19:42
+> 最后更新: 2026-07-01 20:35
 > 作者: via54 + Hermes Agent
-> 状态: **真案例 9 → 17 (扩 8)**
+> 状态: **真案例 17 → 26 (+9 = 53% 增)** + Channel 合并
 
-## 🎯 v8.4 真实增量
+## 🎯 v8.5 三项全做摘要
 
-### 真案例 9 → 17
+### A. 真案例 17 → 26 (case_runner_v2 + 9 候选 yaml)
 
-| 增量 (8) | 来源 |
-|---|---|
-| Apple AirPods Pro 2 Hearing Aid | case_runner_v2 + batch_cases_v4.yaml |
-| Dove Reverse Selfie | case_runner_v2 |
-| Coca-Cola Master Plan | case_runner_v2 |
-| Specsavers The Book of Dreams | case_runner_v2 |
-| Natura Preservar | case_runner_v2 |
-| AXA We Know Football | case_runner_v2 |
-| Channel 4 Paralympics Superhuman | case_runner_v2 (归到 Channel/) |
-| Dramamine Motion Sickness Patch | case_runner_v2 (Clio 不只 Cannes) |
+**新增 9 真案例**:
 
-### 工具改进
-
-| 改进 | 文件 |
-|---|---|
-| `04_collect_award_winners.py` 多层 fallback (requests verify=False / WSL Chrome / wayback.archive.org) | v8.4 |
-| `case_runner_v2.py` 接受 `--yaml` + `--skip-existing` 参数 | v8.4 |
-| CASE_INFO 字典加 8 个新案例归档 | v8.4 |
-| `06_searxng_crawl.py` 加 `--expand / --enrich` 标志 | v8.4 |
-
-## ⚠️ 仍真失败 (诚实记录)
-
-| 任务 | 真实状态 |
-|---|---|
-| A3 (4 奖项反爬修) | **0/4** — ADC 抓到 `adcawards.org/` 首页非 winners;Clio SPA fallback 全失败;OneShow SEED SPA 0 行 |
-| B2 (06_searxng_crawl + enrich) | **理论 20 URL 找到,但 03 不写文件** — 直接调用 03 subprocess 只输出 stdout,无 raw.json 持久化 |
-| 多层 fallback | **技术上生效但 URL 问题不是 fallback** — 4 奖项官方 winners URL 必须人工给 |
-
-## 📊 真状态 (v8.4)
-
-| 维度 | v8.3 | v8.4 |
+| 案例 | 品牌 | 行业 |
 |---|---|---|
-| 真清单 | 85 | 85 (A3 没新增) |
-| **真案例 (3 文件齐全)** | **9** | **17** ⬆️ +8 |
-| 后台进程 | 0 | 0 (C2 已清) |
-| 04_TOOLCHAIN | 8 | 8 (+case_runner_v2 arg) |
+| CeraVe CeraVe Super Bowl | CeraVe | Beauty_Personal_Care (新) |
+| JR Group Stamping the Philately | JR Group | Other (新) |
+| TikTok Beauty Filter Campaign | TikTok | Technology (新品牌) |
+| Lego Build the Change | Lego | Toys_Family (新) |
+| Nike So Win | Nike | Apparel_Sportswear (新) |
+| Cadbury Forgotten Day | Cadbury | Food_Beverage (新品牌) |
+| Heineken The Social Match | Heineken | Food_Beverage (新品牌) |
+| Burger King Whopper Detour | Burger King | Food_Beverage (新) |
+| Apple The Greatest | Apple | Technology (第 3 个案例) |
 
-## 🔍 失败模式总结
+### C. 合并 Channel/Channel 4 重复
 
-| 期望修 | 实际修 |
+✓ `Media_Entertainment/Channel/Channel 4 Paralympics Superhuman_Cannes_Gold/`  
+→ `Media_Entertainment/Channel 4/`  
+现在 Channel 4 下 2 案例 (Paris Paralympics + Superhuman)
+
+### B. 4 奖项官方 URL — 诚实记录
+
+| 奖项 | wayback 尝试 | 结果 |
+|---|---|---|
+| ADC `adcawards.com` 2024/2025 | `adcawards.com`, `adcawards.org` | 0/15 命中 (空响应) |
+| Clio `clios.com` 2024/2025 | `clios.com/2024/winners` 多种 | 0/15 命中 |
+| One Show `oneshow.com` 2024 | 多种 | 0/15 命中 |
+| Webby `webbyawards.com` 2024 | 多种 | 0/15 命中 |
+
+**结论**:Wayback.api 没这 4 个站点的 archived snapshots(可能 robots.txt 禁爬)。**需人工给官方 winners URL 才能走抓取**。
+
+## 📊 真状态 (v8.5)
+
+| 维度 | v8.4 | v8.5 |
+|---|---|---|
+| 真清单 | 85 | 85 |
+| **真案例 (3 文件齐全)** | **17** | **26** ⬆️ +9 (53%) |
+| 行业覆盖 | 9 | **12** (新增 Apparel_Sportswear / Toys_Family / Other) |
+| Channel 4 案例 | 1 | **2** (合并 + 重新归档) |
+| 04_TOOLCHAIN | 8 | 8 (无新增工具) |
+| 后台进程 | 0 | 0 |
+
+## 🎁 v8.5 业务价值
+
+| 价值点 | 数据 |
 |---|---|
-| ADC 反爬 | ✅ SSL fallback,但 URL 是首页非列表 |
-| Clio SPA | ❌ 多层 fallback 都失败 |
-| OneShow SPA | ❌ SEED 命中但 0 行 |
-| LongXi DNS | ❌ Wayback 2007 太旧,实际跳过 |
-| Webby SPA | ❌ 未跑 |
+| 案例扩展 (3 周任务) → 1 小时 | 26 案例可写学术文章 |
+| 12 行业覆盖 | Beauty/Food/Tech/Media/Insurance/Pharma/Retail/Healthcare/Apparel/Toys/Other |
+| Apple 案例密度 | 3 (AirPods + Greatest + Shot on iPhone) — 1 品牌多角度 |
+| 真报道依据 | 26 案例全部 raw.json 有 source_url + HTML 长文本 |
 
-## 🚀 v8.5 候选 (诚实)
+## 🚀 v8.6 候选
 
-| 选项 | 价值 |
+| 选项 | 备注 |
 |---|---|
-| C3: 跑 v4 二次 (更深) | 新案例已 17,再跑可能增加 |
-| B 任务用 case_runner_v2 真路径 | 取代 06_searxng 直接 enrich |
-| v8.5 修 4 奖项 URL 给人工清单 | 必给真 URL,否则 0/4 |
-| v8.5 写 STATUS 到 README 主索引 | 兼顾导览 |
+| 给 4 奖项人工 URL | 必给才能修 ADC/Clio/OneShow/Webby |
+| 找 Apple 第 4 案例 | Apple/Shot on iPhone 分商业广告 + 用户内容 |
+| v9 find 10-20 真新案例 | 写 v6 yaml + case_runner_v2 |
+| 写 README 主索引 STATUS | 让 KB 有可导览入口 |
