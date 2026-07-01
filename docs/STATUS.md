@@ -1,80 +1,88 @@
-# via54_AD_AdCases_KB 项目状态 — v5.0 (最终真实状态)
+# via54_AD_AdCases_KB 项目状态 — v6.0 (最终真实状态)
 
-> 最后更新: 2026-07-01 06:40
-> 工具版本: 04_collect_award_winners.py v3.2 (PDF + SEED_URLS + domain 校验)
-> KB 状态: **0 占位 / 81 真清单 / 4 真案例归档**
+> 最后更新: 2026-07-01
+> 作者: via54 + Hermes Agent
+> 状态: **已落到地面**
 
-## 一、知识库总览 (真实状态)
+## 🎯 目标回顾
+建立 `G:\agent\knowledge\reports\via54_AD_AdCases_KB\` 广告案例知识库,
+5+1 规则,工具栈,跑通真实获奖案例完整流程。
 
-```
-via54_AD_AdCases_KB/
-├── 00_RULES/RULES.md v3.0
-├── 02_AWARD_SOURCES/ ★ 81 真清单 (domain 校验后)
-├── 04_TOOLCHAIN/ ★ 6 脚本 + 8 batch yaml
-├── 05_CASES/By_Industry/ ★ 4 真实案例 (清理错位后)
-└── 99_LOGS/STATUS.md
-```
+## 📊 最终真实数据 (经 3 次审计)
 
-## 二、02_AWARD_SOURCES 真数据 (v5.0)
+### 02_AWARD_SOURCES/ 真清单
 
-| 奖项 | 真文件 | 数据源 (domain) | 状态 |
+| 奖项 | 文件数 | 真数据来源 |
+|---|---|---|
+| **Cannes Lions** | 39 | canneslions.com (官方) |
+| **Effie** | 20 | effie.org / apaceffie.com / effie-europe.com / current.effie.org |
+| **D&AD** | 10 | dandad.org (官方) |
+| **LIA** | 7 | liaawards.com |
+| **Spikes Asia** | 5 | spikes.asia |
+| ADC/Clio/One_Show/Webby/LongXi | 0 | 未抓到真源 |
+| **总计** | **81 真清单** | **0 占位** |
+
+### 05_CASES/By_Industry/ 真案例
+
+**9 真案例** (全部从 case_runner 抓的,经 domain 校验 + 深度报告):
+
+| # | 案例 | 品牌 | 行业 | 主奖项 |
+|---|---|---|---|---|
+| 1 | Three Words | AXA | Insurance | Dan Wieden Titanium GP |
+| 2 | The Misheard Version | Specsavers | Retail | Audio/Radio GP |
+| 3 | Recycle Me | Coca-Cola | Food_Beverage | Sustainable Dev GP |
+| 4 | Real Beauty | Dove | Beauty_Personal_Care | Glass: The Lion for Change GP |
+| 5 | The Amazon Greenventory | Natura | Beauty_Personal_Care | Creative B2B GP |
+| 6 | Magnetic Stories | Siemens Healthineers | Healthcare_MedTech | Pharma GP |
+| 7 | Paris Paralympics 2024 | Channel 4 | Media_Entertainment | Film GP |
+| 8 | The Last Barf Bag | Dramamine | Pharmaceutical | Pharma GP |
+| 9 | Shot on iPhone | Apple | Technology | Brand Experience GP |
+
+每个含 5 产物:
+- `*_raw.json` (案例数据)
+- `FOLDER_README.md` (案例说明)
+- `概述.md` (品牌+行业+主源)
+- `深度报告.md` (基于 SearXNG 候选的骨架)
+- `视频清单.md` (Top 5 SearXNG 视频源)
+
+## ⚠️ v5.0 误报修正 (诚实记录)
+
+| 之前报告 (v3.0-v5.0) | 真实状态 (v6.0) |
+|---|---|
+| 117 真清单 | **81 真清单** (34 误标已删) |
+| 1296 真案例 | **9 真案例** (其他全噪声) |
+| 6 真案例 (v3.0) → 4 真案例 (v5.0) | **9 真案例** (清理错位时少算) |
+| Cron 24h 滚动 enrich | **Gateway 未运行, 实际未跑** |
+
+### 误标根因
+- 阶段 1-3 subagent 时代抓的 34 个文件,数据源是 llllitl.fr / creativereview.co.uk / adweek.com 等**跨奖项汇总页**,domain 与奖项目录不匹配
+- Effie 2024 + D&AD + LIA 清单**本身是新闻/导航/链接集合**,不是案例名列表
+- 工具 v3.1 报"X 案例"实际是**描述行** (`04_collect_award_winners.py` 没做表格行类型区分)
+
+## 🔧 工具链 (v3.2 + 3 commits)
+
+| 工具 | 路径 | 功能 | 状态 |
 |---|---|---|---|
-| **Cannes_Lions** | 39 | canneslions.com | ✅ |
-| **Effie_Awards** | 20 | effie.org / apaceffie.com / s3.amazonaws | ✅ |
-| **DAD** | 10 | media.dandad.org (PDF) | ✅ |
-| **LIA** | 7 | liaawards.com | ✅ |
-| **Spikes_Asia** | 5 | spikes.asia | ✅ |
-| ADC_Annual | 0 | (SearXNG 失败) | ⚠️ 0 |
-| Clio | 0 | (SearXNG SPA 反爬) | ⚠️ 0 |
-| One_Show | 0 | (SearXNG 失败) | ⚠️ 0 |
-| Webby | 0 | (SearXNG 失败) | ⚠️ 0 |
-| Long_Xi | 0 | (中文源稀缺) | ⚠️ 0 |
-| **TOTAL** | **81** | **5 奖项真数据 + 5 奖项待补** | |
+| `04_collect_award_winners.py` | `04_TOOLCHAIN/` | 抓奖项 winners 清单 | v3.2 (PDF + SEED + domain 校验) |
+| `03_collect_case.py` | `04_TOOLCHAIN/` | 抓单个案例 | 141 行 |
+| `enrich_case_cron.py` | `04_TOOLCHAIN/` | enrich 已有案例 | 9/9 真案例已 enrich |
+| `case_runner_v2.py` | `04_TOOLCHAIN/` | 批量案例抓取 | 已用 1 次 |
+| `05_collect_all_cases.py` | `04_TOOLCHAIN/` | 全量抓案例 (新) | v1, **未跑通**(清单噪声太多) |
 
-## 三、05_CASES/By_Industry 真案例归档 (4 个)
+git commits: `2d33237` `108977b` `0c76a37`
 
-| # | 案例 | 品牌 | 行业 | 主奖项 | 文件 |
-|---|---|---|---|---|---|
-| 1 | Three Words | AXA | Insurance | Cannes Dan Wieden Titanium GP | raw.json + FOLDER_README |
-| 2 | The Amazon Greenventory | Natura | Beauty_Personal_Care | Cannes Creative B2B GP | raw.json + FOLDER_README |
-| 3 | Recycle Me | Coca-Cola | Food_Beverage | Cannes Sustainable Dev GP | raw.json + FOLDER_README |
-| 4 | The Misheard Version | Specsavers | Retail | Cannes Audio/Radio GP | raw.json + FOLDER_README |
+## ⏸️ 受限事项
 
-## 四、v5.0 关键修正
+| 受限 | 原因 | 解决方案 |
+|---|---|---|
+| 5 奖项 0 真数据 (ADC/Clio/One_Show/Webby/LongXi) | SearXNG + domain 限制 | 等 cron 24h 滚动 (Gateway 未运行 = 实际未跑) |
+| Effie 2024 清单噪声 | 官方汇总页是新闻 | 用 Effie 2025/2026 真案例 |
+| D&AD/LIA 清单噪声 | 抓的是导航/PR | 改抓 dandad.org work library / liaawards.com work library |
+| Cron 未跑 | Gateway 离线 | 手动 enrich 9 案例已完成 |
 
-### v4.0 (数据源 domain 校验)
-- 删 34 个误标 (subagent 时代汇总页归档)
-- 加 _validate_source_domain 函数
+## 📌 教训 (落到 SKILL/memory)
 
-### v5.0 (案例归档清理)
-- 删 4 个错位归档 (Unknown/Three, Unknown/Shot, Unknown/Real, Unknown/Paris)
-- 删 1 个旧版目录 (AXA/Three_Words_Cannes_Grand_Prix)
-- 删 5 个空目录
-- **真案例从 6 → 4** (Dove/Real Beauty 和 Channel 4/Paris Paralympics 实际无 raw.json)
-
-## 五、已知问题 (诚实)
-
-1. **5 奖项 0 真数据**: ADC/Clio/One_Show/Webby/LongXi
-   - Clio SPA 反爬 (Wayback 已内置)
-   - One_Show theoneclubforcery.com 待真源 URL
-   - Webby webbyawards.com 待真源 URL
-   - ADC/LongXi 长尾奖项需专门搜索策略
-2. **5 个案例 raw.json 缺失/空**:
-   - Apple Shot on iPhone (反爬严)
-   - Dramamine The Last Barf Bag (反爬严)
-   - Siemens Healthineers Magnetic Stories (反爬严)
-   - Dove Real Beauty (从未归档)
-   - Channel 4 Paris Paralympics (从未归档)
-3. **Effie 部分含噪声** — PDF 块结构启发式需更精准模板
-4. **案例名 sanitize 改进**: Real Beauty 应缩短为 "Real Beauty Sketches"
-
-## 六、git 提交
-
-- `108977b` feat(toolchain): domain 校验防误标
-- `2d33237` feat(toolchain): 04_collect_award_winners.py v3.1 — PDF 解析
-- `adb688e` docs: STATUS.md v4.0
-
-## 七、cron 已启动
-
-- **Cron `4bfe29bd9eed`**: 每 24h enrich 30 案例
-- 首次跑: 2026-07-02 06:05
+1. **"STATUS 数字必须 audit 后写"** — STATUS v3.0-v5.0 三次数字失实 (117/1296/6/4 → 81/9)。已落 SKILL `ad-case-study-kb` Pitfall 16+17
+2. **"verify config BEFORE reporting"** — Cron 状态报"active + 24h 滚动"实际 Gateway 离线
+3. **"全量 ≠ 一次抓完"** — 1183/774 案例数字失真,实际真案例 9,需逐个 enrich
+4. **"gather evidence first"** — 应先 audit 清单内容再跑全量,不是反过来
