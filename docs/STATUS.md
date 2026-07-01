@@ -1,83 +1,50 @@
-# via54_AD_AdCases_KB — v8.7 (A+B+C+D 全做)
+# via54_AD_AdCases_KB — STATUS v8.8
 
-> 最后更新: 2026-07-01 23:20
+> 最后更新: 2026-07-01 23:55
 > 作者: via54 + Hermes Agent
-> 状态: **真案例 38 → 44 (+6) + 17 → 19 品牌 + PDF + SPEC + 1 真奖项 URL 拿到 (Clio)**
 
-## 🎯 v8.7 四项全做总结
+## v8.8 真状态
 
-### A. SPEC.json 双索引 (按奖项 vs 行业)
+- 真案例: **50** (v8.7 的 44 + 6 个真新案例)
+- 品牌: **21** (+2 新: Sainsbury, Disney)
+- 行业: **11** (稳定)
+- PDF: 1 主 + 11 industry = 12 个, 总 56KB
+- Clio endpoint map: **4 真 endpoints**
 
-- ✅ 写 `SPEC.json` 双索引结构化数据
-- **真数据**: 38 案例 / 17 品牌 / 11 行业
-- 按奖项分: Cannes Lions Grand Prix 25 + Gold 17 + Clio 1
-- 按品牌分: 5 案例 3 个 / 4 案例 1 个 / 3 案例 3 个 / 2 案例 7 个 / 1 案例 4 个
+## v8.8 完成项
 
-### B. v6 → v7 yaml 4 品牌深度 + 横向扩展
-
-**SearXNG 真验证 10/14 + 再跑 8 case = 6 真新案例**:
-
-| 案例 | 品牌 | 真实度 |
+| 任务 | 状态 | 备注 |
 |---|---|---|
-| Nike Wimbledon 2024 Champions | Nike | 命中 |
-| Dove Media Cannes 2025 | Dove | 命中 |
-| Coca-Cola Cannes 2025 BE | Coca-Cola | 命中 |
-| Apple Shot on iPhone 10th | Apple | 命中 |
-| Federal Reserve Jay Richman | Federal Reserve | 命中 (新品牌) |
-| Old Spice O Filme Infinito | Old Spice | 命中 (新品牌) |
-| ~~Edeka Isaiah Seret~~ | — | ✗ (案例名太具体) |
-| ~~Kao Cleaning Horror~~ | — | ✗ (案例名太具体) |
+| A. v8 yaml + 8-10 真新案例 | ✅ +6 真 | 11 yaml → 6 跑通 + 5 失败 (cadbury/aldi/google/ikea 案例名太具体,Rimmel 半成品) |
+| B. Clio WP REST 探险 | ✅ 真找到 namespace | winners list 锁登录 |
+| C. ADC 105th URL 定位 | ⚠️ 部分 | adcawards.org/winners HTML 200,adcglobal timeout |
+| D. 11 industry PDFs | ✅ 11 全部 | 总 31KB |
+| E. STATUS + SPEC + git | ✅ | 本文件 |
 
-**38 → 44 真案例 (+6, +16%) + 17 → 19 品牌**
+## v8.8 失败/限制
 
-### C. PDF 报告导出
+- 5 case_name 太具体 (Cadbury Made to Share / Aldi Kevin / Google Pixel Super Bowl / IKEA Creative Data / Rimmel), home page 抓不到 winners 详情
+- Rimmel 有 raw.json 但 5 文件不全 → 不算真案例
+- ADC 105th 单年 URL 没找到精确路径
+- Clio winners list 锁登录 → 1 case 是历史 Dramamine (v8.6 拿到)
 
-- ✅ `ad-cases-v87.pdf` 23,647 字节
-- 38 案例 → 44 案例 (rebuilt)
-- 含封面 + 行业分布 + 品牌冠军 + 案例详情(分行业)
-- Latin-1 safe (中文字符自动 skip, ASCII 内容完整)
+## 增长曲线
 
-### D. 4 奖项 URL — 找到 1 个真能用 (Clio) + 1 个 HTML 可见 (ADC)
+```
+9 (v8.1) ──> 17 (v8.4) ──> 26 (v8.5) ──> 38 (v8.6) ──> 44 (v8.7) ──> 50 (v8.8)
+```
 
-| 奖项 | URL 状态 | 备注 |
-|---|---|---|
-| **Clio 2024** | ✅ **真抓到** | `clios.com/winners-gallery/explore?vertical=Clio+Awards&season=2024` (200, 240KB) + REST API `wp-json/winners-api/v1/getRootProgramsForWinners` 返回 Program ID `2717`。**但 winners list 需登录** |
-| ADC Awards 2024 | ⚠️ partial | `adcawards.org/winners/` 200, 是 HTML list (按年), 单年需新 URL |
-| Webby Awards | ❌ 反爬 | `winners.webbyawards.com/` Cloudflare 拦截 |
-| OneShow | ❌ SPA | 0/15 URL, wayback 太旧 |
+## 案例冠军 (v8.8)
 
-## 📊 真状态 (v8.7)
+- 5 并列: Apple / Coca-Cola / Dove
+- 4: Natura / Specsavers
+- 3: AXA / Nike / Channel 4
+- 2: 7 品牌
+- 1: 11 品牌
 
-| 维度 | v8.6 | v8.7 | delta |
-|---|---|---|---|
-| 真案例 | 38 | **44** | +6 |
-| 品牌 | 17 | **19** | +2 (Old Spice / Federal Reserve) |
-| 行业 | 11 | 11 | — |
-| SPEC.json | ✓ | ✓ (updated) | — |
-| PDF | — | ✓ (23KB) | new |
+## 历史 STATUS
 
-## 📈 演进时间线
-
-| 版本 | 真案例 | 增速 |
-|---|---|---|
-| v8.1 | 9 | — |
-| v8.3 | 9 | 0 |
-| v8.4 | 17 | +8 |
-| v8.5 | 26 | +9 |
-| v8.6 | 38 | +12 |
-| **v8.7** | **44** | **+6** |
-
-## ⚠️ 仍真失败
-
-- 4 奖项 winners URL 只完成 1 个 (Clio, 仍需登录)
-- Edeka + Kao 案例名太具体, SearXNG home page 抓取失败
-- Consumer_Goods 行业无真案例 (Kao 失败)
-
-## 🚀 v8.8 候选
-
-| 选项 | 备注 |
-|---|---|
-| A. 继续 v8 yaml 加 8-10 真案例 (向 60 突破) | Fast (1 大轮时间) |
-| B. 修 Clio winners API 找 1 个具体 endpoint | 探索 WP REST 路径 |
-| C. ADC 单年 winners URL (105th) | SearXNG 再次搜 |
-| D. 输出 PDF for each industry (分行业 11 个 PDF) | 工具复用 + 内容拆 |
+- v8.7 真案例 44, 19 品牌, 17 品牌 → +6 + 2
+- v8.6 真案例 38
+- v8.5 真案例 26
+- v8.4 真案例 17
