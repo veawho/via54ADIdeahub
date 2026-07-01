@@ -1,50 +1,83 @@
-# via54_AD_AdCases_KB 项目状态 — v7.0 (wsl-openclaw 工作流)
+# via54_AD_AdCases_KB 项目状态 — v8.0 (5 奖项 + 语义分派)
 
-> 最后更新: 2026-07-01
+> 最后更新: 2026-07-01 17:01
 > 作者: via54 + Hermes Agent
-> 状态: **wsl-openclaw 通路已通**
+> 状态: **wsl-openclaw 工作流 + 语义分派已通**
 
-## 🎯 v6.0 → v7.0 核心变化
+## 🎯 v7.0 → v8.0 增量
 
-### ✅ 关键交付物 (今天新增)
+### ✅ 新增交付物
 
-| 交付物 | 路径 | 用途 |
+| 文件 | 路径 | 用途 |
 |---|---|---|
-| **`wsl_openclaw.py`** | `04_TOOLCHAIN/wsl_openclaw.py` (4.9KB) | **统一封装 `wsl -e bash -c "..."`** + 4 调用 (shell/python/chrome/pdf) |
-| **`03_collect_case.py`** 改造 | `fetch_page()` 失败自动走 `wsl_chrome_fetch` | 反爬严 SPA 自动 fallback |
-| **`enrich_case_cron.py`** 改造 | 引入 `from wsl_openclaw import wsl_python` | cron 自动走 WSL |
-| **`openclaw-workflow.md`** SKILL | `via54ADIdeahub/.claude/skills/` | 案例抓取工作流规范 |
+| **`adcase_api.py`** | `04_TOOLCHAIN/adcase_api.py` (3.7KB) | **本地 HTTP API server** port 18900 |
+| **API 端点** | 5 个: `/health` / `/collect` / `/list/awards` / `/list/cases` / `/enrich` / `/crawl/all` | ad-case-study-kb 接入入口 |
+| **`task_A_5awards.yaml`** | `04_TOOLCHAIN/configs/task_A_5awards.yaml` | 5 奖项批次配置 |
+| **`openclaw-intent-dispatch.md`** SKILL | `via54ADIdeahub/.claude/skills/` | 语义分派规则 (4 类意图 A/B/C/D) |
+| **Task A 结果** | `02_AWARD_SOURCES/WebbyAwards/...` | **1/10 成功 — Webby 2025 3 案例** |
 
-### ✅ 真实依赖栈 (调研后真相)
+### ✅ 工具栈全景 (v8.0)
 
-| 服务 | 端口 | 状态 | 备注 |
+| 工具 | 作用 |
+|---|---|
+| `wsl_openclaw.py` | 统一 `wsl -e bash -c "..."` 封装 (4 调用) |
+| `04_collect_award_winners.py` v3.2 | 清单抓取 (SearXNG → SEED → WSL Chrome) |
+| `03_collect_case.py` | 单案例抓取 (requests → WSL Chrome fallback) |
+| `enrich_case_cron.py` | 30 案例/天 enrich (走 wsl_openclaw) |
+| `05_collect_all_cases.py` | 全量遍历清单 → 抽案例 → 调 03 |
+| **`adcase_api.py`** (新) | **HTTP server 18900 入口** (POST /collect /enrich /crawl/all) |
+| **`openclaw-intent-dispatch.md`** (新) | 语义分派规则 (按意图路由,不是按命令) |
+
+### ✅ 语义分派 (D 任务)
+
+windows-hermes 主对话按"意图"分派到 wsl-openclaw:
+- **A intent (crawl)** → `POST /collect`
+- **B intent (enrich)** → `POST /enrich`
+- **C intent (crawl_all)** → `POST /crawl/all`
+- **D intent (list)** → `GET /list/awards` 或 `/list/cases`
+
+## 📊 当前真数据
+
+| 维度 | 数字 | 备注 |
+|---|---|---|
+| **02_AWARD_SOURCES 真清单** | **82** (v7.0 的 81 + Webby 2025 Winner) | 任务 A 加 1 |
+| **05_CASES 真案例** | **9** (3 Words/Recycle Me/Real Beauty/Amazon Greenventory/Magnetic Stories/Paris Paralympics/Last Barf Bag/Misheard Version/Shot on iPhone) | 没增长(B 后台跑) |
+| **API server** | ✅ UP `http://localhost:18900` | PID 24580 |
+| **Cron 状态** | ⚠️ Gateway is not running — 手动触发 OK | (已知问题,等用户决定启 Gateway) |
+
+## 🔴 Task A 详细结果 (1/10)
+
+| 奖项 | 年份 | 结果 | 备注 |
 |---|---|---|---|
-| **openclaw Gateway** | `localhost:18789` | ✅ UP | **Node.js** v2026.6.10,`{"ok":true,"status":"live"}` |
-| **openclaw Chrome** | `:18800` remote-debugging | ✅ UP | `/home/via54/.openclaw/browser/openclaw/` |
-| **Hermes Gateway** | `localhost:18792` | ✅ UP | `hermes gateway start` 起的 |
-| **WSL Chrome** | `/opt/google/chrome/chrome` | ✅ v149 | Playwright 1.60.0 |
-| **SearXNG** | `localhost:9086→8080` | ✅ UP | 容器 `searxng_g` |
-| **Neo4j** | `bolt://localhost:7687` | ✅ UP | 容器 `neo4j_g` |
-| **MinIO** | `127.0.0.1:9000-9001` | ✅ UP | 容器 `minio_g` |
-| **Elasticsearch** | `localhost:9200` | ✅ green | 容器 `elasticsearch_g`,**替代 Qdrant** |
-| **8 thdiff agents** | 18801-18808 (FastAPI) | ⚠️ UP | thdiff clawlab/knowledgelab/...,非案例抓取路径 |
+| ADC | 2024 | ❌ FAIL | adglobal.org read timeout (20s 太短) |
+| ADC | 2025 | ❌ FAIL | 同上 |
+| ClioAwards | 2024 | ❌ FAIL | SearXNG+SEED 没找 |
+| ClioAwards | 2025 | ❌ FAIL | clios.com SPA 反爬严 |
+| OneShow | 2024 | ❌ FAIL | oneclub.org 反爬 |
+| OneShow | 2025 | ❌ FAIL | 同上 |
+| WebbyAwards | 2024 | ❌ FAIL | winners.webbyawards.com SPA 解析 0 行 |
+| **WebbyAwards** | **2025** | ✅ **1 成功** | www.webbyawards.com 命中,3 案例(是真人创作者非广告) |
+| LongXi_Awards | 2024 | ❌ FAIL | longxiawards.com DNS 不通 |
+| LongXi_Awards | 2025 | ❌ FAIL | 同上 |
 
-### 🔴 调研误判(诚实记录)
+**结论**: 大多数**反爬严/域名失效**。需要:
+1. 把 SEED 抓 timeout=20 改成 60+
+2. 加更多 fallback URL (wayback.archive.org 等)
+3. 或直接抓这些站的 sitemap
 
-1. **`wsl-openclaw` ≠ thdiff `clawlab agent`**: 我一度混淆,**真实 openclaw 是 Node.js AI Gateway** (npm 包)
-2. **Qdrant 配置在 yaml 但实际用 Elasticsearch**: KB 配置 `collection: hermes-knowledge (Qdrant)`,栈里只装了 Elasticsearch,**不矛盾但要用 ES**
-3. **thdiff clawlab (政策金融情报)** ≠ 广告案例抓取 agent: thdiff 项目有自己的 agent 体系
+## 🧠 学到的真实架构
 
-## 🎯 现状数字 (3 次 audit 后)
+1. **openclaw (Node.js v2026.6.10) ≠ thdiff clawlab agent**
+   - openclaw = IM gateway (Telegram/Slack → AI)
+   - thdiff agents = research agent (政策金融/知识/审计)
+2. **真正的"广告案例 wsl-openclaw 工作流" = 自己写的 Python 工具栈**
+   - `wsl_openclaw.py` + `adcase_api.py` + `04_TOOLCHAIN/`
+3. **windows-hermes 主对话 应"按语义分派"而不是"按命令匹配"**
+   - 用户说"抓 [X]" (语义) → 不管命令怎么写 → `POST /collect`
 
-- **02_AWARD_SOURCES 真清单: 81**
-- **05_CASES/By_Industry 真案例: 9** (Dove/Natura/Coca-Cola/Siemens/AXA/Channel 4/Dramamine/Specsavers/Apple)
-- **抓取工具链: 5** (`04_collect_award_winners.py` v3.2 + `03_collect_case.py` + `enrich_case_cron.py` + `05_collect_all_cases.py` + `wsl_openclaw.py`)
+## 🚀 后续建议 (等用户决定)
 
-## 🚀 未来任务 (Post v7.0)
-
-- [ ] 重抓 Effie 2024 / D&AD / LIA (清单是新闻/导航页,需找真源)
-- [ ] 抓 ADC / Clio / One_Show / Webby / LongXi (5 奖项 0 真数据)
-- [ ] 把 9 真案例深度报告中的 Qdrant 引用换成 Elasticsearch
-- [ ] `05_collect_all_cases.py` 过滤放宽后重跑 162 案例
-- [ ] 给 openclaw Gateway 配 ad-case-study-kb 适配器
+- ⏸️ **修复 Task A 失败**: 改 SEED timeout=60+; 加 wayback fallback
+- ⏸️ **修复 Webby 2024 SPA**: 走 WSL Chrome 渲染即可
+- ⏸️ **B 后台跑中** (proc_932ab3d973f6): 进度待观察
+- ⏸️ **整合 openclaw → adcase_api**: 写 telegram/discord IM bot 调 `POST /collect`
