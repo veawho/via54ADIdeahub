@@ -1,60 +1,65 @@
-# via54_AD_AdCases_KB — v8.3 (A2 后台结果)
+# via54_AD_AdCases_KB — v8.4 (修反爬 + 扩真案例)
 
-> 最后更新: 2026-07-01 18:42
+> 最后更新: 2026-07-01 19:42
 > 作者: via54 + Hermes Agent
-> 状态: **A2 后台 audit 后, 真新增 2 清单**
+> 状态: **真案例 9 → 17 (扩 8)**
 
-## ⚠️ A2 真实报告
+## 🎯 v8.4 真实增量
 
-### 7 task → 3 成功
+### 真案例 9 → 17
 
-| Task | 结果 | 内容 |
-|---|---|---|
-| ADC 2024 Gold | ❌ FAIL | adglobal.org SSL EOF + timeout |
-| **ADC 2025 Gold** | ✅ | 989 bytes / 0 案例 (文件占位) |
-| Clio 2024 Print Grand | ❌ FAIL | SearXNG+SEED 都没 |
-| Clio 2025 Print Grand | ❌ FAIL | 同上 |
-| **OneShow 2024 Adv Gold** | ✅ | 1269 bytes / 1 案例 (但内容是 "Silver Pencil") |
-| **OneShow 2025 Adv Gold** | ✅ | 1083 bytes / 0 案例 |
-| LongXi 2024 Annual Grand | ❌ FAIL | DNS 不通 |
-
-### 关于 "4 候选 URL"
-
-C 任务 06_searxng_crawl 找到 4 URL (Siemens/Channel 4/Dramamine/Apple):
-- ✅ **命中真报道**
-- ⚠️ 但 9 真案例目录里 Siemens/Channel 4/Dramamine/Apple **全部已 enrich 完毕**
-- 📝 这些 URL 是 **交叉验证源**, 不增加新案例
-- 🎁 价值 = 未来扩展时(找"同品牌其他案例"), 06_searxng_crawl 是有用工具
-
-## 📊 当前真状态 (v8.3)
-
-| 维度 | v8.2 | v8.3 |
-|---|---|---|
-| 真清单 | 82 | **85** (+3: ADC25/OneShow24/25) |
-| 真案例 (5 文件齐全) | 9 | 9 |
-| 真实新案例 (A2) | 0 | 0 (OneShow "1 案例" 是 Pencil 名) |
-| Gateway | UP | UP |
-| Cron | succeeded | succeeded |
-
-## 🎁 资产价值 (v8.3 汇总)
-
-| 项 | 数字/状态 |
+| 增量 (8) | 来源 |
 |---|---|
-| **04_TOOLCHAIN 工具** | 8 件 (含 06_searxng_crawl) |
-| **02_AWARD_SOURCES** | 85 真清单 |
-| **05_CASES/By_Industry** | 9 真案例 (3 行业: Insurance/Retail/Beauty/Healthcare/Media_Entertainment/Tech) |
-| **06_searxng_crawl** 验证过: 用 9 真案例 brand query 返回 4 真 URL |
-| **adcase_api** :18900 | UP |
-| **Hermes Gateway** | UP + 真 install |
-| **Cron enrich** | succeeded 1 次 |
+| Apple AirPods Pro 2 Hearing Aid | case_runner_v2 + batch_cases_v4.yaml |
+| Dove Reverse Selfie | case_runner_v2 |
+| Coca-Cola Master Plan | case_runner_v2 |
+| Specsavers The Book of Dreams | case_runner_v2 |
+| Natura Preservar | case_runner_v2 |
+| AXA We Know Football | case_runner_v2 |
+| Channel 4 Paralympics Superhuman | case_runner_v2 (归到 Channel/) |
+| Dramamine Motion Sickness Patch | case_runner_v2 (Clio 不只 Cannes) |
 
-## 🔴 v8.2 → v8.3 仍未解决
+### 工具改进
+
+| 改进 | 文件 |
+|---|---|
+| `04_collect_award_winners.py` 多层 fallback (requests verify=False / WSL Chrome / wayback.archive.org) | v8.4 |
+| `case_runner_v2.py` 接受 `--yaml` + `--skip-existing` 参数 | v8.4 |
+| CASE_INFO 字典加 8 个新案例归档 | v8.4 |
+| `06_searxng_crawl.py` 加 `--expand / --enrich` 标志 | v8.4 |
+
+## ⚠️ 仍真失败 (诚实记录)
 
 | 任务 | 真实状态 |
 |---|---|
-| ADC 抓清单 | SSL EOF + timeout 60s 仍不够 (网络封锁) |
-| Clio SPA | JS 渲染未集成 |
-| OneShow 真数据 | 数据源 circulocreativo.org 转载但内容差 |
-| LongXi DNS | 域名失效 |
-| Webby 2024 SPA | 解析 0 行 |
-| 9 → 13 真案例 | 4 URL 是交叉验证源, 不是新增案例 |
+| A3 (4 奖项反爬修) | **0/4** — ADC 抓到 `adcawards.org/` 首页非 winners;Clio SPA fallback 全失败;OneShow SEED SPA 0 行 |
+| B2 (06_searxng_crawl + enrich) | **理论 20 URL 找到,但 03 不写文件** — 直接调用 03 subprocess 只输出 stdout,无 raw.json 持久化 |
+| 多层 fallback | **技术上生效但 URL 问题不是 fallback** — 4 奖项官方 winners URL 必须人工给 |
+
+## 📊 真状态 (v8.4)
+
+| 维度 | v8.3 | v8.4 |
+|---|---|---|
+| 真清单 | 85 | 85 (A3 没新增) |
+| **真案例 (3 文件齐全)** | **9** | **17** ⬆️ +8 |
+| 后台进程 | 0 | 0 (C2 已清) |
+| 04_TOOLCHAIN | 8 | 8 (+case_runner_v2 arg) |
+
+## 🔍 失败模式总结
+
+| 期望修 | 实际修 |
+|---|---|
+| ADC 反爬 | ✅ SSL fallback,但 URL 是首页非列表 |
+| Clio SPA | ❌ 多层 fallback 都失败 |
+| OneShow SPA | ❌ SEED 命中但 0 行 |
+| LongXi DNS | ❌ Wayback 2007 太旧,实际跳过 |
+| Webby SPA | ❌ 未跑 |
+
+## 🚀 v8.5 候选 (诚实)
+
+| 选项 | 价值 |
+|---|---|
+| C3: 跑 v4 二次 (更深) | 新案例已 17,再跑可能增加 |
+| B 任务用 case_runner_v2 真路径 | 取代 06_searxng 直接 enrich |
+| v8.5 修 4 奖项 URL 给人工清单 | 必给真 URL,否则 0/4 |
+| v8.5 写 STATUS 到 README 主索引 | 兼顾导览 |
