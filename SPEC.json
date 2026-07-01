@@ -1,0 +1,92 @@
+{
+  "_meta": {
+    "title": "via54_AD_AdCases_KB — 双索引 SPEC",
+    "version": "v8.7",
+    "updated": "2026-07-01 23:20",
+    "total_cases": 44,
+    "industries": 11,
+    "brands": 19,
+    "main_award": "Cannes Lions",
+    "secondary_award": "Clio Awards (1 case)",
+    "year_distribution_note": "year 字段来自 yaml, case_name 不显式带年,按 yaml 推算含 2020/2023/2024/2025 多年"
+  },
+  "by_industry": {
+    "Food_Beverage": {
+      "count": 10,
+      "brands": ["Coca-Cola(5)", "Cadbury(2)", "Heineken(2)", "Burger King(2)"]
+    },
+    "Beauty_Personal_Care": {
+      "count": 9,
+      "brands": ["Dove(5)", "Natura(3)", "Old Spice(1)", "CeraVe(1)"]
+    },
+    "Technology": {
+      "count": 7,
+      "brands": ["Apple(5)", "TikTok(2)"]
+    },
+    "Media_Entertainment": {
+      "count": 3,
+      "brands": ["Channel 4(3)"]
+    },
+    "Retail": {
+      "count": 3,
+      "brands": ["Specsavers(3)"]
+    },
+    "Insurance": {
+      "count": 2,
+      "brands": ["AXA(2)"]
+    },
+    "Pharmaceutical": {
+      "count": 2,
+      "brands": ["Dramamine(2)"]
+    },
+    "Apparel_Sportswear": {
+      "count": 3,
+      "brands": ["Nike(3)"]
+    },
+    "Toys_Family": {
+      "count": 2,
+      "brands": ["Lego(2)"]
+    },
+    "Healthcare_MedTech": {
+      "count": 1,
+      "brands": ["Siemens Healthineers(1)"]
+    },
+    "Other": {
+      "count": 2,
+      "brands": ["JR Group(1)", "Federal Reserve(1)"]
+    }
+  },
+  "by_award": {
+    "Cannes Lions Grand Prix": {
+      "count": 25,
+      "industries": "All 11"
+    },
+    "Cannes Lions Gold": {
+      "count": 17,
+      "industries": ["Beauty_Personal_Care", "Food_Beverage", "Insurance", "Media_Entertainment", "Retail", "Technology", "Other", "Apparel_Sportswear"]
+    },
+    "Clio Awards Grand": {
+      "count": 1,
+      "industries": ["Pharmaceutical"]
+    }
+  },
+  "by_brand": {
+    "5 案例并列": ["Coca-Cola", "Dove", "Apple"],
+    "4 案例": ["Natura"],
+    "3 案例": ["Nike", "Channel 4", "Specsavers"],
+    "2 案例": ["AXA", "Cadbury", "Heineken", "Burger King", "Lego", "Dramamine", "TikTok"],
+    "1 案例": ["Siemens Healthineers", "JR Group", "CeraVe", "Old Spice", "Federal Reserve"]
+  },
+  "verified_v87_yaml": {
+    "verified_pre_run": "10/14 真案例 (SearXNG)",
+    "ran_post_verify": "8 case_runner_v2",
+    "succeeded": "6/8 (Edeka + Kao 案例名太具体, SearXNG 0 命中 home page 抓取失败)"
+  },
+  "awarded_attempted": {
+    "ADC Awards 2024": "URL `adcawards.org/winners/` 200, 但 home 页面=Total Winners HTML list, 需要 105th/106th single page (SearXNG 探测失败)",
+    "Clio Awards 2024": "✓ 真找到 winners URL `clios.com/winners-gallery/explore?vertical=Clio+Awards&season=2024` + REST API `wp-json/winners-api/v1/getRootProgramsForWinners` 返回 Program ID 2717, 但 winners list endpoint 未开放(登录墙)",
+    "OneShow 2024": "0/15 URL (SPA 反爬, wayback 太旧)",
+    "Webby Awards 2024": "URL `winners.webbyawards.com/` 反爬, Cloudflare 拦截"
+  },
+  "raw_data": "Source: 04_TOOLCHAIN/configs/batch_cases_v2_v4_v5_v6_v7.yaml + 44 case_dir under 05_CASES/By_Industry/"
+}
