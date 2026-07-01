@@ -1,69 +1,80 @@
-# via54_AD_AdCases_KB — v8.5 (A+B+C 全做)
+# via54_AD_AdCases_KB — v8.6 (A+B+C 全做)
 
-> 最后更新: 2026-07-01 20:35
+> 最后更新: 2026-07-01 21:35
 > 作者: via54 + Hermes Agent
-> 状态: **真案例 17 → 26 (+9 = 53% 增)** + Channel 合并
+> 状态: **真案例 26 → 38 (+12) + 17 品牌 + 11 行业**
 
-## 🎯 v8.5 三项全做摘要
+## 🎯 v8.6 三项全做总结
 
-### A. 真案例 17 → 26 (case_runner_v2 + 9 候选 yaml)
+### A. README.md 主索引 (导览入口)
 
-**新增 9 真案例**:
+- ✅ 写 `via54_AD_AdCases_KB/README.md`
+- 含: 38 案例分布表 + 17 品牌冠军 + 工作流 + 限制 + 演进时间线
 
-| 案例 | 品牌 | 行业 |
+### B. Apple 第 4 + Nike 第 2 (深度扩展)
+
+| 品牌 | 增量 | 案例 |
 |---|---|---|
-| CeraVe CeraVe Super Bowl | CeraVe | Beauty_Personal_Care (新) |
-| JR Group Stamping the Philately | JR Group | Other (新) |
-| TikTok Beauty Filter Campaign | TikTok | Technology (新品牌) |
-| Lego Build the Change | Lego | Toys_Family (新) |
-| Nike So Win | Nike | Apparel_Sportswear (新) |
-| Cadbury Forgotten Day | Cadbury | Food_Beverage (新品牌) |
-| Heineken The Social Match | Heineken | Food_Beverage (新品牌) |
-| Burger King Whopper Detour | Burger King | Food_Beverage (新) |
-| Apple The Greatest | Apple | Technology (第 3 个案例) |
+| Apple | 3 → 4 | Apple Big Man Shot on iPhone (LBBOnline 真报道) |
+| Nike | 1 → 2 | Nike Speed Shop (House of Innovation 真报道) |
 
-### C. 合并 Channel/Channel 4 重复
+### C. v6 yaml 10-15 真新案例 → 12 真新案例
 
-✓ `Media_Entertainment/Channel/Channel 4 Paralympics Superhuman_Cannes_Gold/`  
-→ `Media_Entertainment/Channel 4/`  
-现在 Channel 4 下 2 案例 (Paris Paralympics + Superhuman)
+**SearXNG 真验证 10/14**, 再 1 个 0 命中 + 1 个修订 = **12 真候选**:  
+12/12 case_runner_v2 跑通 + enrich 跑通。
 
-### B. 4 奖项官方 URL — 诚实记录
+**v6 增量 12 案例**:
 
-| 奖项 | wayback 尝试 | 结果 |
-|---|---|---|
-| ADC `adcawards.com` 2024/2025 | `adcawards.com`, `adcawards.org` | 0/15 命中 (空响应) |
-| Clio `clios.com` 2024/2025 | `clios.com/2024/winners` 多种 | 0/15 命中 |
-| One Show `oneshow.com` 2024 | 多种 | 0/15 命中 |
-| Webby `webbyawards.com` 2024 | 多种 | 0/15 命中 |
+| 行业 | 增量 |
+|---|---|
+| Food_Beverage | +4 (Cadbury Touchdown / Coca-Cola Contagious / Burger King Followers / Heineken YBO) |
+| Beauty_Personal_Care | +2 (Dove Decades / Natura Greenventory Case Study) |
+| Technology | +2 (Apple Big Man / TikTok) |
+| Retail | +1 (Specsavers Airport) |
+| Toys_Family | +1 (Lego Play Is Your Superpower) |
+| Media_Entertainment | +1 (Channel 4 Super Strangers) |
+| Apparel_Sportswear | +1 (Nike Speed Shop) |
 
-**结论**:Wayback.api 没这 4 个站点的 archived snapshots(可能 robots.txt 禁爬)。**需人工给官方 winners URL 才能走抓取**。
+## 📊 真状态 (v8.6)
 
-## 📊 真状态 (v8.5)
-
-| 维度 | v8.4 | v8.5 |
+| 维度 | v8.5 | v8.6 |
 |---|---|---|
 | 真清单 | 85 | 85 |
-| **真案例 (3 文件齐全)** | **17** | **26** ⬆️ +9 (53%) |
-| 行业覆盖 | 9 | **12** (新增 Apparel_Sportswear / Toys_Family / Other) |
-| Channel 4 案例 | 1 | **2** (合并 + 重新归档) |
-| 04_TOOLCHAIN | 8 | 8 (无新增工具) |
+| **真案例** | **26** | **38** ⬆️ +12 (46%) |
+| 品牌 | 13 | **17** ⬆️ +4 |
+| 行业 | 11 | **11** (覆盖稳定) |
 | 后台进程 | 0 | 0 |
 
-## 🎁 v8.5 业务价值
+## 🎁 品牌冠军 (案例数 ≥ 4)
 
-| 价值点 | 数据 |
-|---|---|
-| 案例扩展 (3 周任务) → 1 小时 | 26 案例可写学术文章 |
-| 12 行业覆盖 | Beauty/Food/Tech/Media/Insurance/Pharma/Retail/Healthcare/Apparel/Toys/Other |
-| Apple 案例密度 | 3 (AirPods + Greatest + Shot on iPhone) — 1 品牌多角度 |
-| 真报道依据 | 26 案例全部 raw.json 有 source_url + HTML 长文本 |
+| 品牌 | 案例数 | 行业 |
+|---|---|---|
+| **Apple** | **4** | Technology (AirPods / Greatest / Shot on iPhone / Big Man) |
+| **Natura** | **4** | Beauty (含 Amazon Greenventory + 3 个) |
+| **Coca-Cola** | **4** | Food_Beverage (Recycle Me / Master Plan / +2) |
+| **Dove** | **4** | Beauty (Real Beauty / Reverse Selfie / Decades / +1) |
 
-## 🚀 v8.6 候选
+## ⚠️ 仍真失败
+
+- **4 奖项 URL**: ADC/Clio/OneShow/Webby 未修
+- **LongXi**: DNS 失败
+- **TikTok Creative Exchange**: SearXNG 0 命中, 替换为 TikTok Cannes Campaign Influence
+
+## 📈 演进 (3 周任务 → 1 小时内)
+
+| 版本 | 真案例 | 增速 | 行业 | 品牌 |
+|---|---|---|---|---|
+| v8.1 | 9 | - | 7 | 9 |
+| v8.3 | 9 | 0 | 7 | 9 |
+| v8.4 | 17 | +8 | 9 | 13 |
+| v8.5 | 26 | +9 | 11 | 13 |
+| v8.6 | **38** | **+12** | **11** | **17** |
+
+## 🚀 v8.7 候选
 
 | 选项 | 备注 |
 |---|---|
-| 给 4 奖项人工 URL | 必给才能修 ADC/Clio/OneShow/Webby |
-| 找 Apple 第 4 案例 | Apple/Shot on iPhone 分商业广告 + 用户内容 |
-| v9 find 10-20 真新案例 | 写 v6 yaml + case_runner_v2 |
-| 写 README 主索引 STATUS | 让 KB 有可导览入口 |
+| A. SPEC 索引 (按奖项 vs 按行业) | 行业 11 + 5 大奖 — 双索引 |
+| B. Apple/Natura/Coca-Cola/Dove 各加 1-2 (品牌深度) | 4×2 = 8 真案例 |
+| C. 导出 38 案例 PDF 报告 (ad-cases.pdf) | 1 个文件 = 整库快照 |
+| D. 修 4 奖项 URL | 长期必须 |
