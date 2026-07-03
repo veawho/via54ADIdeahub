@@ -1,0 +1,81 @@
+# v9.3 Audit Report — 347 case dirs
+
+## Summary
+- Total case dirs: **347**
+- 5-file complete: **288** (82%)
+- Known (12 industries): **347** cases / 251 brands
+- Unknown: **0** cases / 0 brands
+- Brand overlap (in both): **0** []
+
+## Industries (known)
+- Other: 215
+- Food_Beverage: 32
+- Beauty_Personal_Care: 18
+- Technology: 17
+- Media_Entertainment: 14
+- Apparel_Sportswear: 13
+- Retail: 12
+- Insurance: 7
+- Pharmaceutical: 5
+- Healthcare_MedTech: 5
+- Consumer_Goods: 4
+- Toys_Family: 3
+- Financial_Services: 2
+
+## Award tier (all)
+- Other: 188
+- Cannes_Gold: 94
+- Cannes_GP: 40
+- Clio_Grand: 20
+- Clio_Gold: 5
+
+## Top 20 known brands
+- AXA: 7
+- Apple: 7
+- Burger King: 6
+- CeraVe: 6
+- Specsavers: 4
+- Coca-Cola: 4
+- Heineken: 4
+- Dove: 4
+- Orange: 4
+- Channel 4: 4
+- SickKids Foundation: 4
+- Mischief @ No Fixed Address: 4
+- Nike: 4
+- Cadbury: 3
+- KitKat: 3
+- Budweiser: 3
+- Natura: 3
+- Dramamine: 3
+- Siemens Healthineers: 3
+- Hyundai Motor Company: 3
+
+## Top 20 unknown brands
+
+## Real duplicates (brand+case_norm across paths)
+- CeraVe / Michael CeraVe: 2 paths
+  - G:\agent\knowledge\reports\via54_AD_AdCases_KB\05_CASES\By_Industry\Beauty_Personal_Care\CeraVe\Michael CeraVe_Cannes_Gold
+  - G:\agent\knowledge\reports\via54_AD_AdCases_KB\05_CASES\By_Industry\Beauty_Personal_Care\CeraVe\Michael CeraVe_Clio_Grand
+- SickKids Foundation / The Count: 2 paths
+  - G:\agent\knowledge\reports\via54_AD_AdCases_KB\05_CASES\By_Industry\Other\SickKids Foundation\The Count_Cannes_Gold
+  - G:\agent\knowledge\reports\via54_AD_AdCases_KB\05_CASES\By_Industry\Other\SickKids Foundation\The Count_Clio_Grand
+- Total dup groups: 2
+
+## Suspect quality (概述.md says 'no specific / not real / couldn't find')
+- Total suspect: 0
+
+## Suspicious brand names in Unknown (likely parse errors)
+- Total: 0
+
+## Incomplete cases (known, missing 5-file)
+- Retail / IKEA / Wherever life goes_One_Show_Pencil: has_raw=False, miss=['概述.md', '深度报告.md', '视频清单.md', 'FOLDER_README.md']
+- Retail / PENNY / Penny Price Packs; Agency Serviceplan Germany_Cannes_Gold: has_raw=False, miss=['概述.md', '深度报告.md', '视频清单.md', 'FOLDER_README.md']
+- Retail / ALDI Australia eos Products / Shop ALDI First Women's Shave_Effie_Awards_Effie: has_raw=False, miss=['概述.md', '深度报告.md', '视频清单.md', 'FOLDER_README.md']
+- Retail / Aldi UK Ltd. UNILEVER / Sustained Serious Commercial Growth_Effie_Awards_Effie: has_raw=False, miss=['概述.md', '深度报告.md', '视频清单.md', 'FOLDER_README.md']
+- Food_Beverage / Burger King / Non artificial Mexico_One_Show_Pencil: has_raw=False, miss=[]
+- Food_Beverage / KitKat / KitKat Phone Break; Agency VML Czechia_Cannes_Gold: has_raw=False, miss=['概述.md', '深度报告.md', '视频清单.md', 'FOLDER_README.md']
+- Food_Beverage / Nestlé  KitKat / KitKat Phone Break_One_Show_Pencil: has_raw=False, miss=['概述.md', '深度报告.md', '视频清单.md', 'FOLDER_README.md']
+- Food_Beverage / NORD DDB Helsinki Jam Session Agency Red Lemon Media / McDonald's Finland ING BANK, Sucursala Bucuresti LEGO Hungary_Effie_Awards_Effie: has_raw=False, miss=
+
+... [saved 9769B to /tmp/audit_v9_3.md]
