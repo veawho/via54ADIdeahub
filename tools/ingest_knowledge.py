@@ -151,7 +151,7 @@ def main():
     total_cases = len(case_dirs)
     print(f"📂 Found {total_cases} case directories under {root}")
 
-    inserted = updated = skipped = errors = 0
+    processed = skipped = errors = 0
     case_idx = 0
     chunk_total = 0
 
@@ -210,10 +210,8 @@ def main():
                 body_hash=body_hash,
             )
 
-            if body_size == body_hash[:8]:  # unlikely duplicate marker
-                updated += 1
-            else:
-                inserted += 1
+            # upsert_concept always returns cid; we track all as processed
+            processed += 1
 
             # ── chunk + embed ──
             chunks = _chunk_text(content, args.chunk_size, args.chunk_overlap)
@@ -251,7 +249,7 @@ def main():
     elapsed = time.time() - t0
     print(f"\n✅ Ingest completed in {elapsed:.1f}s")
     print(f"   Cases: {total_cases}")
-    print(f"   Inserted: {inserted}  Updated: {updated}  Skipped: {skipped}  Errors: {errors}")
+    print(f"   Processed: {processed}  Skipped: {skipped}  Errors: {errors}")
     print(f"   Chunks: {chunk_total}")
 
     # ── ingest_log ──
@@ -263,7 +261,7 @@ def main():
             time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
             "full-import",
             str(root),
-            inserted, updated, skipped, errors,
+            processed, 0, skipped, errors,
             f"{total_cases} cases, {chunk_total} chunks, {elapsed:.0f}s",
         ),
     )
