@@ -12,7 +12,7 @@ import math
 import sqlite3
 import time
 from pathlib import Path
-from typing import Dict, Iterable, List, Optional, Sequence, Tuple
+from typing import Dict, List, Optional, Sequence
 
 # Resolved at import time so callers get a stable path even from CLIs run
 # outside the package root.
@@ -226,7 +226,6 @@ class KBStore:
         self._conn.execute("DELETE FROM chunk_terms WHERE chunk_id = ?", (chunk_id,))
         if not tokens:
             return
-        from .embedding import _tokenize as compute_local_tf
 
         # Use tf (term frequency within this chunk) as the weight.
         freq: Dict[str, float] = {}

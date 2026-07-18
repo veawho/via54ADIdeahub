@@ -10,10 +10,9 @@ preserved verbatim — the spec mandates permissive consumption.
 from __future__ import annotations
 
 import io
-import sys
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, Iterator, List, Optional, Sequence, Tuple, Union
+from typing import Any, Dict, Optional
 
 import yaml
 

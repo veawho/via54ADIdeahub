@@ -20,10 +20,8 @@ from __future__ import annotations
 
 import json
 import math
-import re
 import sqlite3
-from typing import Dict, List, Optional, Sequence, Tuple
-
+from typing import Dict, List, Optional, Sequence
 from .embedding import (
     _tokenize,
     cosine,

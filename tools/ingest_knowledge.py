@@ -9,7 +9,6 @@ from __future__ import annotations
 
 import argparse
 import hashlib
-import json
 import os
 import re
 import sys
@@ -22,7 +21,7 @@ _REPO = _HERE.parent
 sys.path.insert(0, str(_REPO))
 
 from via54_store import KBStore, hash_embed
-from via54_store.embedding import _tokenize, encode_blob, l2_normalize
+from via54_store.embedding import _tokenize
 
 
 # ── helpers ────────────────────────────────────────────────────────────
@@ -42,11 +41,6 @@ def _extract_title(text: str, filename: str) -> str:
 def _extract_first_url(text: str) -> str:
     m = _URL_RE.search(text)
     return m.group(0) if m else ""
-
-
-def _path_to_case_id(brand: str, case_name: str) -> str:
-    raw = f"{brand}::{case_name}"
-    return hashlib.sha1(raw.encode("utf-8")).hexdigest()[:12]
 
 
 def _mtime_iso(path: Path) -> str:
@@ -162,7 +156,6 @@ def main():
         industry = parts[0]
         brand = parts[1] if len(parts) > 1 else "Unknown"
         case_name = parts[2] if len(parts) > 2 else "Unknown"
-        case_id = _path_to_case_id(brand, case_name)
         tags = [industry, brand, case_name]
 
         if args.verbose:
