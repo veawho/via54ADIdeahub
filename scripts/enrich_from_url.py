@@ -301,7 +301,8 @@ def main():
                 # 仍更新 links.md
                 meta = json.loads((case_path / "metadata.json").read_text())
                 meta["status"] = "web_enriched_no_content"
-                json.dump(meta, open(case_path / "metadata.json", 'w'), ensure_ascii=False, indent=2)
+                with open(case_path / "metadata.json", 'w', encoding="utf-8") as f:
+                    json.dump(meta, f, ensure_ascii=False, indent=2)
                 print(f"   ⚠️ 无内容可更新（仅更新 metadata）")
                 success += 1
 

@@ -371,7 +371,8 @@ total_images_downloaded: {len(downloaded)}
     # 更新metadata
     meta_path = case_dir / "metadata.json"
     if meta_path.exists():
-        meta = json.load(open(meta_path))
+        with open(meta_path, encoding="utf-8") as f:
+            meta = json.load(f)
     else:
         meta = {}
     meta["source_urls"] = [url]

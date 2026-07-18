@@ -37,12 +37,12 @@ type docMeta struct {
 }
 
 type index struct {
-	chunks      map[int64]*chunk      // chunkID -> chunk
-	chunksByDoc map[int64][]*chunk   // docID -> chunks
-	docs       map[int64]*docMeta    // docID -> meta
-	inverted   map[string][]int64    // term -> chunkIDs
-	idf        map[string]float64   // term -> IDF
-	N          int                   // total docs
+	chunks      map[int64]*chunk   // chunkID -> chunk
+	chunksByDoc map[int64][]*chunk // docID -> chunks
+	docs        map[int64]*docMeta // docID -> meta
+	inverted    map[string][]int64 // term -> chunkIDs
+	idf         map[string]float64 // term -> IDF
+	N           int                // total docs
 }
 
 var idx *index

@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from __future__ import annotations
 """
 inject_vector_db.py
 将 ~/Desktop/创意案例库_扩充/ 中所有案例的深度报告向量化并写入 vector.db
