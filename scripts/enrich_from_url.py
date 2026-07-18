@@ -13,7 +13,7 @@ from pathlib import Path
 from datetime import datetime
 from urllib.parse import urlparse
 
-PYTHON_BIN = "C:/Users/via54/AppData/Local/hermes/venv/Scripts/python.exe"
+PYTHON_BIN = sys.executable  # use current interpreter
 CASES_DIR   = Path.home() / "Desktop" / "创意案例库_扩充"
 
 # ─── URL 提取 ───

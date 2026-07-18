@@ -12,7 +12,7 @@ from PIL import Image
 import io
 
 socket.setdefaulttimeout(20)
-HERMES_VENV_PY = "C:/Users/via54/AppData/Local/hermes/venv/Scripts/python.exe"
+HERMES_VENV_PY = __import__("sys").executable  # use current interpreter
 SEARXNG_URL = "http://127.0.0.1:8888"
 EXPAND_DIR = pathlib.Path.home() / "Desktop/创意案例库_扩充"
 

@@ -1,4 +1,4 @@
-#!C:/Users/via54/AppData/Local/hermes/venv/Scripts/python.exe
+#!/usr/bin/env python3
 """
 download_case_images.py — 通过 SearXNG 为缺图案例下载真实图片（>=500px）
 """
