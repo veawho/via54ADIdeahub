@@ -7,7 +7,7 @@ Enrich 10 case 概述.md from existing archive.html (NO Gemini, NO LLM)
 import re
 from pathlib import Path
 
-KB = Path(r"G:/agent/knowledge/reports/via54_AD_AdCases_KB/05_CASES/By_Industry")
+KB = Path.home() / "Desktop" / "developments" / "via54ADIdeahub" / "docs" / "AD_CASES_KB" / "05_CASES" / "By_Industry"
 
 # Curated top-10 cases with real archives
 TARGETS = [

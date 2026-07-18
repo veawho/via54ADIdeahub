@@ -453,7 +453,11 @@ for case_name, url in CASES_DATA:
 
     # 4. 读取 metadata
     meta_path = case_dir / "metadata.json"
-    meta = json.load(open(meta_path)) if meta_path.exists() else {}
+    if meta_path.exists():
+        with open(meta_path, encoding="utf-8") as f:
+            meta = json.load(f)
+    else:
+        meta = {}
     meta["source_urls"] = [url]
     meta["text_preview"] = text_preview
     meta["status"] = "deep_analysis_v3"

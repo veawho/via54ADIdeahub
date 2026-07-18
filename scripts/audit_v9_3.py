@@ -10,7 +10,7 @@ import json, os
 from pathlib import Path
 from collections import Counter, defaultdict
 
-KB = Path(r"G:/agent/knowledge/reports/via54_AD_AdCases_KB/05_CASES/By_Industry")
+KB = Path.home() / "Desktop" / "developments" / "via54ADIdeahub" / "docs" / "AD_CASES_KB" / "05_CASES" / "By_Industry"
 required = ["概述.md", "深度报告.md", "视频清单.md", "FOLDER_README.md"]
 
 def normalize_case(n):

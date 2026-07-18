@@ -46,6 +46,7 @@ except ImportError:
 # 工具常量
 SEARXNG_URL = "http://localhost:9086/search"
 WSL_CHROME = "/opt/google/chrome/chrome"
+_KB_ROOT = Path.home() / "Desktop" / "developments" / "via54ADIdeahub" / "docs" / "AD_CASES_KB"
 
 # 奖项官网基础 URL (规则 1 优先 1)
 AWARD_SITES = {
@@ -377,7 +378,7 @@ def _validate_source_domain(award: str, source_url: str) -> bool:
 def _try_delete_placeholder(award, subaward, year, tier):
     """Bug fix #3: 失败时主动删 placeholder"""
     fname = f"{year}_{subaward}_{tier.replace(' ', '_')}_winners.md"
-    out_path = Path("G:/agent/knowledge/reports/via54_AD_AdCases_KB/02_AWARD_SOURCES") / award / subaward / str(year) / fname
+    out_path = _KB_ROOT / "02_AWARD_SOURCES" / award / subaward / str(year) / fname
     if out_path.exists() and out_path.stat().st_size < 2000:
         out_path.unlink()
         return True
@@ -396,7 +397,7 @@ def write_winners_md(out_path: Path, award: str, subaward: str, year: int, tier:
             print(f"  [RETRY] 删除占位符 ({size} bytes), 重新抓取")
         else:
             try:
-                rel = out_path.relative_to(Path("G:/agent/knowledge/reports/via54_AD_AdCases_KB"))
+                rel = out_path.relative_to(_KB_ROOT)
             except ValueError:
                 rel = out_path
             print(f"  [SKIP] 已存在: {rel} ({size} bytes)")
@@ -448,7 +449,7 @@ def write_winners_md(out_path: Path, award: str, subaward: str, year: int, tier:
     out_path.write_text(content, encoding="utf-8")
     size = out_path.stat().st_size
     try:
-        rel = out_path.relative_to(Path("G:/agent/knowledge/reports/via54_AD_AdCases_KB"))
+        rel = out_path.relative_to(_KB_ROOT)
     except ValueError:
         rel = out_path
     print(f"  ✅ 写入: {rel} ({size} bytes, {len(winners) if isinstance(winners, list) else 0} 案例)")
@@ -636,7 +637,7 @@ def main():
     parser.add_argument("--subaward", help="子奖项")
     parser.add_argument("--year", type=int, help="年度")
     parser.add_argument("--tier", help="获奖级别 (Grand_Prix/Gold/Silver/Bronze/Shortlist)")
-    parser.add_argument("--out-root", default="G:/agent/knowledge/reports/via54_AD_AdCases_KB/02_AWARD_SOURCES", help="输出根")
+    parser.add_argument("--out-root", default=str(_KB_ROOT / "02_AWARD_SOURCES"), help="输出根")
     parser.add_argument("--config", help="批量配置文件 (YAML/JSON)")
     args = parser.parse_args()
 

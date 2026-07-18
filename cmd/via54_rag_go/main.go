@@ -10,6 +10,7 @@ import (
 	"math"
 	"net/http"
 	"os"
+	"path/filepath"
 	"regexp"
 	"sort"
 	"strings"
@@ -18,7 +19,13 @@ import (
 )
 
 // ── Config ──────────────────────────────────────────────
-var dbPath = "G:/agent/ai/projects/via54ADIdeahub/via54_rag/vector.db"
+var dbPath = func() string {
+	home, err := os.UserHomeDir()
+	if err != nil {
+		home = "."
+	}
+	return filepath.Join(home, "Desktop", "developments", "via54ADIdeahub", "via54_rag", "vector.db")
+}()
 
 // ── In-memory index ─────────────────────────────────────
 type chunk struct {

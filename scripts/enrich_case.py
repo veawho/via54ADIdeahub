@@ -19,10 +19,10 @@ from datetime import datetime
 # ─────────────────────────────────────────────
 # 路径配置
 # ─────────────────────────────────────────────
-PDF_DIR   = Path("/Users/david/Desktop/创意案例库")
+PDF_DIR   = Path(os.path.expanduser("~/Desktop/创意案例库"))
 OUTPUT_DIR = Path.home() / "Desktop" / "创意案例库_扩充"
 DB_PATH    = Path(__file__).parent.parent / "via54_rag" / "vector.db"
-PYTHON_BIN = "C:/Users/via54/AppData/Local/hermes/venv/Scripts/python.exe"
+PYTHON_BIN = sys.executable  # use current interpreter instead of hardcoded Windows path
 
 # ─────────────────────────────────────────────
 # 工具函数

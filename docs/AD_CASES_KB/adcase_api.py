@@ -9,7 +9,7 @@ from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional, List
 
-KB = Path("G:/agent/knowledge/reports/via54_AD_AdCases_KB")
+KB = Path.home() / "Desktop" / "developments" / "via54ADIdeahub" / "docs" / "AD_CASES_KB"
 CASES = KB / "05_CASES" / "By_Industry"
 
 app = FastAPI(title="via54 AD AdCases API", version="v8.9")

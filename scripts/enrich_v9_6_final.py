@@ -13,7 +13,7 @@ from html.parser import HTMLParser
 
 socket.setdefaulttimeout(15)
 
-KB = Path(r"G:/agent/knowledge/reports/via54_AD_AdCases_KB")
+KB = Path.home() / "Desktop" / "developments" / "via54ADIdeahub" / "docs" / "AD_CASES_KB"
 KB_CASES = KB / "05_CASES" / "By_Industry"
 
 SEARXNG = "http://127.0.0.1:9086/search"

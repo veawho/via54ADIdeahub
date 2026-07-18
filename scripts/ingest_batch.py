@@ -18,7 +18,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from via54_rag import build_vector_index, tokenize, chunk_text
 
 DB_PATH = Path(__file__).parent.parent / "via54_rag" / "vector.db"
-DEFAULT_PDF_DIR = "/Users/david/Desktop/创意案例库"
+DEFAULT_PDF_DIR = os.path.expanduser("~/Desktop/创意案例库")
 
 def get_indexed_files(conn: sqlite3.Connection) -> set:
     """返回已索引的 PDF 文件路径集合"""

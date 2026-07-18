@@ -5,8 +5,9 @@ rebuild_index.py — 从扩充目录的 markdown 深度报告重建 TF-IDF 索�
 import os, re, math, json, sqlite3
 from pathlib import Path
 
-DB_PATH = "G:/agent/ai/projects/via54ADIdeahub/via54_rag/vector.db"
-EXPAND_DIR = "/Users/david/Desktop/创意案例库_扩充"
+_HERE = Path(__file__).resolve().parent
+DB_PATH = str(_HERE.parent / "via54_rag" / "vector.db")
+EXPAND_DIR = os.path.expanduser("~/Desktop/创意案例库_扩充")
 CHUNK_SIZE = 300
 CHUNK_OVERLAP = 50
 MIN_CHUNK_LEN = 50
