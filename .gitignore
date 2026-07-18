@@ -43,3 +43,10 @@ cmd/via54_rag_go/via54_rag_go
 # via54_rag/vector.db is generated at runtime — see scripts/rebuild_index.py
 via54_rag/vector.db
 via54_rag/test.db
+
+# Runtime SQLite databases (auto-generated, regenerate with scripts/rebuild_index.py)
+vector.db
+via54_kb.db
+
+# Windows artifact from old code (G:/ path reference, not a real dir)
+G:/

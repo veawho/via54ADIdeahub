@@ -4,12 +4,11 @@
 调 MiniMax API，直接写入 enriched.md
 """
 import json, time, subprocess, sys, re
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
 
-PYTHON_BIN = "C:/Users/via54/AppData/Local/hermes/venv/Scripts/python.exe"
-CASES_DIR   = Path.home() / "Desktop" / "创意案例库_扩充"
-MINIMAX_API_KEY = "YOUR_API_KEY"  # 从环境变量读取
+# MiniMax API — reads from env var or ~/.config/minimax/api_key (not hardcoded)
+CASES_DIR = Path.home() / "Desktop" / "创意案例库_扩充"
 
 # ─── MiniMax API ───
 def call_minimax(prompt: str, model: str = "MiniMax-M2.7-highspeed",

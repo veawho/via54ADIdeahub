@@ -9,12 +9,23 @@ from typing import List, Dict, Tuple, Optional
 import pypdf
 
 # ── 配置 ──────────────────────────────────────────
-DB_PATH = "G:/agent/ai/projects/via54ADIdeahub/via54_rag/vector.db"
-PDF_DIR = os.path.expanduser("/Users/david/Desktop/创意案例库")
+_HERE = Path(__file__).resolve().parent
+DB_PATH = str(_HERE / "vector.db")
+PDF_DIR = os.path.expanduser("~/Desktop/创意案例库")
 CHUNK_SIZE = 300        # 每段字符数
 CHUNK_OVERLAP = 50      # 重叠字符数
 MIN_CHUNK_LEN = 50      # 最小段长度
 
+# 中文停用词表（模块级常量，避免每次 tokenize 重新创建）
+_STOPWORDS = frozenset({
+    '的', '了', '在', '是', '我', '有', '和', '就', '不', '人', '都', '一',
+    '一个', '上', '也', '很', '到', '说', '要', '去', '你', '会', '着',
+    '没有', '看', '好', '自己', '这', '那', '它', '他', '她', '们', '中',
+    '为', '与', '但', '或', '以', '而', '及', '等', '其', '被', '把', '给',
+    '让', '从', '用', '对', '于', '之', '所', '而后', '如果', '因为', '所以',
+    '虽然', '但是', '然而', '并且', '或者', '以及', '当', '时', '后', '前',
+    '里', '可', '能', '还', '又', '已', '曾', '正', '将',
+})
 # ── 中文 n-gram 配置 ────────────────────────────────
 # 中文字符 unigram（单字）+ bigram（双字滑动窗口）
 MIN_CN_CHAR = 2         # 最少中文字符数（过滤碎片）
@@ -81,9 +92,7 @@ def tokenize(text: str) -> List[str]:
     # 中文 n-gram
     cn_tokens = _cn_ngrams(text)
     all_tokens = en_tokens + cn_tokens
-    # 过滤停用词
-    stopwords = {'的', '了', '在', '是', '我', '有', '和', '就', '不', '人', '都', '一', '一个', '上', '也', '很', '到', '说', '要', '去', '你', '会', '着', '没有', '看', '好', '自己', '这', '那', '它', '他', '她', '们', '中', '为', '与', '但', '或', '以', '而', '及', '等', '其', '被', '或', '把', '给', '让', '从', '用', '对', '于', '之', '所', '而后', '如果', '因为', '所以', '虽然', '但是', '然而', '并且', '或者', '以及', '当', '时', '后', '前', '里', '可', '能', '还', '又', '已', '曾', '正', '将'}
-    return [t for t in all_tokens if len(t) >= 2 and t not in stopwords]
+    return [t for t in all_tokens if len(t) >= 2 and t not in _STOPWORDS]
 
 def compute_tf(tokens: List[str]) -> Dict[str, float]:
     if not tokens:
