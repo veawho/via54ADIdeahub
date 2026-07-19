@@ -402,12 +402,12 @@ def write_enriched(case_path: Path, case_name: str,
     else:
         imgs_md += "- （见 images/ 目录）\n"
 
-    overview = """基于 ADFEST 2026 获奖作品集生成的案例分析。
+    overview = f"""基于 ADFEST 2026 获奖作品集生成的案例分析。
 主案例：{title}"""
     if meta.get("text_preview"):
         overview = meta["text_preview"][:300] + "..."
 
-    full_md = """---
+    full_md = f"""---
 title: {title}
 description: 12维医学传播创意案例分析
 version: 1.0

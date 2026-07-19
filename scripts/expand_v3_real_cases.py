@@ -300,7 +300,7 @@ def generate_report(case_name, text, url, meta, downloaded_imgs):
         img_section += f"| {i} | `{fname}` |\n"
 
     # 来源
-    sources = """
+    sources = f"""
 ## 来源链接
 
 ### 原文章节
@@ -315,7 +315,7 @@ def generate_report(case_name, text, url, meta, downloaded_imgs):
 - ADFEST：[搜索链接](https://www.adfest.com/search?q={urllib.parse.quote(title)})
 """
 
-    report = """---
+    report = f"""---
 title: {title}
 description: 12维医学传播创意案例深度综合报告v3
 version: 3.0
@@ -680,7 +680,7 @@ def generate_report(case_name, text, url, meta, downloaded_imgs):
         img_section += f"| {i} | `{fname}` |\n"
 
     # 来源
-    sources = """
+    sources = f"""
 ## 来源链接
 
 ### 原文章节
@@ -695,7 +695,7 @@ def generate_report(case_name, text, url, meta, downloaded_imgs):
 - ADFEST：[搜索链接](https://www.adfest.com/search?q={urllib.parse.quote(title)})
 """
 
-    report = """---
+    report = f"""---
 title: {title}
 description: 12维医学传播创意案例深度综合报告v3
 version: 3.0
