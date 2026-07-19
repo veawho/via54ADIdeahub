@@ -513,7 +513,6 @@ def collect_one(award: str, subaward: str, year: int, tier: str, output_root: Pa
                 primary = allowed_domains[0] if allowed_domains else ""
                 if primary and primary in domain and any(k in url.lower() for k in ["winners", "awards", "announced", str(year), "press-article"]):
                     source_url = url
-                    pass  # results = r (dead)
                     break
             if not source_url:
                 # 白名单媒体 (Adweek/TheDrum/CreativeReview)
@@ -522,7 +521,6 @@ def collect_one(award: str, subaward: str, year: int, tier: str, output_root: Pa
                     domain = url.split("/")[2] if "/" in url else ""
                     if any(d in domain for d in allowed_domains[1:] if d) and str(year) in url:
                         source_url = url
-                        pass  # results = r (dead)
                         break
             if not source_url and award != "Clio":
                 # 任何含 winners + year (仅非 Clio)
@@ -530,7 +528,6 @@ def collect_one(award: str, subaward: str, year: int, tier: str, output_root: Pa
                     url = item.get("url", "")
                     if all(k in url.lower() for k in ["winners", str(year)]) or "grand-prix" in url.lower():
                         source_url = url
-                        pass  # results = r (dead)
                         break
             if source_url:
                 break
@@ -551,7 +548,6 @@ def collect_one(award: str, subaward: str, year: int, tier: str, output_root: Pa
                         body_lc = rr.text.lower()
                         if any(kw in body_lc for kw in ["black cube", "adc", "art director", subaward.lower().replace("_", " "), str(year)]):
                             source_url = seed_url
-                            pass  # results assignment removed (dead var)
                             print(f"  [INFO] SEED_URLS 命中: {seed_url}")
                             break
                 except Exception as e:
