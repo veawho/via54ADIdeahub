@@ -5,7 +5,7 @@
 2. 读取页面内容，提取完整活动详情
 3. 生成含真实内容的深度报告
 """
-import json, re, os, sys, ssl
+import json, re, os, ssl
 import urllib.request
 import urllib.parse
 from pathlib import Path
@@ -30,7 +30,7 @@ def fetch(url, timeout=15):
         with urllib.request.urlopen(req, timeout=timeout, context=ctx) as r:
             charset = r.headers.get_content_charset() or "utf-8"
             return r.read().decode(charset, errors="replace")
-    except Exception as e:
+    except Exception:
         return ""
 
 def download_image(url, folder, idx):
@@ -46,7 +46,7 @@ def download_image(url, folder, idx):
         with open(Path(folder) / fname, "wb") as f:
             f.write(data)
         return fname
-    except Exception as e:
+    except Exception:
         return None
 
 def extract_images_from_html(html, base_url):
@@ -117,79 +117,79 @@ def generate_report(case_name, text, url, meta, downloaded_imgs):
     # ── D1 品牌背景（从正文提取）─
     if "奥利奥" in case_name or "oreo" in case_name.lower():
         brand = "Oreo（亿滋国际）"
-        d1 = (f"- 品牌名称：Oreo\n"
-              f"- 品牌全称：Oreo（Mondelez International）\n"
-              f"- 品牌描述：全球知名饼干品牌，以扭一扭舔一舔泡一泡闻名\n"
-              f"- 品牌创立：1912年（美国）\n"
-              f"- 品牌生命周期：established（百年品牌）\n"
-              f"- 市场地位：全球饼干领导品牌，中国零食市场头部")
-        d6 = (f"- Big Idea：将裁判球衣黑白条纹变成奥利奥品牌条码\n"
-              f"- 创意概念：视觉关联 × 场景植入 × AR互动\n"
-              f"- 叙事结构：悬念引发好奇→扫码揭示→优惠兑换→社交裂变")
+        d1 = ("- 品牌名称：Oreo\n"
+              "- 品牌全称：Oreo（Mondelez International）\n"
+              "- 品牌描述：全球知名饼干品牌，以扭一扭舔一舔泡一泡闻名\n"
+              "- 品牌创立：1912年（美国）\n"
+              "- 品牌生命周期：established（百年品牌）\n"
+              "- 市场地位：全球饼干领导品牌，中国零食市场头部")
+        d6 = ("- Big Idea：将裁判球衣黑白条纹变成奥利奥品牌条码\n"
+              "- 创意概念：视觉关联 × 场景植入 × AR互动\n"
+              "- 叙事结构：悬念引发好奇→扫码揭示→优惠兑换→社交裂变")
     elif "万事达卡" in case_name or "mastercard" in case_name.lower():
         brand = "Mastercard"
-        d1 = (f"- 品牌名称：Mastercard（万事达卡）\n"
-              f"- 品牌全称：Mastercard Incorporated\n"
-              f"- 品牌描述：全球领先支付科技公司，无价系列品牌活动持续20年+\n"
-              f"- 品牌创立：1966年\n"
-              f"- 品牌生命周期：established（近60年）\n"
-              f"- 市场地位：全球第二大支付网络")
-        d6 = (f"- Big Idea：无价（Priceless）— 金钱无法衡量的时刻\n"
-              f"- 创意概念：情感叙事优先于功能诉求\n"
-              f"- 叙事结构：真实人物故事 × Mastercard品牌符号 × 生活场景")
+        d1 = ("- 品牌名称：Mastercard（万事达卡）\n"
+              "- 品牌全称：Mastercard Incorporated\n"
+              "- 品牌描述：全球领先支付科技公司，无价系列品牌活动持续20年+\n"
+              "- 品牌创立：1966年\n"
+              "- 品牌生命周期：established（近60年）\n"
+              "- 市场地位：全球第二大支付网络")
+        d6 = ("- Big Idea：无价（Priceless）— 金钱无法衡量的时刻\n"
+              "- 创意概念：情感叙事优先于功能诉求\n"
+              "- 叙事结构：真实人物故事 × Mastercard品牌符号 × 生活场景")
     elif "粉色芯片" in case_name:
         brand = "半导体行业女性平权"
-        d1 = (f"- 品牌名称：半导体行业女性平权倡导Campaign\n"
-              f"- 品牌描述：科技行业女性领导力倡导行动\n"
-              f"- 品牌生命周期：established\n"
-              f"- 市场地位：行业关注度高")
-        d6 = (f"- Big Idea：为女性争取更多领导席位\n"
-              f"- 创意概念：性别平等 × 行业数据可视化\n"
-              f"- 叙事结构：数据呼吁→情感共鸣→行动号召")
+        d1 = ("- 品牌名称：半导体行业女性平权倡导Campaign\n"
+              "- 品牌描述：科技行业女性领导力倡导行动\n"
+              "- 品牌生命周期：established\n"
+              "- 市场地位：行业关注度高")
+        d6 = ("- Big Idea：为女性争取更多领导席位\n"
+              "- 创意概念：性别平等 × 行业数据可视化\n"
+              "- 叙事结构：数据呼吁→情感共鸣→行动号召")
     elif "iFood" in case_name:
         brand = "iFood（巴西）"
-        d1 = (f"- 品牌名称：iFood\n"
-              f"- 品牌全称：iFood（巴西外卖平台）\n"
-              f"- 品牌描述：拉丁美洲领先外卖及生活服务平台\n"
-              f"- 市场地位：巴西外卖市场领导者")
-        d6 = (f"- Big Idea：Social & Influencer Commerce\n"
-              f"- 创意概念：社交电商 × Influencer驱动\n"
-              f"- 获奖：ADFEST 2026 Commerce Lotus 金奖")
+        d1 = ("- 品牌名称：iFood\n"
+              "- 品牌全称：iFood（巴西外卖平台）\n"
+              "- 品牌描述：拉丁美洲领先外卖及生活服务平台\n"
+              "- 市场地位：巴西外卖市场领导者")
+        d6 = ("- Big Idea：Social & Influencer Commerce\n"
+              "- 创意概念：社交电商 × Influencer驱动\n"
+              "- 获奖：ADFEST 2026 Commerce Lotus 金奖")
     elif "宜家" in case_name or "IKEA" in case_name:
         brand = "IKEA（宜家）"
-        d1 = (f"- 品牌名称：IKEA（宜家）\n"
-              f"- 品牌全称：Inter IKEA Systems B.V.\n"
-              f"- 品牌描述：全球最大家具和家居零售商，自助组装+平价设计\n"
-              f"- 品牌创立：1943年（瑞典）\n"
-              f"- 品牌生命周期：heritage（80年+）\n"
-              f"- 市场地位：全球家具零售领导者")
-        d6 = (f"- Big Idea：居家场景 × 产品功能\n"
-              f"- 创意概念：场景化叙事 × 情感连接\n"
-              f"- 叙事结构：居家生活片段 → 产品植入")
+        d1 = ("- 品牌名称：IKEA（宜家）\n"
+              "- 品牌全称：Inter IKEA Systems B.V.\n"
+              "- 品牌描述：全球最大家具和家居零售商，自助组装+平价设计\n"
+              "- 品牌创立：1943年（瑞典）\n"
+              "- 品牌生命周期：heritage（80年+）\n"
+              "- 市场地位：全球家具零售领导者")
+        d6 = ("- Big Idea：居家场景 × 产品功能\n"
+              "- 创意概念：场景化叙事 × 情感连接\n"
+              "- 叙事结构：居家生活片段 → 产品植入")
     elif "FILSA" in case_name:
         brand = "FILSA（智利书展）"
-        d1 = (f"- 品牌名称：FILSA\n"
-              f"- 品牌全称：Feria Internacional del Libro de Santiago\n"
-              f"- 品牌描述：智利圣地亚哥国际书展，拉丁美洲重要文学活动\n"
-              f"- 市场地位：拉丁美洲出版业重要平台")
-        d6 = (f"- Big Idea：FILSA品牌推广\n"
-              f"- 创意概念：文学活动 × 品牌联动\n"
-              f"- 叙事结构：（需查证）")
+        d1 = ("- 品牌名称：FILSA\n"
+              "- 品牌全称：Feria Internacional del Libro de Santiago\n"
+              "- 品牌描述：智利圣地亚哥国际书展，拉丁美洲重要文学活动\n"
+              "- 市场地位：拉丁美洲出版业重要平台")
+        d6 = ("- Big Idea：FILSA品牌推广\n"
+              "- 创意概念：文学活动 × 品牌联动\n"
+              "- 叙事结构：（需查证）")
     elif "三星" in case_name:
         brand = "Samsung（三星）"
-        d1 = (f"- 品牌名称：Samsung（三星电子）\n"
-              f"- 品牌全称：Samsung Electronics\n"
-              f"- 品牌描述：全球领先消费电子和半导体公司\n"
-              f"- 品牌创立：1938年（韩国）\n"
-              f"- 品牌生命周期：heritage（80年+）\n"
-              f"- 市场地位：全球消费电子前三")
-        d6 = (f"- Big Idea：SAMSUNG THROWBACK\n"
-              f"- 创意概念：（需查证）\n"
-              f"- 叙事结构：（需查证）")
+        d1 = ("- 品牌名称：Samsung（三星电子）\n"
+              "- 品牌全称：Samsung Electronics\n"
+              "- 品牌描述：全球领先消费电子和半导体公司\n"
+              "- 品牌创立：1938年（韩国）\n"
+              "- 品牌生命周期：heritage（80年+）\n"
+              "- 市场地位：全球消费电子前三")
+        d6 = ("- Big Idea：SAMSUNG THROWBACK\n"
+              "- 创意概念：（需查证）\n"
+              "- 叙事结构：（需查证）")
     else:
         brand = "（需查证）"
         d1 = f"- 品牌名称：{brand}\n- 品牌描述：（需查证）\n- 品牌创立：（需查证）\n- 品牌生命周期：established\n- 市场地位：（需查证）"
-        d6 = f"- Big Idea：（需查证）\n- 创意概念：（需查证）\n- 叙事结构：（需查证）"
+        d6 = "- Big Idea：（需查证）\n- 创意概念：（需查证）\n- 叙事结构：（需查证）"
 
     # ── 从正文推断 D3/D5/D8/D11（真实数据）─
     if "裁判" in text or "条码" in text or "100,000" in text or "100000" in text:
@@ -292,7 +292,7 @@ def generate_report(case_name, text, url, meta, downloaded_imgs):
     d4 = "- 核心需求：（需查证）\n- 决策路径：（需查证）\n- 未满足Gap：（需查证）"
     d7 = "- ATL/BTL组合：（需查证）\n- 媒介策略：（需查证）\n- 节点规划：（需查证）"
     d10 = "- 适用法规：（需查证）\n- 伦理审查：（需查证）"
-    d12 = f"- 传播类型：（需查证）\n- 所属行业：（需查证）\n- 目标受众：（需查证）\n- 地域市场：（需查证）"
+    d12 = "- 传播类型：（需查证）\n- 所属行业：（需查证）\n- 目标受众：（需查证）\n- 地域市场：（需查证）"
 
     # 图片清单
     img_section = f"\n## 图片清单\n\n（共 {len(downloaded_imgs)} 张，目录：`images_real/`）\n\n| # | 文件名 |\n|---|--------|\n"
@@ -300,7 +300,7 @@ def generate_report(case_name, text, url, meta, downloaded_imgs):
         img_section += f"| {i} | `{fname}` |\n"
 
     # 来源
-    sources = f"""
+    sources = """
 ## 来源链接
 
 ### 原文章节
@@ -315,7 +315,7 @@ def generate_report(case_name, text, url, meta, downloaded_imgs):
 - ADFEST：[搜索链接](https://www.adfest.com/search?q={urllib.parse.quote(title)})
 """
 
-    report = f"""---
+    report = """---
 title: {title}
 description: 12维医学传播创意案例深度综合报告v3
 version: 3.0
@@ -497,79 +497,79 @@ def generate_report(case_name, text, url, meta, downloaded_imgs):
     # ── D1 品牌背景（从正文提取）─
     if "奥利奥" in case_name or "oreo" in case_name.lower():
         brand = "Oreo（亿滋国际）"
-        d1 = (f"- 品牌名称：Oreo\n"
-              f"- 品牌全称：Oreo（Mondelez International）\n"
-              f"- 品牌描述：全球知名饼干品牌，以扭一扭舔一舔泡一泡闻名\n"
-              f"- 品牌创立：1912年（美国）\n"
-              f"- 品牌生命周期：established（百年品牌）\n"
-              f"- 市场地位：全球饼干领导品牌，中国零食市场头部")
-        d6 = (f"- Big Idea：将裁判球衣黑白条纹变成奥利奥品牌条码\n"
-              f"- 创意概念：视觉关联 × 场景植入 × AR互动\n"
-              f"- 叙事结构：悬念引发好奇→扫码揭示→优惠兑换→社交裂变")
+        d1 = ("- 品牌名称：Oreo\n"
+              "- 品牌全称：Oreo（Mondelez International）\n"
+              "- 品牌描述：全球知名饼干品牌，以扭一扭舔一舔泡一泡闻名\n"
+              "- 品牌创立：1912年（美国）\n"
+              "- 品牌生命周期：established（百年品牌）\n"
+              "- 市场地位：全球饼干领导品牌，中国零食市场头部")
+        d6 = ("- Big Idea：将裁判球衣黑白条纹变成奥利奥品牌条码\n"
+              "- 创意概念：视觉关联 × 场景植入 × AR互动\n"
+              "- 叙事结构：悬念引发好奇→扫码揭示→优惠兑换→社交裂变")
     elif "万事达卡" in case_name or "mastercard" in case_name.lower():
         brand = "Mastercard"
-        d1 = (f"- 品牌名称：Mastercard（万事达卡）\n"
-              f"- 品牌全称：Mastercard Incorporated\n"
-              f"- 品牌描述：全球领先支付科技公司，无价系列品牌活动持续20年+\n"
-              f"- 品牌创立：1966年\n"
-              f"- 品牌生命周期：established（近60年）\n"
-              f"- 市场地位：全球第二大支付网络")
-        d6 = (f"- Big Idea：无价（Priceless）— 金钱无法衡量的时刻\n"
-              f"- 创意概念：情感叙事优先于功能诉求\n"
-              f"- 叙事结构：真实人物故事 × Mastercard品牌符号 × 生活场景")
+        d1 = ("- 品牌名称：Mastercard（万事达卡）\n"
+              "- 品牌全称：Mastercard Incorporated\n"
+              "- 品牌描述：全球领先支付科技公司，无价系列品牌活动持续20年+\n"
+              "- 品牌创立：1966年\n"
+              "- 品牌生命周期：established（近60年）\n"
+              "- 市场地位：全球第二大支付网络")
+        d6 = ("- Big Idea：无价（Priceless）— 金钱无法衡量的时刻\n"
+              "- 创意概念：情感叙事优先于功能诉求\n"
+              "- 叙事结构：真实人物故事 × Mastercard品牌符号 × 生活场景")
     elif "粉色芯片" in case_name:
         brand = "半导体行业女性平权"
-        d1 = (f"- 品牌名称：半导体行业女性平权倡导Campaign\n"
-              f"- 品牌描述：科技行业女性领导力倡导行动\n"
-              f"- 品牌生命周期：established\n"
-              f"- 市场地位：行业关注度高")
-        d6 = (f"- Big Idea：为女性争取更多领导席位\n"
-              f"- 创意概念：性别平等 × 行业数据可视化\n"
-              f"- 叙事结构：数据呼吁→情感共鸣→行动号召")
+        d1 = ("- 品牌名称：半导体行业女性平权倡导Campaign\n"
+              "- 品牌描述：科技行业女性领导力倡导行动\n"
+              "- 品牌生命周期：established\n"
+              "- 市场地位：行业关注度高")
+        d6 = ("- Big Idea：为女性争取更多领导席位\n"
+              "- 创意概念：性别平等 × 行业数据可视化\n"
+              "- 叙事结构：数据呼吁→情感共鸣→行动号召")
     elif "iFood" in case_name:
         brand = "iFood（巴西）"
-        d1 = (f"- 品牌名称：iFood\n"
-              f"- 品牌全称：iFood（巴西外卖平台）\n"
-              f"- 品牌描述：拉丁美洲领先外卖及生活服务平台\n"
-              f"- 市场地位：巴西外卖市场领导者")
-        d6 = (f"- Big Idea：Social & Influencer Commerce\n"
-              f"- 创意概念：社交电商 × Influencer驱动\n"
-              f"- 获奖：ADFEST 2026 Commerce Lotus 金奖")
+        d1 = ("- 品牌名称：iFood\n"
+              "- 品牌全称：iFood（巴西外卖平台）\n"
+              "- 品牌描述：拉丁美洲领先外卖及生活服务平台\n"
+              "- 市场地位：巴西外卖市场领导者")
+        d6 = ("- Big Idea：Social & Influencer Commerce\n"
+              "- 创意概念：社交电商 × Influencer驱动\n"
+              "- 获奖：ADFEST 2026 Commerce Lotus 金奖")
     elif "宜家" in case_name or "IKEA" in case_name:
         brand = "IKEA（宜家）"
-        d1 = (f"- 品牌名称：IKEA（宜家）\n"
-              f"- 品牌全称：Inter IKEA Systems B.V.\n"
-              f"- 品牌描述：全球最大家具和家居零售商，自助组装+平价设计\n"
-              f"- 品牌创立：1943年（瑞典）\n"
-              f"- 品牌生命周期：heritage（80年+）\n"
-              f"- 市场地位：全球家具零售领导者")
-        d6 = (f"- Big Idea：居家场景 × 产品功能\n"
-              f"- 创意概念：场景化叙事 × 情感连接\n"
-              f"- 叙事结构：居家生活片段 → 产品植入")
+        d1 = ("- 品牌名称：IKEA（宜家）\n"
+              "- 品牌全称：Inter IKEA Systems B.V.\n"
+              "- 品牌描述：全球最大家具和家居零售商，自助组装+平价设计\n"
+              "- 品牌创立：1943年（瑞典）\n"
+              "- 品牌生命周期：heritage（80年+）\n"
+              "- 市场地位：全球家具零售领导者")
+        d6 = ("- Big Idea：居家场景 × 产品功能\n"
+              "- 创意概念：场景化叙事 × 情感连接\n"
+              "- 叙事结构：居家生活片段 → 产品植入")
     elif "FILSA" in case_name:
         brand = "FILSA（智利书展）"
-        d1 = (f"- 品牌名称：FILSA\n"
-              f"- 品牌全称：Feria Internacional del Libro de Santiago\n"
-              f"- 品牌描述：智利圣地亚哥国际书展，拉丁美洲重要文学活动\n"
-              f"- 市场地位：拉丁美洲出版业重要平台")
-        d6 = (f"- Big Idea：FILSA品牌推广\n"
-              f"- 创意概念：文学活动 × 品牌联动\n"
-              f"- 叙事结构：（需查证）")
+        d1 = ("- 品牌名称：FILSA\n"
+              "- 品牌全称：Feria Internacional del Libro de Santiago\n"
+              "- 品牌描述：智利圣地亚哥国际书展，拉丁美洲重要文学活动\n"
+              "- 市场地位：拉丁美洲出版业重要平台")
+        d6 = ("- Big Idea：FILSA品牌推广\n"
+              "- 创意概念：文学活动 × 品牌联动\n"
+              "- 叙事结构：（需查证）")
     elif "三星" in case_name:
         brand = "Samsung（三星）"
-        d1 = (f"- 品牌名称：Samsung（三星电子）\n"
-              f"- 品牌全称：Samsung Electronics\n"
-              f"- 品牌描述：全球领先消费电子和半导体公司\n"
-              f"- 品牌创立：1938年（韩国）\n"
-              f"- 品牌生命周期：heritage（80年+）\n"
-              f"- 市场地位：全球消费电子前三")
-        d6 = (f"- Big Idea：SAMSUNG THROWBACK\n"
-              f"- 创意概念：（需查证）\n"
-              f"- 叙事结构：（需查证）")
+        d1 = ("- 品牌名称：Samsung（三星电子）\n"
+              "- 品牌全称：Samsung Electronics\n"
+              "- 品牌描述：全球领先消费电子和半导体公司\n"
+              "- 品牌创立：1938年（韩国）\n"
+              "- 品牌生命周期：heritage（80年+）\n"
+              "- 市场地位：全球消费电子前三")
+        d6 = ("- Big Idea：SAMSUNG THROWBACK\n"
+              "- 创意概念：（需查证）\n"
+              "- 叙事结构：（需查证）")
     else:
         brand = "（需查证）"
         d1 = f"- 品牌名称：{brand}\n- 品牌描述：（需查证）\n- 品牌创立：（需查证）\n- 品牌生命周期：established\n- 市场地位：（需查证）"
-        d6 = f"- Big Idea：（需查证）\n- 创意概念：（需查证）\n- 叙事结构：（需查证）"
+        d6 = "- Big Idea：（需查证）\n- 创意概念：（需查证）\n- 叙事结构：（需查证）"
 
     # ── 从正文推断 D3/D5/D8/D11（真实数据）─
     if "裁判" in text or "条码" in text or "100,000" in text or "100000" in text:
@@ -672,7 +672,7 @@ def generate_report(case_name, text, url, meta, downloaded_imgs):
     d4 = "- 核心需求：（需查证）\n- 决策路径：（需查证）\n- 未满足Gap：（需查证）"
     d7 = "- ATL/BTL组合：（需查证）\n- 媒介策略：（需查证）\n- 节点规划：（需查证）"
     d10 = "- 适用法规：（需查证）\n- 伦理审查：（需查证）"
-    d12 = f"- 传播类型：（需查证）\n- 所属行业：（需查证）\n- 目标受众：（需查证）\n- 地域市场：（需查证）"
+    d12 = "- 传播类型：（需查证）\n- 所属行业：（需查证）\n- 目标受众：（需查证）\n- 地域市场：（需查证）"
 
     # 图片清单
     img_section = f"\n## 图片清单\n\n（共 {len(downloaded_imgs)} 张，目录：`images_real/`）\n\n| # | 文件名 |\n|---|--------|\n"
@@ -680,7 +680,7 @@ def generate_report(case_name, text, url, meta, downloaded_imgs):
         img_section += f"| {i} | `{fname}` |\n"
 
     # 来源
-    sources = f"""
+    sources = """
 ## 来源链接
 
 ### 原文章节
@@ -695,7 +695,7 @@ def generate_report(case_name, text, url, meta, downloaded_imgs):
 - ADFEST：[搜索链接](https://www.adfest.com/search?q={urllib.parse.quote(title)})
 """
 
-    report = f"""---
+    report = """---
 title: {title}
 description: 12维医学传播创意案例深度综合报告v3
 version: 3.0

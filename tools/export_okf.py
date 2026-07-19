@@ -94,7 +94,6 @@ def main():
     total = 0
 
     for row in rows:
-        cid = int(row["concept_id"])
         rel_path = row["rel_path"] or ""
         ftype = row["type"] or "Reference"
         title = row["title"] or Path(rel_path).stem
@@ -219,7 +218,7 @@ def main():
     store.close()
     print(f"\n✅ OKF bundle exported to {out_dir}")
     print(f"   {total} concepts | {sum(1 for p in out_dir.rglob('case_studies/*.md'))} case studies")
-    print(f"   bundle.yaml | index.md | log.md")
+    print("   bundle.yaml | index.md | log.md")
     print(f"   Subdirs: {', '.join(sorted(set(_TYPE_DIR.values())))}")
 
 

@@ -2,7 +2,7 @@
 rebuild_index.py — 从扩充目录的 markdown 深度报告重建 TF-IDF 索引
 修复：中文 bigram+trigram n-gram + 真实 IDF 公式
 """
-import os, re, math, json, sqlite3
+import os, re, json, sqlite3
 from pathlib import Path
 
 _HERE = Path(__file__).resolve().parent
@@ -192,7 +192,7 @@ def rebuild(force=True):
                      (term, chunk_id, tf_val))
 
     conn.commit()
-    print(f"  索引重建完成！")
+    print("  索引重建完成！")
 
     # 验证
     c.execute("SELECT COUNT(*) FROM chunks")

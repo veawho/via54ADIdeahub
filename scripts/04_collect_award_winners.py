@@ -31,14 +31,11 @@
 import argparse
 import json
 import re
-import sys
 import time
 from pathlib import Path
-from urllib.parse import urljoin, urlparse
 
 # 复用 03_collect_case.py 的工具
 try:
-    from playwright.sync_api import sync_playwright
     HAS_PLAYWRIGHT = True
 except ImportError:
     HAS_PLAYWRIGHT = False
@@ -187,7 +184,7 @@ def fetch_page(url: str, use_wsl_chrome: bool = True) -> str:
         html = r.text
         # JS SPA 检测
         if len(html) < 50000 and html.count("<script") > 5 and not any(kw in html.lower() for kw in ['grand prix', 'winner', 'lions']):
-            print(f"  [WSL] JS SPA 检测, 用 Chrome 渲染")
+            print("  [WSL] JS SPA 检测, 用 Chrome 渲染")
             return fetch_via_wsl_chrome(url)
         return html
     except Exception as e:
@@ -199,7 +196,7 @@ def fetch_via_wsl_chrome(url: str) -> str:
     """WSL Chrome 渲染抓取 (动态页)"""
     import subprocess
     import base64
-    script = f'''
+    script = '''
 import json
 from playwright.sync_api import sync_playwright
 
@@ -432,7 +429,7 @@ def write_winners_md(out_path: Path, award: str, subaward: str, year: int, tier:
     else:
         content += "| - | (待抓取) | - | - | - | - |\n"
 
-    content += f"""
+    content += """
 ## 数据源
 
 - 官方网站: {source_url}
@@ -582,7 +579,7 @@ def collect_one(award: str, subaward: str, year: int, tier: str, output_root: Pa
 
     # 3.5) Clio SPA 兜底: 0 行 → 自动试 Wayback Machine 镜像
     if not winners and "clios.com" in source_url:
-        print(f"  [RETRY] clios.com SPA 无数据, 试 Wayback Machine")
+        print("  [RETRY] clios.com SPA 无数据, 试 Wayback Machine")
         import requests as _req
         try:
             r = _req.get("https://archive.org/wayback/available", params={"url": source_url}, timeout=15)
@@ -603,7 +600,7 @@ def collect_one(award: str, subaward: str, year: int, tier: str, output_root: Pa
     # 4) 写 .md — 占位符/0 行 = FAIL, 不写
     out_path = output_root / award / subaward / str(year) / f"{year}_{subaward}_{tier}_winners.md"
     if not winners:
-        print(f"  [FAIL] 解析到 0 行, 不写占位符")
+        print("  [FAIL] 解析到 0 行, 不写占位符")
         return {
             "status": "parse_fail",
             "award": award,

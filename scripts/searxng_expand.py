@@ -6,12 +6,12 @@ searxng_expand.py — 用 SearXNG 补充案例内容
 """
 
 import json
-import os
+
 import sys
 import time
 import urllib.request
 import urllib.parse
-import re
+
 from pathlib import Path
 
 # ─── 配置 ────────────────────────────────────────────────
@@ -115,7 +115,7 @@ def search_case(case):
 
 
 def main():
-    print(f"SearXNG Expansion Script")
+    print("SearXNG Expansion Script")
     print(f"URL: {SEARXNG_URL}")
     print(f"Output: {OUT_DIR}")
     print(f"Cases: {len(CASES)}")

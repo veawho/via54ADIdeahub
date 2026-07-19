@@ -12,7 +12,7 @@
   4. 建立归档文件夹结构（不含LLM分析结果，由agent完成）
   5. 批量模式：扫描目录所有PDF，逐个创建文件夹骨架
 """
-import sys, os, json, sqlite3, re, hashlib
+import sys, os, json, re
 from pathlib import Path
 from datetime import datetime
 
@@ -101,7 +101,7 @@ def extract_images_from_pdf(pdf_path: Path, output_dir: Path) -> list:
                             data = xobjects[obj].get_data()
                             if data:
                                 img_counter += 1
-                                img_path = output_dir / f"images" / f"page{page_num+1}_img{img_counter}.png"
+                                img_path = output_dir / "images" / f"page{page_num+1}_img{img_counter}.png"
                                 img_path.parent.mkdir(parents=True, exist_ok=True)
                                 # 尝试用PIL保存
                                 try:
@@ -155,9 +155,7 @@ def generate_analysis_prompt(case_name: str, text: str, source_links: list) -> s
     if len(text) > max_chars:
         text = text[:max_chars] + "\n\n[... 内容截断 ...]"
 
-    links_md = "\n".join(f"{i+1}. {name}: {url}" for i, (name, url) in enumerate(source_links)) or "（暂无来源链接）"
-
-    prompt = f"""请对以下医学传播/营销案例进行12维框架深度分析。
+    prompt = """请对以下医学传播/营销案例进行12维框架深度分析。
 
 ## 案例名称
 {case_name}
@@ -285,7 +283,7 @@ def enrich_single_case(pdf_path: Path, output_dir: Path, force: bool = False) ->
     pdf_info = get_pdf_info(pdf_path)
 
     # 提取图片（可选，PDF图片提取较复杂）
-    print(f"  🖼️  提取图片...")
+    print("  🖼️  提取图片...")
     extracted_imgs = extract_images_from_pdf(pdf_path, folder)
     if extracted_imgs:
         print(f"     提取到 {len(extracted_imgs)} 张图片")
@@ -305,7 +303,7 @@ def enrich_single_case(pdf_path: Path, output_dir: Path, force: bool = False) ->
 
     # 创建占位文件（供LLM后续填充）
     placeholder_md = folder / f"{folder_name}.enriched.md"
-    placeholder_content = f"""---
+    placeholder_content = """---
 title: {case_name}
 description: 12维医学传播创意案例分析
 version: 1.0
@@ -403,7 +401,7 @@ dimensions: [D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, D11, D12]
         json.dump(metadata, f, ensure_ascii=False, indent=2)
 
     # 创建 links.md
-    links_content = f"""# 来源链接
+    links_content = """# 来源链接
 
 ## 案例名称
 {case_name}
@@ -492,7 +490,7 @@ def process_batch(pdf_dir: Path, output_dir: Path, force: bool = False) -> dict:
 
     print()
     print("=" * 50)
-    print(f"📊 批量处理完成")
+    print("📊 批量处理完成")
     print(f"   总数: {len(all_pdfs)}")
     print(f"   新建: {created}")
     print(f"   跳过: {skipped}")
@@ -530,7 +528,7 @@ def create_index(output_dir: Path, results: list):
                 })
 
     # 写 _index.md
-    index_md = f"""# 案例总索引
+    index_md = """# 案例总索引
 
 > 自动生成 · {datetime.now().strftime('%Y-%m-%d %H:%M')}
 
@@ -572,7 +570,7 @@ if __name__ == "__main__":
     parser.add_argument("--pdf-dir", type=str, help="批量PDF目录")
     parser.add_argument("--output", type=str, default=str(OUTPUT_DIR),
                         help=f"输出目录（默认: {OUTPUT_DIR}）")
-    parser.add_argument("--force", "-f", action="store_true",
+    parser.add_argument("--force", "-", action="store_true",
                         help="强制重建（覆盖已有文件夹）")
     parser.add_argument("--links-only", action="store_true",
                         help="仅检索来源链接，不重建文件夹")
@@ -584,7 +582,7 @@ if __name__ == "__main__":
         result = enrich_single_case(Path(args.pdf), output)
         print(f"\n{'✅' if result['status'] == 'created' else '⏭️'} {result['case_name']}")
         if result.get("analysis_prompt"):
-            print(f"\n📋 分析prompt已写入 metadata.json")
+            print("\n📋 分析prompt已写入 metadata.json")
             print(f"   案例文件夹: {result['folder']}")
     elif args.pdf_dir:
         stats = process_batch(Path(args.pdf_dir), output, force=args.force)

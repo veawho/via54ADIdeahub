@@ -7,7 +7,7 @@ v9.7 enrich FINAL: solve "卡住" problem
 - Write 概述.md / 深度报告.md / 视频清单.md with REAL content from URL
 - NO Gemini. NO fabrication. Pure web + SearXNG + regex.
 """
-import json, re, urllib.request, urllib.parse, socket, time
+import json, re, urllib.request, urllib.parse, socket
 from pathlib import Path
 from html.parser import HTMLParser
 
@@ -43,7 +43,7 @@ def fetch(url):
         req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'})
         with urllib.request.urlopen(req, timeout=10) as r:
             return r.read().decode('utf-8', errors='ignore')
-    except Exception as e:
+    except Exception:
         return None
 
 def searx(query):
@@ -54,7 +54,7 @@ def searx(query):
         with urllib.request.urlopen(req, timeout=15) as r:
             data = json.loads(r.read())
             return data.get('results', [])
-    except Exception as e:
+    except Exception:
         return []
 
 def parse_readme(readme_text):
@@ -87,7 +87,7 @@ def parse_readme(readme_text):
 
 def generate_gaishu(case_name, brand, agency, award_str, source_url):
     """100-word Chinese overview - based purely on factual fields, no fabrication."""
-    return f"""# 概述
+    return """# 概述
 
 ## 基本信息
 - **案例名**: {case_name}
@@ -113,7 +113,7 @@ _生成时间: 2026-07-03 (v9.7) — 数据来源: 02_AWARD_SOURCES (可信) + F
 """
 
 def generate_deep_report(case_name, brand, agency, award_str, source_url):
-    return f"""# 深度报告
+    return """# 深度报告
 
 ## 案例标识
 | 字段 | 值 |
@@ -152,7 +152,7 @@ def generate_deep_report(case_name, brand, agency, award_str, source_url):
 """
 
 def generate_video_list(case_name, source_url):
-    return f"""# 视频清单
+    return """# 视频清单
 
 ## 案例
 {case_name}
@@ -219,9 +219,9 @@ def main():
             }
             (case_dir / 'raw.json').write_text(json.dumps(stub, ensure_ascii=False, indent=2), encoding='utf-8')
             (case_dir / 'FOLDER_README.md').write_text(f'# {case_dir.name}\n\n待 enrich — 数据源 unknown\n', encoding='utf-8')
-            (case_dir / '概述.md').write_text(f'# 概述\n待 enrich.\n', encoding='utf-8')
-            (case_dir / '深度报告.md').write_text(f'# 深度报告\n待 enrich.\n', encoding='utf-8')
-            (case_dir / '视频清单.md').write_text(f'# 视频清单\n待 enrich.\n', encoding='utf-8')
+            (case_dir / '概述.md').write_text('# 概述\n待 enrich.\n', encoding='utf-8')
+            (case_dir / '深度报告.md').write_text('# 深度报告\n待 enrich.\n', encoding='utf-8')
+            (case_dir / '视频清单.md').write_text('# 视频清单\n待 enrich.\n', encoding='utf-8')
             stats['wrote_files'] += 5
             continue
 

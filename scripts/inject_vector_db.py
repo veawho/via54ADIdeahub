@@ -11,7 +11,7 @@ inject_vector_db.py
 4. 写入 doc_meta + chunks 表
 """
 
-import sqlite3, json, re, os, sys
+import sqlite3, json, re, os
 from pathlib import Path
 
 EXPAND_DIR = Path.home() / "Desktop/创意案例库_扩充"

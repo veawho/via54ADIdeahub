@@ -15,7 +15,7 @@ from pathlib import Path
 # 将项目根目录加入路径
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from via54_rag import build_vector_index, tokenize, chunk_text
+from via54_rag import build_vector_index
 
 DB_PATH = Path(__file__).parent.parent / "via54_rag" / "vector.db"
 DEFAULT_PDF_DIR = os.path.expanduser("~/Desktop/创意案例库")
@@ -76,7 +76,7 @@ def ingest_directory(pdf_dir: str, force: bool = False, verbose: bool = True):
             print(f"   新增: {len(new_files)}")
             print(f"   跳过: {len(skipped_files)}")
             if skipped_files and not force:
-                print(f"   (使用 --force 强制重建)")
+                print("   (使用 --force 强制重建)")
 
         if not new_files:
             print("✅ 无需导入")
@@ -94,14 +94,14 @@ def ingest_directory(pdf_dir: str, force: bool = False, verbose: bool = True):
         after_chunks = get_total_chunks(conn)
         after_docs = get_total_docs(conn)
 
-        print(f"\n✅ 导入完成")
+        print("\n✅ 导入完成")
         print(f"   新增文档: {after_docs - before_docs}")
         print(f"   新增 chunks: {after_chunks - before_chunks}")
         print(f"   总文档数: {after_docs}")
         print(f"   总 chunks: {after_chunks}")
 
         if verbose and skipped_files:
-            print(f"\n⚠️  跳过文件（已索引）:")
+            print("\n⚠️  跳过文件（已索引）:")
             for f in skipped_files:
                 print(f"   - {f}")
 
@@ -112,7 +112,7 @@ def main():
     parser = argparse.ArgumentParser(description="批量 PDF 导入工具")
     parser.add_argument("--pdf-dir", "-d", default=DEFAULT_PDF_DIR,
                         help=f"PDF 目录（默认: {DEFAULT_PDF_DIR}）")
-    parser.add_argument("--force", "-f", action="store_true",
+    parser.add_argument("--force", "-", action="store_true",
                         help="强制重建索引（删除该目录所有旧记录后重新导入）")
     parser.add_argument("--report", "-r", action="store_true",
                         help="只打印索引状态，不导入")
@@ -124,7 +124,7 @@ def main():
         try:
             docs = get_total_docs(conn)
             chunks = get_total_chunks(conn)
-            print(f"📊 索引状态")
+            print("📊 索引状态")
             print(f"   文档数: {docs}")
             print(f"   Chunks: {chunks}")
             print(f"   数据库: {DB_PATH}")

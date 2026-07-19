@@ -3,7 +3,7 @@
 批量生成 enriched.md D1-D12 分析内容
 调 MiniMax API，直接写入 enriched.md
 """
-import json, time, subprocess, sys, re
+import json, time, re
 from datetime import datetime
 from pathlib import Path
 
@@ -24,7 +24,7 @@ def call_minimax(prompt: str, model: str = "MiniMax-M2.7-highspeed",
             api_key = cfg.read_text().strip()
 
     if not api_key:
-        return f"[ERROR: No API key found]"
+        return "[ERROR: No API key found]"
 
     url = "https://api.minimax.chat/v1/text/chatcompletion_v2"
     headers = {
@@ -56,18 +56,9 @@ def build_analysis_prompt(case_name: str, article_text: str,
                           is_adfest: bool = False,
                           adfest_metadata: dict = None) -> str:
     """构建 D1-D12 分析 prompt"""
-    title = case_name.replace('_', ' ')
 
-    adfest_section = ""
-    if is_adfest and adfest_metadata:
-        winners = adfest_metadata.get("text_preview", "")
-        adfest_section = f"""
 
-## ADFEST 2026 获奖名单参考
-{winners[:3000]}
-"""
-
-    prompt = f"""请为以下营销案例撰写完整的12维框架分析。
+    prompt = """请为以下营销案例撰写完整的12维框架分析。
 
 ## 案例名称
 {title}
@@ -182,7 +173,6 @@ def get_case_content(case_path: Path) -> dict:
 def write_enriched(case_path: Path, case_name: str, analysis: str,
                    source_urls: list, images: list, meta: dict):
     """写入完整的 enriched.md"""
-    title = case_name.replace('_', ' ')
 
     # 链接
     links_md = "## 来源链接\n\n"
@@ -202,7 +192,7 @@ def write_enriched(case_path: Path, case_name: str, analysis: str,
     else:
         imgs_md += "- （见 images/ 目录）\n"
 
-    full_md = f"""---
+    full_md = """---
 title: {title}
 description: 12维医学传播创意案例分析
 version: 1.0
@@ -291,13 +281,13 @@ def main():
         adfest_data = content_data["adfest_data"]
 
         if not text and not is_adfest:
-            print(f"   ⚠️ 无内容，跳过")
+            print("   ⚠️ 无内容，跳过")
             skipped += 1
             continue
 
         # 生成分析
         prompt = build_analysis_prompt(case_name, text, is_adfest, adfest_data)
-        print(f"   📝 生成分析中...")
+        print("   📝 生成分析中...")
         analysis = call_minimax(prompt)
         print(f"   ✅ 分析生成完成 ({len(analysis)} 字符)")
 

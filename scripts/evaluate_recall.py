@@ -14,7 +14,7 @@
   每个查询有 expected_relevant_dimensions（应该命中的维度），
   用于计算 recall = (hit_dimensions / expected_dimensions)
 """
-import sys, json, sqlite3
+import sys, json
 from pathlib import Path
 from collections import defaultdict
 
@@ -250,7 +250,7 @@ def print_report(report: dict):
 
     # 薄弱维度详情
     if report["weak_dimensions"]:
-        print(f"\n⚠️  薄弱维度（召回率 < 50%）:")
+        print("\n⚠️  薄弱维度（召回率 < 50%）:")
         for dim in report["weak_dimensions"]:
             print(f"   {dim}: {report['dimension_recall'][dim][2]:.1%}")
         print("\n   建议: 增加相关检索词，扩充知识库内容")

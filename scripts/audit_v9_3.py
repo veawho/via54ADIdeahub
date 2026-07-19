@@ -6,7 +6,7 @@
 - Cross-check with Gemini: is the case_name a real GP/Gold winner?
 - Output: /tmp/audit_v9_3.md
 """
-import json, os
+import json
 from pathlib import Path
 from collections import Counter, defaultdict
 
@@ -138,48 +138,48 @@ real_dupes = {k: v for k, v in dupes.items() if len(v) > 1}
 lines = []
 def w(s=""): lines.append(s)
 w(f"# v9.3 Audit Report — {total} case dirs")
-w(f"")
-w(f"## Summary")
+w("")
+w("## Summary")
 w(f"- Total case dirs: **{total}**")
 w(f"- 5-file complete: **{complete}** ({complete*100//total}%)")
 w(f"- Known (12 industries): **{len(known)}** cases / {len(brands_known)} brands")
 w(f"- Unknown: **{len(unknown)}** cases / {len(brands_unknown)} brands")
 w(f"- Brand overlap (in both): **{len(brands_overlap)}** {sorted(brands_overlap)}")
-w(f"")
-w(f"## Industries (known)")
+w("")
+w("## Industries (known)")
 for k, v in industries.most_common():
     w(f"- {k}: {v}")
-w(f"")
-w(f"## Award tier (all)")
+w("")
+w("## Award tier (all)")
 for k, v in tiers.most_common():
     w(f"- {k}: {v}")
-w(f"")
-w(f"## Top 20 known brands")
+w("")
+w("## Top 20 known brands")
 for b, n in brand_counts_known.most_common(20):
     w(f"- {b}: {n}")
-w(f"")
-w(f"## Top 20 unknown brands")
+w("")
+w("## Top 20 unknown brands")
 for b, n in brand_counts_unknown.most_common(20):
     w(f"- {b}: {n}")
-w(f"")
-w(f"## Real duplicates (brand+case_norm across paths)")
+w("")
+w("## Real duplicates (brand+case_norm across paths)")
 for (b, cn), paths in list(real_dupes.items())[:30]:
     w(f"- {b} / {cn}: {len(paths)} paths")
     for p in paths:
         w(f"  - {p}")
 w(f"- Total dup groups: {len(real_dupes)}")
-w(f"")
-w(f"## Suspect quality (概述.md says 'no specific / not real / couldn't find')")
+w("")
+w("## Suspect quality (概述.md says 'no specific / not real / couldn't find')")
 for b, cn, t in suspect_quality[:30]:
     w(f"- {b} / {cn}: {t[:150]}")
 w(f"- Total suspect: {len(suspect_quality)}")
-w(f"")
-w(f"## Suspicious brand names in Unknown (likely parse errors)")
+w("")
+w("## Suspicious brand names in Unknown (likely parse errors)")
 for b in brands_suspicious:
     w(f"- {b}: {brand_counts_unknown[b]} cases")
 w(f"- Total: {len(brands_suspicious)}")
-w(f"")
-w(f"## Incomplete cases (known, missing 5-file)")
+w("")
+w("## Incomplete cases (known, missing 5-file)")
 incomplete = [c for c in known if not c["complete"]]
 for c in incomplete:
     miss = [r for r in required if not (c["path"] + chr(92) + r).replace(chr(92)+chr(92), "/").startswith(c["path"])]

@@ -4,7 +4,7 @@
 """
 import json, re, os, ssl, urllib.request, urllib.parse
 from pathlib import Path
-from datetime import datetime
+
 
 CASES = Path.home() / "Desktop" / "创意案例库_扩充"
 
@@ -310,7 +310,7 @@ for case_name, url in CASES_DATA:
         img_lines.append(f"| {i} | `{fname}` |")
 
     q = urllib.parse.quote
-    sources = f"""## 来源链接
+    sources = """## 来源链接
 
 ### 原文章节
 - 广告门/梅花网原文：{url}
@@ -318,7 +318,7 @@ for case_name, url in CASES_DATA:
 ### 行业案例数据库搜索链接
 - [数英网搜索](https://www.digitaling.com/search?q={q(title)}) · [梅花网搜索](https://www.meihua.info/search?q={q(title)}) · [广告门搜索](https://www.adquan.com/search?q={q(title)}) · [ADGuider搜索](https://www.adguider.com/search?q={q(title)}) · [Cannes Lions搜索](https://www.canneslions.com/search?q={q(title)}) · [ADFEST搜索](https://www.adfest.com/search?q={q(title)}) · [WARC搜索](https://www.warc.com/search?q={q(title)}) · [D&AD搜索](https://www.dandad.org/en/search?q={q(title)}) · [Effie搜索](https://www.effie.org/search?q={q(title)}) · [Clio Awards搜索](https://www.clioawards.com/search/?q={q(title)})"""
 
-    report = f"""---
+    report = """---
 title: {title}
 description: 12维医学传播创意案例深度综合报告v3
 version: 3.0

@@ -4,7 +4,7 @@ download_case_images.py — 通过 SearXNG 为缺图案例下载真实图片（>
 """
 
 import json
-import os
+
 import time
 import urllib.request
 import urllib.parse
@@ -36,7 +36,7 @@ def search_images(query, limit=8):
     try:
         with urllib.request.urlopen(req, timeout=15) as resp:
             return json.loads(resp.read())
-    except Exception as e:
+    except Exception:
         return {}
 
 
@@ -65,7 +65,7 @@ def download_and_verify(img_url, dest_path, min_size=500):
         req = urllib.request.Request(img_url, headers=headers)
         with urllib.request.urlopen(req, timeout=15) as resp:
             data = resp.read()
-    except Exception as e:
+    except Exception:
         return (False, 0, 0)
 
     # 跳过太大（>15MB）或太小（<5KB）的文件

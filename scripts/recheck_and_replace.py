@@ -51,7 +51,7 @@ def download_img(url, dest_path, min_size=500):
             img.save(dest_path, "JPEG", quality=88)
             return True, w, h
         return False, w, h
-    except Exception as e:
+    except Exception:
         return False, 0, 0
 
 # ── 主逻辑 ──────────────────────────────────────────────

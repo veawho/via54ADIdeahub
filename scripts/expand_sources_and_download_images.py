@@ -7,7 +7,7 @@
   3. 补充完整来源链接（基于 veawho/Notebook 营销资源清单的100+来源库）
   4. 对无原文章节：基于文件夹名+已知信息推断补充
 """
-import json, re, time, urllib.request, urllib.parse, os, ssl
+import json, re, time, urllib.request, urllib.parse
 from pathlib import Path
 from datetime import datetime
 
@@ -316,7 +316,7 @@ def generate_v2_report(case_name, meta, existing_content, original_urls):
         "",
         f"# {title}",
         "",
-        f"> **深度综合报告 v2.0** · via54ADIdeahub · 2026-06-23",
+        "> **深度综合报告 v2.0** · via54ADIdeahub · 2026-06-23",
         "",
         "> 本报告基于PDF原文、网络扩充、规则推断综合生成，包含完整12维框架分析、真实数据指标、100+来源链接和下载图片清单。",
         "",

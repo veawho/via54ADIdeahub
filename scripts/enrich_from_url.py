@@ -105,7 +105,6 @@ def process_case(case_path: Path) -> dict:
 
     text_preview = meta.get("text_preview", "")
     urls_in_text = extract_urls_from_text(text_preview)
-    search_keywords = meta.get("search_keywords", [])
 
     results = {
         "status": "done",
@@ -131,7 +130,7 @@ def process_case(case_path: Path) -> dict:
             html = curl_fetch(url)
 
             if "<!-- ERROR:" in html or len(html) < 200:
-                print(f"       ❌ 抓取失败")
+                print("       ❌ 抓取失败")
                 continue
 
             # 提取文章文本
@@ -172,7 +171,7 @@ def update_enriched(case_path: Path, case_name: str, meta: dict,
         combined_text += f"\n\n### 来源: {at['domain']}\n{at['text'][:2000]}"
 
     # 生成来源链接 markdown
-    links_md = f"\n## 来源链接\n\n"
+    links_md = "\n## 来源链接\n\n"
     seen_domains = set()
     for url in source_urls:
         domain = urlparse(url).netloc
@@ -187,16 +186,7 @@ def update_enriched(case_path: Path, case_name: str, meta: dict,
         for i, img in enumerate(images[:10], 1):
             imgs_md += f"- 图片{i}: {img}\n"
 
-    # 构建完整 enriched.md
-    case_title = case_name.replace('_', ' ')
-
-    # 从 article_text 提取有价值的内容片段
-    key_content = combined_text[:4000] if combined_text else (
-        f"\n\n## 案例正文（来自 PDF + 网络补充）\n\n"
-        f"原文摘要: {meta.get('text_preview', '')[:1000]}"
-    )
-
-    enriched = f"""---
+    enriched = """---
 title: {case_title}
 description: 12维医学传播创意案例分析
 version: 1.0
@@ -303,7 +293,7 @@ def main():
                 meta["status"] = "web_enriched_no_content"
                 with open(case_path / "metadata.json", 'w', encoding="utf-8") as f:
                     json.dump(meta, f, ensure_ascii=False, indent=2)
-                print(f"   ⚠️ 无内容可更新（仅更新 metadata）")
+                print("   ⚠️ 无内容可更新（仅更新 metadata）")
                 success += 1
 
         except Exception as e:

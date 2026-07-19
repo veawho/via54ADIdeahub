@@ -69,11 +69,11 @@ def build_searxng_section(case_data):
     result_count = case_data.get("result_count", 0)
 
     lines = []
-    lines.append(f"\n\n## D10 执行亮点（SearXNG 补充）\n")
+    lines.append("\n\n## D10 执行亮点（SearXNG 补充）\n")
     lines.append(f"- **搜索关键词**: {query}\n")
     lines.append(f"- **搜索结果数量**: {result_count} 条（来源：Bing/Qwant/Wikipedia/Swisscows）\n")
     lines.append(f"- **补充时间**: {datetime.now().strftime('%Y-%m-%d')}\n")
-    lines.append(f"\n### 创意参考来源\n")
+    lines.append("\n### 创意参考来源\n")
 
     for i, r in enumerate(results[:8], 1):
         parts = r.split("|")
@@ -84,22 +84,22 @@ def build_searxng_section(case_data):
             lines.append(f"   {content[:200]}\n")
 
     if suggestions:
-        lines.append(f"\n### 关联搜索建议\n")
+        lines.append("\n### 关联搜索建议\n")
         for s in suggestions:
             lines.append(f"- {s}\n")
 
-    lines.append(f"\n## D11 合规伦理（SearXNG 补充）\n")
+    lines.append("\n## D11 合规伦理（SearXNG 补充）\n")
     lines.append("- 内容来源：Bing/Qwant/Wikipedia/Swisscows 等公开搜索引擎\n")
     lines.append("- 所有案例均为 Cannes Lions / Clio / D&AD 获奖或行业公开案例\n")
     lines.append("- 符合医疗传播伦理规范\n")
 
-    lines.append(f"\n## D12 成果 ROI（SearXNG 补充）\n")
+    lines.append("\n## D12 成果 ROI（SearXNG 补充）\n")
     lines.append(f"- 通过 SearXNG 搜索补充了 {result_count} 条相关案例数据\n")
     lines.append("- 奖项官网、品牌官网、代理商案例页面等多源验证\n")
     lines.append(f"- 数据获取时间: {datetime.now().strftime('%Y-%m-%d')}\n")
 
-    lines.append(f"\n---\n")
-    lines.append(f"*via54ADIdeahub | SearXNG 自动补充*\n")
+    lines.append("\n---\n")
+    lines.append("*via54ADIdeahub | SearXNG 自动补充*\n")
 
     return "".join(lines)
 
@@ -171,7 +171,7 @@ def main():
         print(f"  {dirname} ← {match}")
 
     if skipped:
-        print(f"\n未匹配案例 (前10):")
+        print("\n未匹配案例 (前10):")
         for name, reason in skipped[:10]:
             print(f"  {name}: {reason}")
 

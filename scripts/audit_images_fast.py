@@ -6,7 +6,7 @@ audit_images_fast.py — 快速图片审计：PIL元数据 + 随机vision采样
 3. 汇总问题案例 → 输出到 /tmp/audit_manifest.json
 """
 
-import json, pathlib, random
+import json, pathlib
 from PIL import Image
 
 EXPAND_DIR = pathlib.Path.home() / "Desktop/创意案例库_扩充"
