@@ -44,14 +44,22 @@ render_document = OKFDocument.serialize
 # bundle.py. Re-export them here so `from via54_okf import load_bundle` works.
 from .bundle_io import (  # noqa: E402
     Bundle as _BundleImpl,
-    BundleManifest as BundleManifest,
-    load_bundle as load_bundle,
-    write_bundle as write_bundle,
-    validate as validate,
+    BundleManifest,
+    load_bundle,
+    write_bundle,
+    validate,
 )
 
 # Legacy alias kept for early example code.
 Bundle = _BundleImpl  # type: ignore[misc]
+
+
+def __getattr__(name):
+    """Late-bound re-exports for legacy names (load_bundle/write_bundle/validate)."""
+    if name in ("load_bundle", "write_bundle", "validate"):
+        from . import bundle_io
+        return getattr(bundle_io, name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
 
 __all__ = [
@@ -64,6 +72,9 @@ __all__ = [
     "parse_frontmatter",
     "Bundle",
     "BundleManifest",
+    "load_bundle",
+    "write_bundle",
+    "validate",
     "LinkKind",
     "RESERVED_NAMES",
     "iter_concept_files",
