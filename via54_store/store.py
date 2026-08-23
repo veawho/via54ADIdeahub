@@ -1,5 +1,8 @@
 """via54_store.store — SQLite-backed knowledge base wrapper.
 
+[CN] 基于 SQLite 的广告案例与创意知识库封装层。支持对 `schema.sql` 结构进行 CRUD 操作，并作为 CLI 调用的基础底座。
+[EN] SQLite-backed knowledge base wrapper. Encapsulates all CRUD on the 9-table schema in `schema.sql`.
+
 Encapsulates all CRUD on the 9-table schema in `schema.sql`. Designed to be
 used both as a library (via `KBStore(db_path)`) and by `via54_store.cli`.
 """

@@ -1,3 +1,15 @@
+<div align="center">
+
+# via54ADIdeahub
+
+> **🌐 Language**: [🇨🇳 中文](#) (current) | [🇺🇸 English](./README_EN.md)
+>
+> _This document is in Chinese. For English, click above._
+
+</div>
+
+---
+
 # via54_AD_AdCases_KB — Main Index
 
 > 最后更新: 2026-07-01 23:55
