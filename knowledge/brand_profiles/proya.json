@@ -1,0 +1,20 @@
+{
+  "brand_id": "proya",
+  "brand_name": "珀莱雅 (PROYA)",
+  "tone_of_voice": "反抗偏见、人间清醒、先锋自洽、有力的女性力量",
+  "cadence_preference": "7+4 / 6+6 结构，A!=B 反常识断言，平仄抑扬",
+  "core_spirit": "敢爱也敢不爱；性别不是边界线，偏见才是；看见女性的真实困境与生命力",
+  "forbidden_words": [
+    "白幼瘦",
+    "年龄焦虑",
+    "为了男人变美",
+    "女德说教"
+  ],
+  "micro_sensory_anchors": [
+    "晨起第一抹阳光",
+    "撕开早C晚A精华封口",
+    "直视镜子的坚定眼神",
+    "风吹透发丝的自由"
+  ],
+  "similarity_role_model": "《性别不是边界线，偏见才是》/《时间的答案》"
+}

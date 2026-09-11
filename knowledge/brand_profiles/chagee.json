@@ -1,0 +1,20 @@
+{
+  "brand_id": "chagee",
+  "brand_name": "霸王茶姬 (CHAGEE)",
+  "tone_of_voice": "新中式东方美学、清爽自洽、优雅克制",
+  "cadence_preference": "四字格与七言对仗为主，声律平仄工整，尾音多用开口韵母 (a/ang/eng)",
+  "core_spirit": "以东方茶，会世界友；回归茶本味，拒绝繁琐添加与糖分焦虑",
+  "forbidden_words": [
+    "工业糖精",
+    "土味促销",
+    "降价大甩卖",
+    "极品爆款"
+  ],
+  "micro_sensory_anchors": [
+    "原叶现萃的清香",
+    "蓝色几何几何几何杯身",
+    "微风拂过茶马古道",
+    "一口回甘的清爽"
+  ],
+  "similarity_role_model": "许舜英美学 / 东方慢生活"
+}

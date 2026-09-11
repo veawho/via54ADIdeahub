@@ -58,7 +58,12 @@ class ExemplarReasoner:
                 "archetype": ev["archetype"],
                 "tagline": ev["headline"],
                 "cadence_eval": ev["cadence_detail"],
-                "why_better": ev["why_masterclass"]
+                "why_better": ev["why_masterclass"],
+                "similarity_benchmark": {
+                    "dimension": ev["similarity_benchmark"]["similarity_dimension"],
+                    "matched_classic": ev["similarity_benchmark"]["benchmark_case"],
+                    "rationale": ev["similarity_benchmark"]["similarity_analysis"]
+                }
             })
 
         return {

@@ -85,28 +85,40 @@ graph TD
 - **`pet` (养宠一族 / 毛孩子家长)**：毛孩子、情绪解药、治愈、科学喂养、无声告白
 - **`outdoor` (山系青年 / 旷野自救)**：去旷野、身体在场、轻装自救、精神庇护所
 
-### 3. 用户初稿诊断与润色工具 (Copy Polisher)
-- **全方位体检**：量化健康分（1-5分），自动诊断爹味说教、假大空行话、水词修饰及广告法违规。
-- **三维重构方案**：一键输出 **锐利脱水版**、**情绪共鸣版**、**圈层地道版**。
+### 3. 四维经典对标相似性体系 (`4-D Similarity Benchmarks`)
+- **🔊 读音相似性 (Phonetic Cadence)**：对标四字格/五字绝句对称律动、开合口韵母落地（如华与华、OPPO）。
+- **💡 意义相似性 (Semantic Subversion)**：对标观念反常识认知断言与哲学重构（如珀莱雅《性别不是边界线，偏见才是》、内外）。
+- **✍️ 表达相似性 (Bilingual & Tone Expression)**：对标国际化中英自然咬合律动与潮流身份认同（如 Apple、步履不停）。
+- **🏛️ 结构相似性 (Structural Spacetime Contrast)**：对标昼夜/空间/生理剧烈反差结构与通感对仗（如杜蕾斯、诚品书店）。
 
-### 4. 概念双关与谐音推演引擎 (Pun Engine)
-- 基于表面动作与品牌心智双向推演，评估牵强感与翻车风险（Cringe Risk），杜绝低俗谐音烂梗。
+### 4. 品牌调性画像系统 (`BrandProfileManager`)
+- 预置高辨识度品牌档案（`apple`、`chagee`、`proya`、`wenjian`），支持自定义配置品牌调性、律动偏好、禁用词黑名单与微感官物象锚点。
+
+### 5. 用户初稿诊断与润色工具 (Copy Polisher)
+- **全方位体检**：量化健康分（1-5分），自动诊断爹味说教、假大空行话、水词修饰及广告法违规。
+- **三维重构方案**：一键输出 **锐利脱水版**、**情绪共鸣版**、**圈层地道版**（每条均含 3 维深度推理与相似性对标）。
+
+### 6. 概念双关与谐音推演引擎 (Pun Engine)
+- 基于表面动作与品牌心智双向推演，评估牵强感与翻车风险（Cringe Risk），杜绝低俗谐音烂梗（保底 3 组方案附带深度依据）。
 
 ---
 
-## 🛠️ MCP (Model Context Protocol) 9 大工具矩阵
+## 🛠️ MCP (Model Context Protocol) 12 大工具矩阵
 
 | 工具名称 | 功能描述 |
 |:---|:---|
 | **`analyze_linguistic_laws`** | 深度分析任意文案（纯中/纯英/中英混搭）的声律平仄、意义张力与直觉物象 |
-| **`deconstruct_and_evolve_copy`** | 示例文案 3 维底层逆向解构，推演 5 大声律升维文案 |
+| **`deconstruct_and_evolve_copy`** | 示例文案 3 维底层逆向解构，推演 5 大声律升维文案并附四维相似性对标 |
 | **`reason_creative_strategy`** | 生成 5 大差异化口号全案、品牌宣言、超级符号及 Critic 质检打分 |
+| **`manage_brand_profiles`** | 管理品牌调性画像、律动偏好、禁用词库与感官锚点 |
 | **`polish_and_diagnose_copy`** | 对用户已有文案初稿进行爹味与水词诊断，并输出 3 维重构方案 |
 | **`explore_creative_puns`** | 发散概念双关与谐音文案，并提供牵强感与翻车风险质检 |
 | **`audit_advertising_compliance`** | 检查文案是否触犯广告法极限词或圈层敏感红线 |
 | **`search_audience_language`** | 检索特定圈层的语言特征、黑话指南与禁忌避坑规则 |
 | **`search_knowledge_base`** | 跨全行业创意案例与报告进行 TF-IDF 混合检索 |
 | **`list_advertising_cases`** | 按行业、品牌、奖项等级（Cannes/Clio/Effie等）筛选案例 |
+| **`get_case_detail`** | 获取特定行业/品牌广告案例的完整深度报告与物料 |
+| **`get_kb_stats`** | 统计案例库总量、行业覆盖度及奖项分布 |
 
 ---
 

@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """
-master_linguistic_engine.py — Masterclass Linguistic Alchemy & Acoustic/Semantic/Intuitive Synthesis Engine
+master_linguistic_engine.py — Masterclass Linguistic Alchemy & 4-Dimensional Similarity Engine
 Deconstructs and synthesizes copy across:
   1. 读音维度 (Phonetic Cadence, Tone Contour, Plosives, Bilingual Harmonization)
   2. 意义维度 (Semantic Tension, A!=B Subversion, Conceptual Isomorphism)
   3. 直觉维度 (Human Neurological Intuition, Mirror-Neuron Micro-Sensory)
+  4. 相似性对标 (Phonetic, Semantic, Expression, Structural Similarity Benchmarking)
 """
 
 import sys
@@ -17,7 +18,8 @@ from typing import Dict, List, Any, Optional
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-# Plosive and resonant acoustic tokens
+from agents.brand_profile_manager import BrandProfileManager
+
 PLOSIVES = ["p", "b", "t", "d", "k", "g", "破", "爆", "打", "通", "开", "关", "拔", "弹", "跳", "扑", "卡", "哒"]
 RESONANT_VOWELS = ["啊", "呀", "啦", "吧", "场", "光", "亮", "关", "安", "稳", "天", "生", "声", "活", "放", "翔", "昂"]
 MIRROR_NEURON_ACTIONS = ["呼吸", "吞咽", "撕开", "关门", "快门", "甩开", "敲击", "换上", "踏入", "吹透", "握紧", "跳动"]
@@ -26,7 +28,6 @@ class PhoneticCadenceAnalyzer:
     """Masterclass Acoustic & Cadence Analyzer for Chinese and Bilingual Copy."""
 
     def analyze(self, text: str) -> Dict[str, Any]:
-        # 1. Detect language mode
         has_english = bool(re.search(r"[a-zA-Z]+", text))
         has_chinese = bool(re.search(r"[\u4e00-\u9fff]+", text))
         
@@ -37,12 +38,10 @@ class PhoneticCadenceAnalyzer:
         else:
             lang_mode = "纯中文 (Pure Chinese)"
 
-        # 2. Syllable & Rhythm segmentation
         clauses = [c.strip() for c in re.split(r"[,，。！？；:\s/]+", text) if c.strip()]
         lengths = [len(c) for c in clauses]
         rhythm_pattern = "+".join(str(l) for l in lengths) if lengths else "0"
 
-        # 3. Symmetry & Cadence check
         is_symmetric = False
         symmetry_desc = "自由散句"
         if len(lengths) == 2:
@@ -56,23 +55,19 @@ class PhoneticCadenceAnalyzer:
             is_symmetric = True
             symmetry_desc = f"{lengths[0]}字 极简短促断言"
 
-        # 4. Plosive & Resonant Vowel density
         plosive_count = sum(1 for p in PLOSIVES if p.lower() in text.lower())
         has_resonant_end = any(text.endswith(v) for v in RESONANT_VOWELS) or any(text.lower().endswith(e) for e in ["on", "in", "it", "ay", "play", "win", "go"])
 
-        # 5. Bilingual bite harmony
         bilingual_harmony = "无英文"
         bilingual_score_bonus = 0.0
         if lang_mode.startswith("中英文混合"):
             eng_words = re.findall(r"[a-zA-Z]+", text)
-            # Check if English words are concise and punchy (e.g. PLAY, PPT, Online, Win, C, A)
             if all(len(w) <= 8 for w in eng_words):
                 bilingual_harmony = f"中英咬合极佳：[{', '.join(eng_words)}] 作为重音锚点，无生硬夹杂感"
                 bilingual_score_bonus = 0.4
             else:
                 bilingual_harmony = "中英夹杂略显冗长，建议缩减英文长度"
 
-        # 6. Overall Cadence score (1-5)
         score = 3.8
         if is_symmetric:
             score += 0.5
@@ -155,12 +150,13 @@ class IntuitiveSensoryMapper:
 
 
 class MasterLinguisticEngine:
-    """Unified Masterclass Linguistic Engine integrating Sound, Meaning, and Intuition."""
+    """Unified Masterclass Linguistic Engine integrating Sound, Meaning, Intuition and 4-D Similarity Benchmarks."""
 
     def __init__(self):
         self.phonetic_analyzer = PhoneticCadenceAnalyzer()
         self.semantic_deconstructor = SemanticTensionDeconstructor()
         self.sensory_mapper = IntuitiveSensoryMapper()
+        self.brand_manager = BrandProfileManager()
 
     def deep_reverse_engineer(self, text: str) -> Dict[str, Any]:
         """Perform 3-dimensional reverse engineering on any copy/slogan."""
@@ -179,6 +175,39 @@ class MasterLinguisticEngine:
             "core_law_summary": f"读音遵循 [{phonetic['symmetry_description']} | {phonetic['bilingual_harmony']}]；意义依托 [{semantic['tension_type']}]；直觉依托 [{sensory['sensory_description']}]。"
         }
 
+    def match_similarity_benchmark(self, text: str, archetype: str = "", audience_type: str = "default") -> Dict[str, Any]:
+        """Match 4-dimensional similarity benchmark against classic advertising masterpieces."""
+        # 1. Phonetic Similarity (读音相似性)
+        if "4+4" in text or "稳住全场" in text or len(text) <= 10:
+            sim_dim = "🔊 读音相似性 (Phonetic Cadence)"
+            benchmark = "《知所先后，则近道矣》 / 华与华《拍照用OPPO，充电5分钟》"
+            analysis = "对标经典四字格/五字绝句对称律动，声调仄起平收，开口韵母清脆落地，发音毫无阻力。"
+        # 2. Semantic Tension Similarity (意义相似性)
+        elif any(w in text for w in ["不是", "而是", "偏见", "边界", "定义", "不必向"]):
+            sim_dim = "💡 意义相似性 (Semantic Subversion)"
+            benchmark = "珀莱雅《性别不是边界线，偏见才是》 / 内外《NO BODY IS NOBODY》"
+            analysis = "对标经典‘A!=B, C=D’反常识认知重构，否定世俗审判假面，确立生命本质主权。"
+        # 3. Expression / Bilingual Similarity (表达相似性)
+        elif any(w in text for w in ["PLAY", "Online", "Offline", "Shot", "Win", "PPT"]):
+            sim_dim = "✍️ 表达相似性 (Bilingual & Tone Expression)"
+            benchmark = "步履不停《你写PPT时，阿拉斯加的鳕鱼正跃出水面》 / Apple《Shot on iPhone》"
+            analysis = "对标国际化中英文咬合律动，以英文作为核心重音锚点，消除外行夹杂感，制造潮流身份认同。"
+        # 4. Structural Similarity (结构相似性)
+        elif any(w in text for w in ["白天", "夜晚", "除锈", "离职", "屏幕", "消息", "心跳"]):
+            sim_dim = "🏛️ 结构相似性 (Structural Spacetime Contrast)"
+            benchmark = "杜蕾斯《让每一个冲动都有安全的缓冲》 / 胜加《时间的答案》"
+            analysis = "对标经典昼夜/空间/心理剧烈反差结构，前半句铺设现实压力，后半句一秒完成情绪自救。"
+        else:
+            sim_dim = "🏛️ 结构相似性 (Structural Isomorphism)"
+            benchmark = "诚品书店《在书与非书之间，我们阅读生活》"
+            analysis = "对标经典通感对仗句式，将商业功能升格为精神陪伴与文化图腾。"
+
+        return {
+            "similarity_dimension": sim_dim,
+            "benchmark_case": benchmark,
+            "similarity_analysis": analysis
+        }
+
     def evolve_master_slogans(
         self,
         reference_text: str,
@@ -187,11 +216,11 @@ class MasterLinguisticEngine:
         target_audience: str,
         audience_type: str = "default"
     ) -> Dict[str, Any]:
-        """Synthesize 5 evolved masterclass variations that excel across sound, meaning, and intuition."""
+        """Synthesize 5 evolved masterclass variations, each with 3-D reasoning and 4-D similarity benchmarks."""
         decon = self.deep_reverse_engineer(reference_text)
-        b_name = f"【{brand}】" if brand else ""
+        brand_prof = self.brand_manager.get_profile(brand)
+        b_name = f"【{brand_prof.get('brand_name', brand)}】" if brand else ""
 
-        # Domain tailored master variations
         if audience_type == "gay":
             v1 = {"tag": "稳住全场，从容通关。", "type": "🎵 极致声律格 (4+4 律绝)", "why": "4+4 平仄对称，开合口收音（场 chǎng / 关 guān），声律铿锵，记忆零阻力"}
             v2 = {"tag": f"每一次尽兴的PLAY，都有{b_name}不掉线的底气。", "type": "🌐 中英咬合通感格 (Bilingual Dynamic)", "why": "以英文潮词 PLAY 为爆破重音，中英文 7+10 自然对齐，化敏感为自洽时尚"}
@@ -220,6 +249,7 @@ class MasterLinguisticEngine:
         evolved_list = []
         for v in [v1, v2, v3, v4, v5]:
             eval_res = self.deep_reverse_engineer(v["tag"])
+            sim_bench = self.match_similarity_benchmark(v["tag"], v["type"], audience_type=audience_type)
             evolved_list.append({
                 "headline": v["tag"],
                 "archetype": v["type"],
@@ -227,45 +257,54 @@ class MasterLinguisticEngine:
                 "mastery_score": eval_res["overall_mastery_score"],
                 "cadence_detail": eval_res["phonetic_dimension"],
                 "semantic_detail": eval_res["semantic_dimension"],
-                "intuition_detail": eval_res["intuition_dimension"]
+                "intuition_detail": eval_res["intuition_dimension"],
+                "similarity_benchmark": sim_bench
             })
 
         return {
             "reference_text": reference_text,
             "brand": brand,
+            "brand_profile": brand_prof,
             "product": product,
             "target_audience": target_audience,
             "audience_type": audience_type,
             "deconstruction": decon,
+            "total_evolutions": len(evolved_list),
             "evolved_slogans": evolved_list
         }
 
     def render_masterclass_card(self, result: Dict[str, Any]) -> str:
-        """Render beautiful Feishu markdown card for masterclass deconstruction and evolution."""
+        """Render beautiful Feishu markdown card with 4-D similarity benchmarks."""
         dec = result["deconstruction"]
         p = dec["phonetic_dimension"]
         s = dec["semantic_dimension"]
         i = dec["intuition_dimension"]
+        prof = result.get("brand_profile", {})
 
         evol_md = ""
         for idx, ev in enumerate(result["evolved_slogans"], 1):
+            sim = ev.get("similarity_benchmark", {})
             evol_md += f"""### 方案 {idx} · {ev['archetype']}
-> 🎯 **大师级文案**:  
+> 🎯 **大师级演化文案**:  
 > **`「{ev['headline']}」`**  
 >
-> 📊 **三大维度综合评分**: `★ {ev['mastery_score']} / 5.0`  
-> 🎵 **声律气口**: `{ev['cadence_detail']['rhythm_pattern']}` | {ev['cadence_detail']['symmetry_description']} | {ev['cadence_detail']['breath_flow']}  
-> 👁️ **直觉通感**: {ev['intuition_detail']['sensory_description']}  
+> 📊 **三维综合大师评分**: `★ {ev['mastery_score']} / 5.0`  
+> 🎵 **声律依据**: `{ev['cadence_detail']['rhythm_pattern']}` | {ev['cadence_detail']['symmetry_description']} | {ev['cadence_detail']['breath_flow']}  
+> 💡 **意义依据**: {ev['semantic_detail']['cognitive_depth']}  
+> 👁️ **直觉依据**: {ev['intuition_detail']['sensory_description']}  
+> 🔗 **相似性对标参考**: {sim.get('similarity_dimension', '🏛️ 结构相似性')}  
+> 📌 **对标经典案例**: *{sim.get('benchmark_case', '')}*  
+> 🔍 **对标借鉴解析**: {sim.get('similarity_analysis', '')}  
 > 🚀 **超越升维依据**: {ev['why_masterclass']}  
 
 ---
 """
 
-        md = f"""# 🌌 经典文案三维底层规律深度逆推与大师级升维全案
+        md = f"""# 🌌 经典文案三维底层规律深度逆推与四维相似性对标升维全案
 
 > 📌 **参考标注文案**: *"{result['reference_text']}"*  
 > 🎯 **目标客群**: {result['target_audience']} (圈层: {result['audience_type']}) | 📦 **核心产品**: {result['product']}  
-> 🏷️ **服务品牌**: {result['brand']}  
+> 🏷️ **服务品牌**: {result['brand']} (调性: {prof.get('tone_of_voice', '经典自洽')})  
 
 ---
 
@@ -292,7 +331,7 @@ class MasterLinguisticEngine:
 
 ---
 
-## 🏆 二、 基于底层公理演化的 5 大超越级文案矩阵
+## 🏆 二、 基于底层公理演化的 5 大超越级文案 (含四维相似性对标)
 {evol_md}
 """
         return md
@@ -303,7 +342,7 @@ if __name__ == "__main__":
     test_raw = "你写PPT时，阿拉斯加的鳕鱼正跃出水面"
     res = engine.evolve_master_slogans(
         reference_text=test_raw,
-        brand="步履不停 / 户外自救饮",
+        brand="proya",
         product="高浓度电解质草本饮",
         target_audience="大厂高压打工人",
         audience_type="genz"

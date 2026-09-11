@@ -1,0 +1,20 @@
+{
+  "brand_id": "apple",
+  "brand_name": "Apple",
+  "tone_of_voice": "极简极客、人文关怀、平实自信、克制震撼",
+  "cadence_preference": "三音节轻重格、短促动词起势、中英文无缝咬合",
+  "core_spirit": "Think Different；科技退居幕后，将聚光灯交给每个普通人的真实创造",
+  "forbidden_words": [
+    "参数堆砌",
+    "性价比之王",
+    "秒杀友商",
+    "跑分第一"
+  ],
+  "micro_sensory_anchors": [
+    "铝合金边缘的冰凉触感",
+    "手指轻按快门的轻微震颤",
+    "视网膜屏幕的高清还原",
+    "电梯门合上时的静音"
+  ],
+  "similarity_role_model": "Shot on iPhone / The Greatest"
+}

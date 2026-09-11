@@ -529,9 +529,50 @@ def analyze_linguistic_laws(
         return json.dumps({"error": str(e)}, ensure_ascii=False)
 
 
+# ── Tool: manage_brand_profiles ──────────────────────
+@mcp.tool()
+def manage_brand_profiles(
+    action: str = "list",
+    brand_id: str = "",
+    profile_json: str = "",
+) -> str:
+    """Manage brand tone of voice profiles, forbidden words, and rhythm preferences.
+
+    Args:
+        action: 'list' (list all profiles), 'get' (get profile by brand_id), or 'save' (create/update profile)
+        brand_id: Identifier or brand name (e.g. 'apple', 'proya', 'chagee', 'wenjian')
+        profile_json: Optional JSON string for saving a new/updated brand profile
+
+    Returns:
+        JSON string with brand profile data or list of profiles.
+    """
+    try:
+        from agents.brand_profile_manager import BrandProfileManager
+        mgr = BrandProfileManager()
+        if action == "list":
+            profiles = mgr.list_profiles()
+            return json.dumps({"total": len(profiles), "profiles": profiles}, ensure_ascii=False, indent=2)
+        elif action == "get":
+            if not brand_id:
+                return json.dumps({"error": "brand_id is required for 'get' action"}, ensure_ascii=False)
+            profile = mgr.get_profile(brand_id)
+            return json.dumps(profile, ensure_ascii=False, indent=2)
+        elif action == "save":
+            if not profile_json:
+                return json.dumps({"error": "profile_json is required for 'save' action"}, ensure_ascii=False)
+            data = json.loads(profile_json)
+            saved_id = mgr.save_profile(data)
+            return json.dumps({"status": "success", "saved_brand_id": saved_id}, ensure_ascii=False)
+        else:
+            return json.dumps({"error": f"Unknown action '{action}'"}, ensure_ascii=False)
+    except Exception as e:
+        return json.dumps({"error": str(e)}, ensure_ascii=False)
+
+
 # ── Entry point ───────────────────────────────────────
 if __name__ == "__main__":
     mcp.run(transport="stdio")
+
 
 
 

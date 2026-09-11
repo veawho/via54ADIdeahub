@@ -56,7 +56,7 @@ class TestExemplarReasoner(unittest.TestCase):
             self.assertIn("cadence_eval", ev)
 
         card = self.engine.render_evolution_card(res)
-        self.assertIn("经典文案三维底层规律深度逆推与大师级升维全案", card)
+        self.assertIn("经典文案三维底层规律深度逆推", card)
         self.assertIn("超越升维依据", card)
 
     def test_mcp_deconstruct_tool(self):

@@ -16,12 +16,14 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from tools.digitaling_topys_collector import get_benchmarking_cases
+from agents.master_linguistic_engine import MasterLinguisticEngine
 
 def run_incremental_collection():
     db_path = PROJECT_ROOT / "via54_kb.db"
     conn = sqlite3.connect(str(db_path))
     cursor = conn.cursor()
 
+    engine = MasterLinguisticEngine()
     cases = get_benchmarking_cases()
     new_count = 0
     skipped_count = 0
@@ -32,6 +34,13 @@ def run_incremental_collection():
         if existing:
             skipped_count += 1
             continue
+
+        slogan = c.get("campaign_slogan") or c.get("brand_slogan") or c.get("title", "")
+        # Run 3-D reverse-engineering analysis
+        if slogan:
+            analysis = engine.deep_reverse_engineer(slogan)
+            analysis_summary = f"\n\n## 🎵 3-D 语言学与神经直觉逆向拆解\n- 读音节拍分析: {analysis.get('phonetic', {}).get('cadence', {}).get('pattern', '对称节奏')}\n- 语义张力对立: {analysis.get('semantic', {}).get('core_tension', {}).get('tension_formula', 'A != B')}\n- 0.5s人类直觉: {analysis.get('intuition', {}).get('neuro_trigger', {}).get('mechanism', '镜像神经元触发')}\n- 综合卓越度: {analysis.get('composite_score', 90)}/100"
+            c["full_markdown"] = (c.get("full_markdown", "") + analysis_summary).strip()
 
         tags_str = json.dumps(c.get("social_meme_tags", []), ensure_ascii=False)
         cursor.execute("""
@@ -67,8 +76,9 @@ def run_incremental_collection():
     conn.commit()
     conn.close()
 
-    print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] Incremental collection complete: {new_count} new cases added, {skipped_count} existing cases skipped.")
+    print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] Incremental collection complete: {new_count} new cases analyzed & added, {skipped_count} existing cases skipped.")
     return {"new_count": new_count, "skipped_count": skipped_count}
 
 if __name__ == "__main__":
     run_incremental_collection()
+

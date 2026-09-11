@@ -1,0 +1,20 @@
+{
+  "brand_id": "wenjian",
+  "brand_name": "稳健伙伴 / 男性亲密健康",
+  "tone_of_voice": "专业自洽、克制默契、无说教、高级性感",
+  "cadence_preference": "4+4 律绝对称、英文 PLAY 爆破重音、双声平韵落地",
+  "core_spirit": "全场稳住才是真正的通关；爱是一场冒险，但防护装备必须万无一失",
+  "forbidden_words": [
+    "生硬恐吓",
+    "假药夸大",
+    "爹味审判",
+    "低俗擦边"
+  ],
+  "micro_sensory_anchors": [
+    "金属包装清脆的泄压声",
+    "满格信号的安全感",
+    "深夜聚会后的从容离开",
+    "温水吞服的日常仪式"
+  ],
+  "similarity_role_model": "杜蕾斯《冲动与缓冲》/ 珀莱雅《敢不爱》"
+}

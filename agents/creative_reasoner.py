@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-creative_reasoner.py — Masterclass Linguistic Alchemy & Cultural Brand Engine (v2.0 Upgrade)
+creative_reasoner.py — Masterclass Linguistic Alchemy & Cultural Brand Engine (v2.3 Upgrade)
 Features:
-  - 5 Distinct Slogan Archetypes (反转热梗 / 情绪嘴替 / 故事叙事 / 数据背书 / 圈层共鸣)
-  - Multi-subculture Language & Context Engine (Gay/LGBT+, 00s GenZ, Independent Women, Patient Insights)
+  - 5 Distinct Slogan Archetypes with 4-D Similarity Benchmarks (Phonetic, Semantic, Expression, Structure)
+  - Brand Tone Profile Integration
   - Anti-Water Dehydration & Linter Pass
-  - Persona Critic Evaluation Node (Emotion Score, Humanity Score, In-group Authenticity)
+  - Independent Critic Evaluation Node (Emotion Score, Humanity Score, In-group Authenticity)
   - Strict Prompt/Fact Context Isolation
 """
 
@@ -22,6 +22,8 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 from via54_store.store import KBStore
 from via54_store.retrieval import HybridRetriever
+from agents.brand_profile_manager import BrandProfileManager
+from agents.master_linguistic_engine import MasterLinguisticEngine
 
 WATER_WORDS_DICTIONARY = [
     "非常", "十分", "极其", "真是太", "简直", "真的是",
@@ -30,13 +32,15 @@ WATER_WORDS_DICTIONARY = [
 ]
 
 class CreativeReasoner:
-    """Masterclass Creative Director & Linguistic Alchemy Engine v2.0."""
+    """Masterclass Creative Director & Linguistic Alchemy Engine v2.3."""
 
     def __init__(self, db_path: Optional[Path] = None):
         self.db_path = db_path or (PROJECT_ROOT / "via54_kb.db")
         self.store = KBStore(self.db_path)
         self.retriever = HybridRetriever(self.store)
         self.subculture_dir = PROJECT_ROOT / "audience_language"
+        self.brand_manager = BrandProfileManager()
+        self.linguistic_engine = MasterLinguisticEngine()
         self._load_subculture_index()
 
     def _load_subculture_index(self):
@@ -178,57 +182,58 @@ class CreativeReasoner:
         version_count: int = 5,
         enable_critic: bool = True
     ) -> Dict[str, Any]:
-        """Generate multi-archetype creative strategies with audience context and critic review."""
+        """Generate multi-archetype creative strategies with 4-D similarity benchmarks and brand profile."""
         audience_ctx = self.get_audience_context(audience_type)
         benchmarks = self.retrieve_benchmarks(f"{product} {target_audience}", top_k=3)
         pun_benchmarks = self.retrieve_pun_cases(audience_type=audience_type, top_k=2)
+        brand_prof = self.brand_manager.get_profile(brand)
+        b_name = f"【{brand_prof.get('brand_name', brand)}】" if brand else "品牌"
 
         if audience_type == "gay":
             pathology_diagnosis = f"""【圈层群体真实心理洞察 · 拒绝假面与说教】
 当代【{target_audience}】最渴望的是‘平视的尊重与真实的自洽’。
 他们不需要居高临下的道德审判，也不需要猎奇的刻板标签。真正的沟通是‘心照不宣的默契’——
-【{brand}】以硬核专业与克制温情，为每一次亲密探索与日常健康保驾护航。"""
+{b_name}以硬核专业与克制温情，为每一次亲密探索与日常健康保驾护航。"""
             core_insight = f"""【观念重构 · 自由与底气】
 【{product}】不是一项被动的健康防护，而是**‘成年人从容掌控亲密自由的底气’**。"""
         elif audience_type == "genz":
             pathology_diagnosis = f"""【时代病理诊断 · 撕开伪善画饼】
 当代【{target_audience}】被困在‘必须卷、必须松弛、必须情绪稳定’的假面规训中。
-【{brand}】不教他们如何成为完美打工人，而是做他们最嘴替的自救盟友，合法化每一次精神离职与肉身除锈。"""
+{b_name}不教他们如何成为完美打工人，而是做他们最嘴替的自救盟友，合法化每一次精神离职与肉身除锈。"""
             core_insight = f"""【观念重构 · 工位自救与反叛】
 【{product}】不是冰冷的消费品，而是**‘对抗平庸日常与班味的一把微型钝器’**。"""
         elif audience_type == "patient":
             pathology_diagnosis = f"""【真实患者大白话洞察 · 驱散病耻感】
 患者在意的往往不是冰冷的医疗参数，而是‘失去的生活细节与日常尊严’。
-【{brand}】用大白话讲透生活真相，把被动服药重构为主动夺回生活掌控权的日常仪式。"""
+{b_name}用大白话讲透生活真相，把被动服药重构为主动夺回生活掌控权的日常仪式。"""
             core_insight = f"""【观念重构 · 尊严与陪伴】
 【{product}】不仅是治疗方案，更是**‘让生活重回正轨的确定性力量’**。"""
         elif audience_type == "women":
             pathology_diagnosis = f"""【女性话语重构 · 拒绝双重规训】
 拒绝‘贤妻良母’与‘超级女强人’的绑架，倡导身体自洽与情绪自主。
-【{brand}】不贩卖容貌与年龄焦虑，只做女性向内探索、舒展生命力的真诚伙伴。"""
+{b_name}不贩卖容貌与年龄焦虑，只做女性向内探索、舒展生命力的真诚伙伴。"""
             core_insight = f"""【观念重构 · 我的身体是我的主场】
 【{product}】是**‘悦纳自我与身体自由的无声宣言’**。"""
         else:
             pathology_diagnosis = f"""【时代情绪切片 · 穿透冷漠日常】
 当代【{target_audience}】在快节奏中寻找真实的喘息空间。
-【{brand}】直击痛点核心，提供切实可靠的情感共鸣与行动支撑。"""
+{b_name}直击痛点核心，提供切实可靠的情感共鸣与行动支撑。"""
             core_insight = f"""【观念重构 · 价值回归】
 【{product}】为【{target_audience}】的生活注入具象而真实的改变。"""
 
         brand_manifesto = f"""在人人都急着给出标准答案的时代，
-【{brand}】只想陪你做回那个真实、生动、允许有脾气与脆弱的自己。
+{b_name}只想陪你做回那个真实、生动、允许有脾气与脆弱的自己。
 生活或许沉重，但你的每一步探索都该有坚实的底气。
 敬每一个在复杂现实里，依然清醒生活的灵魂。"""
 
-        # 5 distinct slogan archetypes tailored dynamically
         if audience_type == "gay":
-            s1_tag = f"白天替体面演戏，夜晚让【{brand}】全场稳住。"
+            s1_tag = f"白天替体面演戏，夜晚让{b_name}全场稳住。"
             s2_tag = f"不必向偏见证明什么，过得生动，就是最好的答案。"
             s3_tag = f"在每场尽兴的PLAY之后，依然保有随时出发的从容。"
             s4_tag = f"99%的专业守护，只为让你100%放心通关。"
             s5_tag = f"全场稳健，才叫真正的通关。"
         elif audience_type == "genz":
-            s1_tag = f"老板画饼管饱，【{brand}】管你活到下个周五。"
+            s1_tag = f"老板画饼管饱，{b_name}管你活到下个周五。"
             s2_tag = f"肉身在线除锈，精神早已离职。"
             s3_tag = f"凌晨两点三十七分，城市在等待黎明，你在等待一口清甜洗去疲倦。"
             s4_tag = f"0添加的硬核能量，拒绝一切无效消耗。"
@@ -246,7 +251,7 @@ class CreativeReasoner:
             s4_tag = f"科学守护每一种节奏，给生命最踏实的支撑。"
             s5_tag = f"不被定义，自由生长。"
         else:
-            s1_tag = f"白天替体面演戏，夜晚让【{brand}】救命。"
+            s1_tag = f"白天替体面演戏，夜晚让{b_name}救命。"
             s2_tag = f"不必向世界证明什么，活得舒展，就是最好的答案。"
             s3_tag = f"敬每一具在风暴里，依然生脆发芽的骨头。"
             s4_tag = f"把健康交给科学，把精彩留给自己。"
@@ -259,10 +264,10 @@ class CreativeReasoner:
                 "style_desc": "利用反差与自嘲消解沉重，制造高传播社交货币",
                 "tagline": s1_tag,
                 "sub_slogans": [
-                    f"表面情绪稳定，全靠【{brand}】在暗中做物理阻尼。",
-                    f"生活天天给我上课，我用【{brand}】给身体上一层护甲。"
+                    f"表面情绪稳定，全靠{b_name}在暗中做物理阻尼。",
+                    f"生活天天给我上课，我用{b_name}给身体上一层护甲。"
                 ],
-                "scenario_copy": f"【工位桌面/社媒抓手】‘肉身在线除锈，精神早已归位。请给【{brand}】十秒。’",
+                "scenario_copy": f"【工位桌面/社媒抓手】‘肉身在线除锈，精神早已归位。请给{b_name}十秒。’",
                 "target_platforms": ["微博", "小红书", "抖音"]
             },
             {
@@ -324,9 +329,16 @@ class CreativeReasoner:
                 target_audience=target_audience
             ) if enable_critic else {}
             
+            sim_bench = self.linguistic_engine.match_similarity_benchmark(
+                arch["tagline"],
+                arch["style_category"],
+                audience_type=audience_type
+            )
+            
             arch_data = {
                 **arch,
-                "critic_eval": critic_res
+                "critic_eval": critic_res,
+                "similarity_benchmark": sim_bench
             }
             versions.append(arch_data)
 
@@ -344,6 +356,7 @@ class CreativeReasoner:
 
         return {
             "brand": brand,
+            "brand_profile": brand_prof,
             "product": product,
             "target_audience": target_audience,
             "audience_type": audience_type,
@@ -352,6 +365,7 @@ class CreativeReasoner:
             "pathology_diagnosis": pathology_diagnosis,
             "core_insight": core_insight,
             "brand_manifesto": brand_manifesto,
+            "total_versions": len(versions),
             "versions": versions,
             "super_signs": super_signs,
             "stunts": stunts,
@@ -360,17 +374,21 @@ class CreativeReasoner:
         }
 
     def render_feishu_card(self, strategy: Dict[str, Any]) -> str:
-        """Render multi-version markdown formatted response with Critic scores for Feishu."""
+        """Render multi-version markdown formatted response with Critic scores & Similarity benchmarks."""
         versions_md = ""
         for v in strategy["versions"]:
             subs_md = "\n".join([f"  - *「{sub}」*" for sub in v["sub_slogans"]])
             critic = v.get("critic_eval", {})
+            sim = v.get("similarity_benchmark", {})
             score_str = ""
             if critic:
                 score_str = f"""
 > 📊 **Critic 质检评分**: 情绪深度 `★ {critic.get('emotion_score', '-')}` | 真人感 `★ {critic.get('humanity_score', '-')}` | 圈层契合度 `★ {critic.get('audience_fit_score', '-')}`
 > 💬 **评审点评**: {critic.get('critic_feedback', '')}
-> 💧 **脱水精炼**: {critic.get('polishing_advice', '')}"""
+> 💧 **脱水精炼**: {critic.get('polishing_advice', '')}
+> 🔗 **相似性对标参考**: {sim.get('similarity_dimension', '🏛️ 结构相似性')}
+> 📌 **对标经典案例**: *{sim.get('benchmark_case', '')}*
+> 🔍 **对标借鉴解析**: {sim.get('similarity_analysis', '')}"""
 
             versions_md += f"""### 版本 {v['id']} · {v['style_category']}
 > 💡 **策略导向**: {v['style_desc']}  
@@ -393,11 +411,13 @@ class CreativeReasoner:
         stunts_md = "\n\n".join(strategy["stunts"])
         benchmarks_md = "、".join(strategy["benchmarks_used"]) if strategy["benchmarks_used"] else "2024-2026 全网顶级案例库"
         puns_md = "、".join([f"「{p}」" for p in strategy.get("pun_benchmarks", [])]) if strategy.get("pun_benchmarks") else "无特定双关"
+        prof = strategy.get("brand_profile", {})
 
-        md = f"""# 🌌 【{strategy['brand']}】创意品牌全案与 5 大差异化口号矩阵
+        md = f"""# 🌌 【{strategy['brand']}】创意品牌全案与差异化口号矩阵
 
 > 📌 **战役目标**: {strategy['brief_goal']}  
 > 🎯 **目标客群**: {strategy['target_audience']} (圈层: {strategy['audience_name']}) | 📦 **核心产品**: {strategy['product']}  
+> 🏷️ **品牌调性画像**: {prof.get('tone_of_voice', '经典自洽')}  
 > 🔍 **权威历史案例参考**: {benchmarks_md}  
 > 🎭 **精选双关对标**: {puns_md}  
 
@@ -420,7 +440,7 @@ class CreativeReasoner:
 
 ---
 
-## 🏆 四、 5 大差异化创意版本与 Critic 质检矩阵
+## 🏆 四、 5 大差异化创意版本与四维相似性对标矩阵
 {versions_md}
 
 ## 🔮 五、 超级记忆符号与感官图腾 (Super Sign)
@@ -437,11 +457,11 @@ class CreativeReasoner:
 if __name__ == "__main__":
     reasoner = CreativeReasoner()
     res = reasoner.generate_creative_strategy(
-        brand="稳健伙伴",
-        product="男性健康防线与活力滋养",
-        target_audience="注重生活品质与亲密安全的都市青年",
-        brief_goal="打造专业、自洽且有温度的亲密健康品牌",
-        audience_type="gay",
+        brand="proya",
+        product="高浓度早C晚A精华",
+        target_audience="高压职场女性",
+        brief_goal="打破年龄焦虑，树立先锋抗衰心智",
+        audience_type="women",
         version_count=5
     )
     print(reasoner.render_feishu_card(res))
