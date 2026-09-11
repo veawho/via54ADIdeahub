@@ -2,6 +2,7 @@
 """
 copy_polisher.py — Copy Diagnostic & Polishing Engine (去爹味 / 语义脱水 / 圈层转译)
 Empowers the 'Reviewer' persona: "You write the draft, AI polishes and upgrades it."
+Always returns at least 3 distinct options, each with 3-dimensional deep reasoning.
 """
 
 import sys
@@ -13,6 +14,8 @@ from typing import Dict, List, Any, Optional
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
+
+from agents.master_linguistic_engine import MasterLinguisticEngine
 
 PREACHY_WORDS = [
     "你应该", "奉劝大家", "务必", "不要再执迷不悟", "做人必须",
@@ -35,6 +38,7 @@ class CopyPolisher:
     def __init__(self):
         self.subculture_dir = PROJECT_ROOT / "audience_language"
         self.compliance_path = PROJECT_ROOT / "knowledge" / "compliance_rules.json"
+        self.linguistic_engine = MasterLinguisticEngine()
         self._load_compliance()
 
     def _load_compliance(self):
@@ -79,7 +83,6 @@ class CopyPolisher:
         water_hits = [w for w in WATER_WORDS if w in draft]
         compliance_hits = self.audit_compliance(draft, audience_type=audience_type)
 
-        # Baseline score calculation
         score = 5.0
         score -= len(preachy_hits) * 0.8
         score -= len(buzzword_hits) * 0.5
@@ -118,14 +121,10 @@ class CopyPolisher:
         brand: str = "",
         audience_type: str = "default"
     ) -> Dict[str, Any]:
-        """Generate 3 refined and polished variants of user draft."""
+        """Generate at least 3 refined and polished variants of user draft, each with 3-D reasoning."""
         diagnosis = self.diagnose_draft(draft, audience_type=audience_type)
         b_name = f"【{brand}】" if brand else ""
 
-        # Option A: 锐利脱水版 (Lean & Punchy)
-        # Option B: 情绪共鸣版 (Sensory & Micro-narrative)
-        # Option C: 圈层地道版 (Subculture In-group)
-        
         if audience_type == "gay":
             lean_opt = f"全场稳健，才叫真正的通关。"
             sensory_opt = f"在每场尽兴的PLAY之后，{b_name}给你随时出发的从容。"
@@ -155,7 +154,7 @@ class CopyPolisher:
             sensory_opt = f"敬每一具在现实风暴里，依然生脆发芽的骨头。"
             in_group_opt = f"白天替体面演戏，夜晚让{b_name}守护真实的生活。"
 
-        options = [
+        raw_options = [
             {
                 "type": "🗡️ 锐利脱水版 (Lean & Punchy)",
                 "copy": lean_opt,
@@ -173,43 +172,64 @@ class CopyPolisher:
             }
         ]
 
+        polished_options = []
+        for opt in raw_options:
+            eval_3d = self.linguistic_engine.deep_reverse_engineer(opt["copy"])
+            polished_options.append({
+                **opt,
+                "mastery_score": eval_3d["overall_mastery_score"],
+                "deep_reasoning": {
+                    "phonetic": f"声律评分 ★ {eval_3d['phonetic_dimension']['cadence_score']} | 节拍: {eval_3d['phonetic_dimension']['rhythm_pattern']} ({eval_3d['phonetic_dimension']['symmetry_description']}) | {eval_3d['phonetic_dimension']['breath_flow']}",
+                    "semantic": f"意义评分 ★ {eval_3d['semantic_dimension']['semantic_score']} | 张力模型: {eval_3d['semantic_dimension']['tension_type']} | {eval_3d['semantic_dimension']['cognitive_depth']}",
+                    "intuition": f"直觉评分 ★ {eval_3d['intuition_dimension']['intuition_score']} | 神经触点: {eval_3d['intuition_dimension']['sensory_description']}"
+                }
+            })
+
         return {
             "original_draft": draft,
             "target_audience": target_audience,
             "audience_type": audience_type,
             "brand": brand,
             "diagnosis": diagnosis,
-            "polished_options": options
+            "total_options": len(polished_options),
+            "polished_options": polished_options
         }
 
     def render_polishing_card(self, result: Dict[str, Any]) -> str:
-        """Render beautiful Feishu markdown card for copy diagnosis."""
+        """Render beautiful Feishu markdown card for copy diagnosis with 3-D reasoning."""
         diag = result["diagnosis"]
         diag_md = "\n".join([f"- {p}" for p in diag["diagnostic_summary"]])
         
         opts_md = ""
         for i, opt in enumerate(result["polished_options"], 1):
+            r = opt.get("deep_reasoning", {})
             opts_md += f"""### 方案 {i} · {opt['type']}
-> 🎯 **精炼文案**: **`「{opt['copy']}」`**  
-> 💡 **重构思路**: {opt['strategy']}  
+> 🎯 **精炼重构文案**:  
+> **`「{opt['copy']}」`**  
+>
+> 📊 **综合大师级评分**: `★ {opt.get('mastery_score', 4.5)} / 5.0`  
+> 💡 **重构策略**: {opt['strategy']}  
+> 🎵 **读音声律依据**: {r.get('phonetic', '')}  
+> 💡 **意义张力依据**: {r.get('semantic', '')}  
+> 👁️ **人类直觉依据**: {r.get('intuition', '')}  
 
 ---
 """
 
-        md = f"""# 📝 文案深度体检与重构诊断报告
+        md = f"""# 📝 文案深度体检与三大重构升级全案
 
 > 📌 **文案初稿**: *"{result['original_draft']}"*  
 > 🎯 **目标客群**: {result['target_audience']} (圈层: {result['audience_type']})  
-> 📊 **文案健康分**: `★ {diag['overall_health_score']} / 5.0`  
+> 📊 **初稿健康分**: `★ {diag['overall_health_score']} / 5.0`  
 
 ---
 
-## 🔍 一、 初稿问题深度诊断
+## 🔍 一、 初稿问题深度体检
 {diag_md}
 
 ---
 
-## 🚀 二、 三大维度优化重构方案
+## 🚀 二、 三大维度超越重构方案 (含三维深度推理)
 {opts_md}
 """
         return md

@@ -2,8 +2,8 @@
 """
 test_phase2.py — Automated test suite for Phase 2 capabilities:
 - New Subcultures (silver, pet, outdoor)
-- CopyPolisher (diagnose, health score, compliance audit, 3 rewrites)
-- PunEngine (phonetic pairing, cringe risk analysis)
+- CopyPolisher (diagnose, health score, compliance audit, 3 rewrites with 3-D reasoning)
+- PunEngine (phonetic pairing, cringe risk analysis, >=3 proposals)
 - MCP Server Phase 2 tools
 """
 
@@ -55,12 +55,13 @@ class TestPhase2Features(unittest.TestCase):
             audience_type="gay"
         )
         self.assertEqual(res["brand"], "稳健伙伴")
-        self.assertTrue(len(res["pun_proposals"]) >= 2)
+        self.assertTrue(len(res["pun_proposals"]) >= 3)
         p1 = res["pun_proposals"][0]
         self.assertIn("surface_meaning", p1)
         self.assertIn("hidden_meaning", p1)
         self.assertIn("phonetic_pair", p1)
         self.assertIn("cringe_risk", p1)
+        self.assertIn("deep_reasoning", p1)
 
     def test_copy_polisher_diagnosis(self):
         bad_copy = "非常优秀的第一品牌，你务必赶紧买，不要再执迷不悟，全面赋能你的生活，100%根治所有问题！"
@@ -75,9 +76,11 @@ class TestPhase2Features(unittest.TestCase):
         self.assertTrue(len(diag["detected_preachy"]) > 0)
         self.assertTrue(len(diag["compliance_violations"]) > 0)
         self.assertEqual(len(res["polished_options"]), 3)
+        for opt in res["polished_options"]:
+            self.assertIn("deep_reasoning", opt)
 
         card = self.polisher.render_polishing_card(res)
-        self.assertIn("文案深度体检与重构诊断报告", card)
+        self.assertIn("文案深度体检", card)
         self.assertIn("锐利脱水版", card)
 
     def test_compliance_audit_mcp(self):
@@ -106,6 +109,7 @@ class TestPhase2Features(unittest.TestCase):
         )
         res = json.loads(res_str)
         self.assertIn("pun_proposals", res)
+        self.assertGreaterEqual(len(res["pun_proposals"]), 3)
 
 if __name__ == "__main__":
     unittest.main()
