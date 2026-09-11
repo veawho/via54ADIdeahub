@@ -20,16 +20,14 @@ class TestExemplarReasoner(unittest.TestCase):
         self.engine = ExemplarReasoner()
 
     def test_phonetic_cadence_audit(self):
-        # 4+4 symmetric
         res1 = self.engine.audit_phonetic_cadence("稳住全场，从容通关")
-        self.assertTrue(res1["is_symmetric"])
         self.assertGreaterEqual(res1["cadence_score"], 4.5)
         self.assertEqual(res1["rhythm_pattern"], "4+4")
+        self.assertIn("4+4", res1["symmetry_description"])
 
-        # 7+7 symmetric
         res2 = self.engine.audit_phonetic_cadence("白天替体面演戏，夜晚让身体稳住")
-        self.assertTrue(res2["is_symmetric"])
         self.assertEqual(res2["rhythm_pattern"], "7+7")
+        self.assertIn("7+7", res2["symmetry_description"])
 
     def test_deconstruct_exemplar(self):
         dec = self.engine.deconstruct_exemplar(
@@ -37,9 +35,8 @@ class TestExemplarReasoner(unittest.TestCase):
             target_audience="独立女性",
             audience_type="women"
         )
-        self.assertIn("观念对抗与重塑", dec["tension_mechanism"])
-        self.assertIn("概念重新定义", dec["linguistic_lever"])
-        self.assertIn("deep_rationale", dec)
+        self.assertIn("观念颠覆重构", dec["semantic_dimension"]["tension_type"])
+        self.assertIn("core_law_summary", dec)
 
     def test_evolve_beyond_exemplar(self):
         res = self.engine.evolve_beyond_exemplar(
@@ -52,7 +49,6 @@ class TestExemplarReasoner(unittest.TestCase):
         self.assertEqual(res["brand"], "稳健先锋")
         self.assertEqual(len(res["evolutions"]), 5)
         
-        # Check all 5 archetypes have why_better explanation
         for ev in res["evolutions"]:
             self.assertIn("archetype", ev)
             self.assertIn("why_better", ev)
@@ -60,8 +56,8 @@ class TestExemplarReasoner(unittest.TestCase):
             self.assertIn("cadence_eval", ev)
 
         card = self.engine.render_evolution_card(res)
-        self.assertIn("示例文案逆向解构与声韵升维全案", card)
-        self.assertIn("超越示范之处", card)
+        self.assertIn("经典文案三维底层规律深度逆推与大师级升维全案", card)
+        self.assertIn("超越升维依据", card)
 
     def test_mcp_deconstruct_tool(self):
         res_str = deconstruct_and_evolve_copy(

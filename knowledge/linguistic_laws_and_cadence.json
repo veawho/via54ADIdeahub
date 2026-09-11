@@ -1,0 +1,61 @@
+{
+  "version": "v2.0",
+  "phonetic_laws": {
+    "rhythm_templates": [
+      {
+        "pattern": "4+4",
+        "description": "四字成语/律绝格：铿锵有力，去伪存真，记忆阻力最小",
+        "example": "稳住全场，从容通关"
+      },
+      {
+        "pattern": "6+6",
+        "description": "双六字平衡格：叙事反差，昼夜与状态切换的最佳容器",
+        "example": "肉身在线除锈，精神早已离职"
+      },
+      {
+        "pattern": "7+7",
+        "description": "七言对仗格：古典诗意与当代情绪的结合",
+        "example": "白天替体面演戏，夜晚让身体稳住"
+      },
+      {
+        "pattern": "3+5",
+        "description": "先声夺人+行动落地：短促发问/指令 + 具体解法",
+        "example": "累了别忍，手边来杯清茶"
+      }
+    ],
+    "acoustic_rules": {
+      "plosive_density": "爆破辅音 (p, b, t, d, k, g) 在口号开头或重音处能提供神经击穿感（如 PLAY, PPT, 霸王, 爆破）",
+      "vowel_openness": "开口音韵母 (a, ang, eng, ong) 适合作为结尾字，产生余音袅袅的共鸣（如 场 chǎng, 光 guāng, 关 guān）",
+      "pitch_contour": "遵循‘仄起平收’或‘上抑下扬’的声调曲线，避免连续四个三声或全仄声带来的沉闷晦涩"
+    },
+    "bilingual_harmonization": {
+      "law_1_code_replacement": "用英文单词（如 PLAY / WIN / CARE）替代容易显俗或生硬的中文词汇，保留分寸感",
+      "law_2_rhythm_matching": "英文单词的音节数必须与相邻中文形成等时节拍（如 2音节英文 + 2字中文）",
+      "law_3_acronym_mnemonic": "用字母组合（如 早C晚A / OOTD）制造概念高压缩包",
+      "law_4_no_cringe_rule": "禁止在完整中文成语或固定短语中强行插英文单词（反例：‘非常 of course 的选择’为严重低质翻车）"
+    }
+  },
+  "semantic_tension_laws": {
+    "law_1_subversion": "【A 不是 B，C 才是】（公式：否定世俗表象，确立本质真相。如‘性别不是边界线，偏见才是’）",
+    "law_2_spacetime_contrast": "【昼夜/空间/身份的极致撕扯】（公式：格子间 vs 阿拉斯加 / 白天演戏 vs 夜晚自愈）",
+    "law_3_conceptual_pun": "【物理属性 $\\rightarrow$ 心理情绪的双向同构】（公式：除锈/缓冲/通关/打卡）"
+  },
+  "neurological_intuition_anchors": {
+    "mirror_neuron_actions": [
+      "呼吸",
+      "吞咽",
+      "撕开包装",
+      "电梯关门",
+      "按下快门",
+      "甩开领带",
+      "敲击键盘",
+      "换上跑鞋"
+    ],
+    "sensory_details": [
+      "凌晨两点三十七分的光线",
+      "冰美式杯壁的凝水",
+      "清脆的泄压咔哒声",
+      "粗粝的风吹透衣服"
+    ]
+  }
+}

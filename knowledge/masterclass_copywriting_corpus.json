@@ -1,0 +1,145 @@
+{
+  "version": "v2.0",
+  "total_cases": 25,
+  "categories": {
+    "pure_chinese_classics": [
+      {
+        "brand": "珀莱雅",
+        "campaign": "性别不是边界线，偏见才是",
+        "text": "性别不是边界线，偏见才是",
+        "type": "pure_chinese",
+        "phonetic_law": "7+4 结构，仄起平收（线 xiàn 去声 -> 是 shì 去声），声调铿锵，字数少而力道千钧",
+        "semantic_law": "反常识认知断言：将物理空间的‘边界线’与心理社会的‘偏见’对立重构",
+        "intuition_anchor": "‘边界线’是大脑瞬间能具象化感知的地理障碍，瞬间形成视觉隐喻",
+        "school": "观念核爆·认知重构型"
+      },
+      {
+        "brand": "步履不停",
+        "campaign": "你写PPT时，阿拉斯加的鳕鱼正跃出水面",
+        "text": "你写PPT时，阿拉斯加的鳕鱼正跃出水面",
+        "type": "bilingual_hybrid",
+        "phonetic_law": "5+14 长短句极度反差，英文PPT与中文诗意无缝穿插，末尾‘水面’平声落地",
+        "semantic_law": "昼夜与空间的极致张力：格子间的逼仄 vs 旷野的野生生命力",
+        "intuition_anchor": "‘手指敲击键盘写PPT’与‘冷冽海水中鱼身跃出反光’的微感官蒙太奇",
+        "school": "电影蒙太奇·通感画面型"
+      },
+      {
+        "brand": "杜蕾斯",
+        "campaign": "让每一个冲动，都有安全的缓冲",
+        "text": "让每一个冲动，都有安全的缓冲",
+        "type": "pure_chinese",
+        "phonetic_law": "7+7 绝句式对称，冲动（chōng dòng）与缓冲（huǎn chōng）双声回环押韵",
+        "semantic_law": "生理荷尔蒙冲动与物理机械缓冲的双关映射，克制而不失温度",
+        "intuition_anchor": "‘碰撞’与‘气囊/保护垫阻尼’的生理肌肉记忆直觉",
+        "school": "极致声律·双关通感型"
+      },
+      {
+        "brand": "胜加 / 联条",
+        "campaign": "时间的答案",
+        "text": "把时间当朋友，时间才会给你最好的答案",
+        "type": "pure_chinese",
+        "phonetic_law": "6+12 递进律动，‘朋友’与‘答案’形成温暖回响",
+        "semantic_law": "消除时代急躁焦虑，重构对长期主义与坚持的敬畏",
+        "intuition_anchor": "钟表滴答声与年轮生长的具象感知",
+        "school": "灵魂嘴替·情绪穿透型"
+      },
+      {
+        "brand": "许舜英 / 中兴百货",
+        "campaign": "衣服是身体最忠实的信徒",
+        "text": "衣服是身体最忠实的信徒",
+        "type": "pure_chinese",
+        "phonetic_law": "11字单句，‘衣服/身体/信徒’平仄交错，高级克制",
+        "semantic_law": "将日常消费品升格为灵魂与肉体的宗教级契约，文化溢价拉满",
+        "intuition_anchor": "布料贴合皮肤的细腻触感与微温",
+        "school": "先锋文学·哲思通感型"
+      },
+      {
+        "brand": "诚品书店",
+        "campaign": "在书与非书之间",
+        "text": "在书与非书之间，我们阅读生活",
+        "type": "pure_chinese",
+        "phonetic_law": "7+6 气口对称，‘间’（平声）与‘活’（入声转阳平）自然呼应",
+        "semantic_law": "拓展‘阅读’边界，把书本纸张升华为生命经历的感知",
+        "intuition_anchor": "指尖翻动书页的书香与咖啡馆的光影",
+        "school": "先锋文学·哲思通感型"
+      },
+      {
+        "brand": "内外 (NEIWAI)",
+        "campaign": "NO BODY IS NOBODY",
+        "text": "没有一种身材是微不足道的",
+        "type": "pure_chinese",
+        "phonetic_law": "11字铿锵断言，‘没有一种’起势，‘微不足道’压阵",
+        "semantic_law": "身体自洽与反容貌身材焦虑，倡导平视与多元",
+        "intuition_anchor": "镜子前裸露真实的身体线条与舒展呼吸",
+        "school": "观念核爆·女性自洽型"
+      },
+      {
+        "brand": "华与华 / 厨邦",
+        "campaign": "晒足180天",
+        "text": "厨邦酱油美味鲜，晒足180天",
+        "type": "pure_chinese",
+        "phonetic_law": "7+7 超级押韵（鲜 xiān / 天 tiān），双阳平清脆顺口",
+        "semantic_law": "用硬核数字（180天）建立无可辩驳的品质信任",
+        "intuition_anchor": "南国阳光下排列整齐的巨大晒缸与浓郁酱香",
+        "school": "神经指令·超级口号型"
+      }
+    ],
+    "bilingual_hybrid_classics": [
+      {
+        "brand": "Apple",
+        "campaign": "Shot on iPhone",
+        "text": "Shot on iPhone",
+        "type": "bilingual_hybrid",
+        "phonetic_law": "三音节轻重格：/ʃɒt ɒn ˈaɪfoʊn/，爆破音 Sh+t+P 干净利落，过耳不忘",
+        "semantic_law": "将商业广告退居幕后，将舞台完全交给全球普通用户的真实拍摄创作",
+        "intuition_anchor": "手指按下快门的一瞬间闪光与相册里的高清照片",
+        "bilingual_bite_rule": "纯英文短语作为视觉超级标签（Sign），中文语境无需翻译直接作为高级心智徽章",
+        "school": "神经指令·超级符号型"
+      },
+      {
+        "brand": "Nike",
+        "campaign": "So Win / 胜者为王",
+        "text": "Win on purpose, 赢在当下",
+        "type": "bilingual_hybrid",
+        "phonetic_law": "前英文四音节，后中文四字格，中英双四字节拍对称咬合",
+        "semantic_law": "竞技体育的残酷与纯粹，追求胜利的生理渴望",
+        "intuition_anchor": "球鞋摩擦木地板的刺耳吱呀声与汗水滴落",
+        "bilingual_bite_rule": "英文提供国际感与冲劲，中文提供扎实落地动作",
+        "school": "极致声律·琅琅上口型"
+      },
+      {
+        "brand": "珀莱雅 / 社交热梗",
+        "campaign": "早C晚A",
+        "text": "早C晚A：白天抗氧化，夜晚抗衰老",
+        "type": "bilingual_hybrid",
+        "phonetic_law": "双字字母缩写（C/A）+ 中文 6+6 对仗，形成超级记忆压缩包",
+        "semantic_law": "不仅是成分护肤的科学流程，更被年轻人泛化为‘早Coffee晚Alcohol’的精神写照",
+        "intuition_anchor": "早晨一杯热美式与深夜一杯微醺精酿的生理切换",
+        "bilingual_bite_rule": "单英文字母作为极简代码（Code），中文负责场景与功能的诗意铺展",
+        "school": "观念核爆·社交货币型"
+      },
+      {
+        "brand": "杜蕾斯 / 青年社交",
+        "campaign": "稳健PLAY",
+        "text": "每一次尽兴的PLAY，都有不掉线的底气",
+        "type": "bilingual_hybrid",
+        "phonetic_law": "中文修饰 + 英文大写 PLAY + 中文双句对齐，PLAY作为爆破核心重音",
+        "semantic_law": "将亲密关系委婉转译为潮流生活方式，化敏感为时尚自洽",
+        "intuition_anchor": "手机满格信号图标与从容迈出的脚步",
+        "bilingual_bite_rule": "用通用英文潮词（PLAY）替代敏感汉字，达成默契与高级感",
+        "school": "圈层共鸣·暗号通感型"
+      },
+      {
+        "brand": "打工人嘴替",
+        "campaign": "精神Online，肉身Offline",
+        "text": "精神Online，肉身Offline：在工位上悄悄除锈",
+        "type": "bilingual_hybrid",
+        "phonetic_law": "Online / Offline 双英文反义词对称，配合中文四字格短句",
+        "semantic_law": "当代打工人双重状态的真实解构：物理在场与精神自救",
+        "intuition_anchor": "电脑屏幕前空洞的眼神与耳机里播放的白噪音",
+        "bilingual_bite_rule": "利用互联网状态词作为状态切换器",
+        "school": "灵魂嘴替·情绪穿透型"
+      }
+    ]
+  }
+}

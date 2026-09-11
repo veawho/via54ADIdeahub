@@ -507,9 +507,32 @@ def deconstruct_and_evolve_copy(
         return json.dumps({"error": str(e)}, ensure_ascii=False)
 
 
+# ── Tool: analyze_linguistic_laws ─────────────────────
+@mcp.tool()
+def analyze_linguistic_laws(
+    copy_text: str,
+) -> str:
+    """Analyze the phonetic cadence, semantic tension, and human intuition mechanisms of any copy (supports Chinese, English, and Bilingual hybrid).
+
+    Args:
+        copy_text: The copywriting or slogan to analyze
+
+    Returns:
+        JSON string containing 3-dimensional scores (Sound, Meaning, Intuition), acoustic breakdown, and linguistic summary.
+    """
+    try:
+        from agents.master_linguistic_engine import MasterLinguisticEngine
+        engine = MasterLinguisticEngine()
+        result = engine.deep_reverse_engineer(copy_text)
+        return json.dumps(result, ensure_ascii=False, indent=2)
+    except Exception as e:
+        return json.dumps({"error": str(e)}, ensure_ascii=False)
+
+
 # ── Entry point ───────────────────────────────────────
 if __name__ == "__main__":
     mcp.run(transport="stdio")
+
 
 
 
