@@ -97,14 +97,15 @@ class FeishuBotAdapter:
             }
 
         # 4. Intent: Slogan Generation & Full Creative Strategy
-        # Keywords: 口号, Slogan, 广告词, 策略, 写几个, 创意方案, 策划
+        # Keywords: 口号, Slogan, 广告词, 策略, 写几个, 创意方案, 策划, 主张, 品牌主张
         else:
-            brand = self._extract_brand(text_clean, default="霸王茶姬")
-            product = self._extract_product(text_clean, default="原叶现萃鲜奶茶")
+            brand = self._extract_brand(text_clean, default="")
+            product = self._extract_product(text_clean, default="核心产品与服务")
+            target_audience = self._extract_target_audience(text_clean)
             res = self.creative_reasoner.generate_creative_strategy(
                 brand=brand,
                 product=product,
-                target_audience="都市新青年",
+                target_audience=target_audience,
                 brief_goal=text_clean,
                 audience_type=self._detect_audience(text_clean),
                 version_count=5,
@@ -123,7 +124,7 @@ class FeishuBotAdapter:
         if m:
             return m.group(1).strip()
         # Fallback to text after keyword
-        for kw in ["示例文案", "参考", "文案", "改改"]:
+        for kw in ["示例文案", "参考", "比如", "文案", "改改"]:
             if kw in text:
                 parts = text.split(kw, 1)
                 if len(parts) > 1 and len(parts[1].strip()) > 2:
@@ -135,25 +136,39 @@ class FeishuBotAdapter:
         for b in ["霸王茶姬", "Apple", "Keep", "珀莱雅", "稳健先锋", "稳健伙伴", "内外", "诚品", "杜蕾斯", "Nike", "OPPO"]:
             if b.lower() in text.lower():
                 return b
+        if any(k in text for k in ["减重", "脂肪肝", "减脂", "轻盈"]):
+            return "健康减重品牌"
         return default
 
     def _extract_product(self, text: str, default: str) -> str:
         """Extract product keyword from text."""
-        for p in ["鲜奶茶", "防护", "健身", "美妆", "跑鞋", "手机", "书籍"]:
+        if any(k in text for k in ["减重", "脂肪肝", "减脂", "轻盈"]):
+            return "减重与肝脏健康管理产品"
+        for p in ["鲜奶茶", "防护", "健身", "美妆", "跑鞋", "手机", "书籍", "减重产品", "咖啡", "洗发水"]:
             if p in text:
                 return p
         return default
 
+    def _extract_target_audience(self, text: str) -> str:
+        """Extract target audience description."""
+        if any(k in text for k in ["脂肪肝", "减重", "肥胖", "代谢"]):
+            return "脂肪肝与减重患者群体"
+        if any(k in text for k in ["00后", "打工人", "职场"]):
+            return "年轻打工人与新职场青年"
+        if any(k in text for k in ["女性", "女孩"]):
+            return "现代独立女性群体"
+        return "都市主流目标客群"
+
     def _detect_audience(self, text: str) -> str:
         """Detect subculture audience from text."""
+        if any(w in text for w in ["脂肪肝", "减重", "患者", "慢病", "健康", "药", "病"]):
+            return "patient"
         if any(w in text for w in ["gay", "同志", "彩虹", "基友"]):
             return "gay"
         if any(w in text for w in ["00后", "打工人", "发疯", "去班味", "职场"]):
             return "genz"
         if any(w in text for w in ["女性", "女孩", "母婴", "闺蜜"]):
             return "women"
-        if any(w in text for w in ["患者", "慢病", "健康", "药"]):
-            return "patient"
         if any(w in text for w in ["老年", "银发", "爸妈", "退休"]):
             return "silver"
         if any(w in text for w in ["猫", "狗", "宠物", "毛孩子"]):
@@ -165,6 +180,7 @@ class FeishuBotAdapter:
 if __name__ == "__main__":
     adapter = FeishuBotAdapter()
     test_queries = [
+        "需要产出一句品牌主张。减重产品，品牌的endbenefit是轻盈。结合脂肪肝和减重患者的痛点。比如：逆转脂肪肝，重返轻盈态",
         "示例文案‘白天替体面演戏，夜晚让身体稳住’，帮我深度分析好在哪，并给出3个超越它的新口号",
         "帮霸王茶姬写5个新中式口号，要求符合声律且直击直觉",
         "帮我诊断并润色文案：‘我们以极致卓越的科技赋能用户美好品质生活’"
