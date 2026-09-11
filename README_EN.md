@@ -1,69 +1,80 @@
-# via54ADIdeahub
+# 🌌 via54ADIdeahub — Creative Strategy & Subculture Linguistic Engine
 
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![MCP Standard](https://img.shields.io/badge/MCP-1.0.0-green.svg)](https://modelcontextprotocol.io/)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](LICENSE)
+[![Tests: 14/14 Passing](https://img.shields.io/badge/tests-14%2F14%20passed-brightgreen.svg)](tests/)
 
-> **🌐 Language**: [🇨🇳 中文](./README.md) | [🇺🇸 English](#) (current)
->
-> _This document is in English. For Chinese, click above._
-> Medical communication creative vector knowledge base - RAG semantic search + 52 global creative case reports
+> **Industrial-grade AI creative hub built for advertising strategists and copywriters.**  
+> Featuring **7 Vertical Subculture Context Guides**, **5 Distinct Slogan Archetypes**, **Copy Polisher & De-preachiness Linter**, **Double Entendre & Pun Engine**, and **Independent Persona Critic Quality Scoring**, fully integrated with **MCP (Model Context Protocol)**.
 
-[![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-blue.svg)](LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/veawho/via54ADIdeahub)](https://github.com/veawho/via54ADIdeahub/stargazers)
-[![GitHub issues](https://img.shields.io/github/issues/veawho/via54ADIdeahub)](https://github.com/veawho/via54ADIdeahub/issues)
-[![English README](https://img.shields.io/badge/README-English-blue.svg)](README_EN.md)
-[![中文 README](https://img.shields.io/badge/README-中文-red.svg)](README.md)
+---
 
-## Introduction
+## 🚀 Key Features
 
-Medical communication creative vector knowledge base - RAG semantic search + 52 global creative case reports
+1. **7 Vertical Subculture Context Knowledge Base (`audience_language/`)**:
+   - `gay` (LGBT+ in-group slang, intimacy safety, taboo boundaries)
+   - `genz` (Workplace anti-burnout, de-grind slang, unfiltered truth)
+   - `women` (Female self-acceptance, anti-anxiety, bodily autonomy)
+   - `patient` (Healthcare destigmatization, patient plain-talk, lived moments)
+   - `silver` (Silver economy, active second life, dignity & vitality)
+   - `pet` (Pet parents, emotional companionship, scientific feeding)
+   - `outdoor` (Mountain youth, micro-vacation, physical presence)
 
-## Quick Start
+2. **5 Distinct Slogan Archetypes with Critic Evaluation**:
+   - Subversive Humor (Memes & irony)
+   - Unfiltered Voice (Emotional spokesperson)
+   - Cinematic Narrative (Micro-sensory storytelling)
+   - Hardcore Authority (Data & rational trust)
+   - Subculture Identity (In-group code)
+
+3. **Copy Polisher & Diagnostics Tool**:
+   - Quantified health score (1-5), detecting preachiness, empty corporate buzzwords, water words, and compliance risks.
+   - Generates **Lean & Punchy**, **Emotional & Sensory**, and **Subculture Native** rewrites.
+
+4. **Double Entendre & Pun Engine**:
+   - Dual-mapping for surface action and brand benefit, with cringe risk audit.
+
+5. **7 Production MCP Tools**:
+   - `reason_creative_strategy`
+   - `polish_and_diagnose_copy`
+   - `explore_creative_puns`
+   - `audit_advertising_compliance`
+   - `search_audience_language`
+   - `search_knowledge_base`
+   - `list_advertising_cases`
+
+---
+
+## 🛠️ Quick Start
 
 ```bash
-# Clone
+# Clone repository
 git clone https://github.com/veawho/via54ADIdeahub.git
 cd via54ADIdeahub
 
-# Project-specific setup (see docs/)
+# Install dependencies
+pip install -r requirements.txt
+
+# Run tests
+PYTHONPATH=. python3 -m unittest discover -s tests
 ```
 
-## Features
-
-<!-- TODO: Fill in specific features -->
-
-## Documentation
-
-- [中文 README](README.md)
-- Full docs: `docs/`
-- [CHANGELOG](CHANGELOG.md)
-- [CONTRIBUTING](CONTRIBUTING.md)
-- [CODE_OF_CONDUCT](CODE_OF_CONDUCT.md)
-- [SECURITY](SECURITY.md)
-- [REFERENCES](REFERENCES.md)
-
-## Citation
-
-```bibtex
-@software{via54_medcreativedb,
-  author = {veawho (巫师叔叔)},
-  title  = {via54ADIdeahub},
-  year   = {2026},
-  url    = {https://github.com/veawho/via54ADIdeahub}
+### Connect to MCP Client (TRAE / Claude / Cursor)
+```json
+{
+  "mcpServers": {
+    "via54ADIdeahub": {
+      "command": "python3",
+      "args": [
+        "/path/to/via54ADIdeahub/mcp_server.py"
+      ]
+    }
+  }
 }
 ```
 
-## License
+---
 
-This project is licensed under [AGPL-3.0](LICENSE).
-
-## Contributing
-
-Contributions welcome! See [CONTRIBUTING.md](CONTRIBUTING.md).
-
-## References
-
-See [REFERENCES.md](REFERENCES.md) - all via54 repos + upstream projects.
-
-## Contact
-
-- Owner: [veawho (巫师叔叔)](https://github.com/veawho)
-- Issues: [GitHub Issues](https://github.com/veawho/via54ADIdeahub/issues)
+## 📄 License
+Released under the [AGPL-3.0 License](LICENSE).

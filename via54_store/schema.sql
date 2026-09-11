@@ -109,6 +109,56 @@ CREATE TABLE IF NOT EXISTS ingest_log (
     notes        TEXT
 );
 
+-- ── 10. Creative Cases — Digitaling & TOPYS enriched cases ──
+CREATE TABLE IF NOT EXISTS creative_cases (
+    case_id             INTEGER PRIMARY KEY AUTOINCREMENT,
+    source              TEXT NOT NULL,          -- 'digitaling' | 'topys' | 'other'
+    source_url          TEXT UNIQUE NOT NULL,
+    title               TEXT NOT NULL,
+    brand               TEXT NOT NULL,
+    industry            TEXT NOT NULL,
+    published_year      INTEGER NOT NULL,       -- 2024, 2025, 2026
+    published_date      TEXT,
+    agency              TEXT,
+    
+    -- 创意原点
+    brand_context       TEXT,
+    product_feature     TEXT,
+    market_competition  TEXT,
+    consumer_trend      TEXT,
+    consumer_insight    TEXT,
+    
+    -- 核心洞察与目标
+    creative_target     TEXT,
+    viral_effect        TEXT,
+    memory_anchor       TEXT,
+    
+    -- 社交梗力与口号
+    social_meme_tags    TEXT,                   -- JSON array of meme keywords
+    campaign_slogan     TEXT,
+    brand_slogan        TEXT,
+    raw_content         TEXT,
+    full_markdown       TEXT,
+    created_at          TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at          TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ── 11. Pun & Double Entendre Cases ──
+CREATE TABLE IF NOT EXISTS pun_cases (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    brand TEXT NOT NULL,
+    industry TEXT,
+    pun_text TEXT NOT NULL,
+    surface_meaning TEXT,
+    hidden_meaning TEXT,
+    phonetic_pair TEXT,
+    audience_type TEXT DEFAULT "default",
+    quality_score REAL DEFAULT 4.0,
+    critique_notes TEXT,
+    example_link TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- ── Indexes ──
 CREATE INDEX IF NOT EXISTS idx_concepts_type     ON concepts(type);
 CREATE INDEX IF NOT EXISTS idx_concepts_bundle   ON concepts(bundle_id);
@@ -117,3 +167,11 @@ CREATE INDEX IF NOT EXISTS idx_chunks_concept    ON concept_chunks(concept_id);
 CREATE INDEX IF NOT EXISTS idx_terms_term        ON chunk_terms(term);
 CREATE INDEX IF NOT EXISTS idx_links_src         ON concept_links(src_concept_id);
 CREATE INDEX IF NOT EXISTS idx_links_target      ON concept_links(target_path);
+CREATE INDEX IF NOT EXISTS idx_creative_cases_source ON creative_cases(source);
+CREATE INDEX IF NOT EXISTS idx_creative_cases_year   ON creative_cases(published_year);
+CREATE INDEX IF NOT EXISTS idx_creative_cases_ind    ON creative_cases(industry);
+CREATE INDEX IF NOT EXISTS idx_creative_cases_brand  ON creative_cases(brand);
+CREATE INDEX IF NOT EXISTS idx_pun_cases_audience    ON pun_cases(audience_type);
+CREATE INDEX IF NOT EXISTS idx_pun_cases_score       ON pun_cases(quality_score);
+
+

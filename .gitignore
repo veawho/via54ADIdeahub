@@ -1,6 +1,7 @@
 # Python
 __pycache__/
 *.py[cod]
+*$py.class
 *.so
 .Python
 build/
@@ -12,16 +13,14 @@ dist/
 venv/
 env/
 .venv/
+.mcp_venv/
+.pytest_cache/
 
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
-
-# Local data (runtime generated)
-# vector.db is generated at runtime - do NOT commit
-# PDFs are stored separately in ~/Desktop/创意案例库
 
 # macOS
 .DS_Store
@@ -32,21 +31,10 @@ env/
 *.log
 /tmp/*.log
 
-# Optional: keep test data but not production db
-# tests/fixtures/
-
-# Build artifacts
+# Build & Runtime databases (regenerated at runtime)
 cmd/via54_rag_go/via54_rag_go
 *.exe
-
-# Large runtime databases (users regenerate with scripts/rebuild_index.py)
-# via54_rag/vector.db is generated at runtime — see scripts/rebuild_index.py
 via54_rag/vector.db
 via54_rag/test.db
-
-# Runtime SQLite databases (auto-generated, regenerate with scripts/rebuild_index.py)
 vector.db
 via54_kb.db
-
-# Windows artifact from old code (G:/ path reference, not a real dir)
-G:/
