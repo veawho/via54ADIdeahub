@@ -470,9 +470,47 @@ def audit_advertising_compliance(
         return json.dumps({"error": str(e)}, ensure_ascii=False)
 
 
+# ── Tool: deconstruct_and_evolve_copy ─────────────────
+@mcp.tool()
+def deconstruct_and_evolve_copy(
+    exemplar_copy: str,
+    brand: str,
+    product: str,
+    target_audience: str,
+    audience_type: str = "default",
+) -> str:
+    """Deeply reverse-engineer WHY an exemplar benchmark copy works (tension, phonetic cadence, intuition) and evolve 5 superior alternatives.
+
+    Args:
+        exemplar_copy: The reference or benchmark copy that user likes
+        brand: Brand name
+        product: Product description and core features
+        target_audience: Target audience description
+        audience_type: Target subculture ('gay', 'genz', 'women', 'patient', 'silver', 'pet', 'outdoor', 'default')
+
+    Returns:
+        JSON string containing 4-dimensional deconstruction, 5 evolved superior alternatives with phonetic scores, and Feishu card markdown.
+    """
+    try:
+        from agents.exemplar_reasoner import ExemplarReasoner
+        engine = ExemplarReasoner()
+        result = engine.evolve_beyond_exemplar(
+            exemplar_copy=exemplar_copy,
+            brand=brand,
+            product=product,
+            target_audience=target_audience,
+            audience_type=audience_type,
+        )
+        result["markdown_card"] = engine.render_evolution_card(result)
+        return json.dumps(result, ensure_ascii=False, indent=2)
+    except Exception as e:
+        return json.dumps({"error": str(e)}, ensure_ascii=False)
+
+
 # ── Entry point ───────────────────────────────────────
 if __name__ == "__main__":
     mcp.run(transport="stdio")
+
 
 
 
