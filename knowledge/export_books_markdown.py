@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 export_books_markdown.py
-Exports 18 classic copywriting books into structured markdown files in knowledge/books/
+Exports 24 classic copywriting books into structured markdown files in knowledge/books/
 """
 
 import sys

@@ -1,8 +1,195 @@
 {
-  "version": "v2.6.0",
-  "description": "Masterclass Advertising & Copywriting Books Knowledge Base (20 Pillars)",
-  "total_books": 20,
+  "version": "v2.7.0",
+  "description": "Masterclass Advertising & Copywriting Books Knowledge Base (24 Pillars)",
+  "total_books": 24,
   "books": [
+    {
+      "book_id": "focus_ries",
+      "title": "聚焦：决定公司命运的雄心 (Focus: The Future of Your Company Depends on It)",
+      "author": "阿尔·里斯 (Al Ries)",
+      "school": "商业战略与极端聚焦学派",
+      "core_theory": "企业最大的敌人是贪婪与盲目多元化。阳光普照大地只能带来温暖，但用放大镜聚焦于一点便能燃起大火。真正的战略与顶级文案必须做极端的减法——收窄焦点，在一个狭窄的领域做到不可替代。多一个卖点，就钝了一半锋芒。",
+      "thinking_paradigm": "极端收敛与舍弃思维。文案要经受‘一把尖刀检验’：一句话只赌一个心智词，舍弃对平庸全面的幻想，集中全部兵力撕开唯一的认知缺口。",
+      "strategy_framework": {
+        "types": [
+          "收窄焦点法则 (把产品线与卖点削减到最锋利的核心)",
+          "占位法则 (在细分领域建立专有名词与绝对第一的心智壁垒)",
+          "牺牲法则 (主动宣告自己放弃了什么，换取核心特性的极致信任)"
+        ]
+      },
+      "writing_methods": [
+        "单点爆破法：整篇文案只讲一个词，绝不出现‘不仅、而且、还兼具’等贪婪连接词",
+        "反向排除：通过明确告诉顾客‘我们不做什么’，反向建立极度专注的专业信仰",
+        "锋利定语削减：剥离所有修饰性从句，让核心概念像裸露的刀锋"
+      ],
+      "classic_golden_cases": [
+        {
+          "case_name": "联邦快递 (FedEx)",
+          "slogan": "When it absolutely, positively has to be there overnight. (当它必须在隔夜绝对安全送达时。)",
+          "insight": "砍掉普通货运杂念，几十年如一日全线聚焦‘隔夜达’，成为不可撼动的全球巨头。"
+        },
+        {
+          "case_name": "沃尔沃 (Volvo)",
+          "slogan": "Drive Safely. (安全驾驶)",
+          "insight": "不争马力、不争奢华，全线聚焦‘安全’，独占全球汽车工业安全心智。"
+        }
+      ],
+      "algorithmic_heuristics": {
+        "target_metric": "聚焦纯度指数 (Focus Purity Index)",
+        "rule": "严厉惩罚多重卖点并列，奖赏单点极致穿透。"
+      }
+    },
+    {
+      "book_id": "bao_kuan_wen_an",
+      "title": "爆款文案",
+      "author": "关键明 (关健明 - 实战电商与转化文案专家)",
+      "school": "高转化电商与行动闭环派",
+      "core_theory": "爆款文案有一套严谨的工业化推演公式：抓人眼球的黄金标题 -> 激发购买欲的感官痛点 -> 赢得完全信任的权威背书 -> 引导马上行动的催单临门一脚。每一个字都是为了推动读者滑向转化闭环。",
+      "thinking_paradigm": "转化漏斗思维。消除读者的思考阻力、决策顾虑与拖延心理。把抽象优点翻译为能看见、能尝到、能感知的生理细节。",
+      "strategy_framework": {
+        "four_steps": [
+          "1. 抓人眼球 (好奇心/新闻/痛点/大促/反常识)",
+          "2. 激发欲望 (感官占有/心理渴望/恐怖唤醒/对比落差)",
+          "3. 赢得信任 (专业认证/硬核实验/客户证言/打消顾虑)",
+          "4. 引导下单 (限时/限量/降价诱惑/退款零风险)"
+        ]
+      },
+      "writing_methods": [
+        "感官占有法：详细描绘读者拥有产品后的第一口滋味、每一次抚摸，让大脑提前获得拥有感",
+        "对比算账法：把单价分解为‘每天只需半杯奶茶钱’，消解决策肉痛感",
+        "从众效应背书：‘93%的挑剔妈妈共同选择’，用多数人的选择做安全垫"
+      ],
+      "classic_golden_cases": [
+        {
+          "case_name": "食品高转化推文",
+          "slogan": "一口咬下，浓郁黑巧如熔岩般在舌尖爆开，微苦回甘，治愈一整天的疲惫。",
+          "insight": "纯感官动词描写（咬、爆开、熔岩）直接引发唾液分泌，缩短决策路径。"
+        },
+        {
+          "case_name": "居家除螨仪文案",
+          "slogan": "你以为干净的床单上，每晚有两百万只螨虫陪你入睡。",
+          "insight": "恐惧唤醒 + 具体数字，瞬间制造迫切购买行动。"
+        }
+      ],
+      "algorithmic_heuristics": {
+        "target_metric": "感官诱惑度与转化推力 (Conversion Drive Score)",
+        "rule": "感官动词密度 + 信任状背书 + 紧迫行动催促词检测。"
+      }
+    },
+    {
+      "book_id": "cialdini_influence",
+      "title": "影响力 (Influence: The Psychology of Persuasion)",
+      "author": "罗伯特·西奥迪尼 (Robert B. Cialdini - 全球公认说服力研究教父)",
+      "school": "行为心理学与说服力机制派",
+      "core_theory": "人类在面对复杂决策时，依靠大脑中的‘快捷思维通道（固定行为模式）’。文案不是要费力说服读者的理性逻辑，而是激活大脑深处预设好的决策触发器。真正的说服是无声而不可抗拒的。",
+      "thinking_paradigm": "非理性行为决策触发。人类的行为由深层社会心理驱动。文案要善用互惠、承诺、社会认同、喜好、权威、稀缺与联盟这七大决策开关。",
+      "strategy_framework": {
+        "influence_weapons": [
+          "1. 互惠原理 (Reciprocity): 先无条件给予价值、干货或情感代偿，读者不自觉产生补偿欲望",
+          "2. 承诺与一致 (Commitment & Consistency): 引导读者做出第一次微小认同，为了维持一致性而完成购买",
+          "3. 社会认同 (Social Proof): 在不确定时看多数人在做什么（‘已经有10万人加入’）",
+          "4. 权威效应 (Authority): 专业机构、实验室参数、白大褂背书摧毁防备心",
+          "5. 稀缺原则 (Scarcity): 害怕失去的痛苦远大于得到的快乐（损失厌恶与独占感）",
+          "6. 喜好与认同 (Liking & Unity): 人们更容易被和自己相似、懂自己痛点的人说服"
+        ]
+      },
+      "writing_methods": [
+        "损失厌恶框架化：将‘买它能获得什么’翻转为‘如果不做改变你每天正在失去什么’",
+        "社会认同群体锚定：‘95%的高净值人群默默践行的习惯’",
+        "权威数字度量衡：不用‘高效’，用‘通过瑞士SGS权威99.9%灭菌认证’"
+      ],
+      "classic_golden_cases": [
+        {
+          "case_name": "酒店环保提示语经典实验",
+          "slogan": "75%入住本房间的客人，都选择了再次使用毛巾，共同守护绿水青山。",
+          "insight": "比起道德说教‘请保护环境’，指出‘同房间前任客人的行为’（社会认同）使重用率暴增33%。"
+        },
+        {
+          "case_name": "稀缺限时文案",
+          "slogan": "名额仅剩最后3席，本轮关闭后需等待6个月。",
+          "insight": "直击失去厌恶本能，激发即刻行动冲动。"
+        }
+      ],
+      "algorithmic_heuristics": {
+        "target_metric": "心理说服武器激发度 (Influence Trigger Density)",
+        "rule": "检测文案中是否包含权威背书、社会认同、稀缺限制与损失厌恶框架。"
+      }
+    },
+    {
+      "book_id": "contagious_berger",
+      "title": "疯传：让你的产品、思想、行为像病毒一样入侵 (Contagious: Why Things Catch On)",
+      "author": "乔纳·伯杰 (Jonah Berger - 沃顿商学院市场营销学教授)",
+      "school": "病毒式传播与社交动力学派",
+      "core_theory": "事物的疯传不是偶然的运气，而是背后严格符合 6 大 STEPPS 病毒法则。人们传播某件事物，本质上是为了装扮自己的社交镜像。文案是用户借来展现自己品味、智慧与立场的社交道具。",
+      "thinking_paradigm": "社交货币与高唤醒生理情绪。人们为什么分享？为了让自己显得高尚、机智、有趣，或者因为被文字唤醒了愤怒、敬畏、狂喜等高能量生理情绪。",
+      "strategy_framework": {
+        "stepps_model": [
+          "S - Social Currency (社交货币): 让人转发时显得有品味、有见识、懂得内幕",
+          "T - Triggers (诱因): 将产品强行绑定到日常高频线索（如咖啡绑定KitKat，周四绑定肯德基）",
+          "E - Emotion (高唤醒情绪): 激发敬畏、狂喜、爆笑、义愤，避开忧伤、平淡与无聊",
+          "P - Public (公共性): 把私密行为变成公开可视的社交仪式（如苹果发光logo、微信运动步数）",
+          "P - Practical Value (实用价值): 提供立竿见影的避坑指南、省钱干货、自救攻略",
+          "S - Stories (特洛伊木马故事): 把品牌硬核信息包裹在一个让人欲罢不能的好故事里"
+        ]
+      },
+      "writing_methods": [
+        "高频日常场景借势：‘每当你在深夜改第8版PPT时’（诱因锚定）",
+        "身份徽章化：把文案写成受众的朋友圈宣言（‘今日精神离职，请勿打扰’）",
+        "制造反常识奇观：让人倒吸一口凉气的真实事实"
+      ],
+      "classic_golden_cases": [
+        {
+          "case_name": "Blendtec 破壁机",
+          "slogan": "Will It Blend? (它能被绞碎吗？)",
+          "insight": "把全新 iPhone 和高尔夫球丢进搅拌机打成粉末，极度敬畏的高能量情绪引爆全网数十亿次播放。"
+        },
+        {
+          "case_name": "肯德基疯狂星期四",
+          "slogan": "疯狂星期四，V我50！",
+          "insight": "完美结合周四高频诱因(Triggers) + 搞笑发疯高能量情绪(Emotion) + 全网二创社交货币(Social Currency)。"
+        }
+      ],
+      "algorithmic_heuristics": {
+        "target_metric": "STEPPS 病毒疯传指数 (STEPPS Virality Score)",
+        "rule": "社交货币、场景诱因、高能量情绪与故事包装度多维加权打分。"
+      }
+    },
+    {
+      "book_id": "ad_for_non_ad_people",
+      "title": "写给非广告人的广告书",
+      "author": "新井桥 (新井祥 / 小西利行 / 日本电通·博报堂创意大师心法)",
+      "school": "生活者视角与日常解决派",
+      "core_theory": "广告不是广告人的专属特权，广告的核心是‘帮助他人解决生活中的困境’。不要试图展示企业的优越，而是去发现‘这件事与对方的生活究竟有什么关系’。把生产者的专业行话，翻译成生活者会心一笑的日常语言。",
+      "thinking_paradigm": "生活者构思法。将‘自说自话的自夸’转变为‘为他人着想的提案’。回答三个终极问题：为什么是现在？为什么是我？能为我的日常带来什么具体的微小改变？",
+      "strategy_framework": {
+        "life_perspective_steps": [
+          "第一步：发现生活中的微小‘违和感’与隐秘叹息",
+          "第二步：把冷冰冰的技术参数转译成‘生活中的幸福瞬间’",
+          "第三步：提出一个让人感觉‘明天会比今天更从容一点’的温柔提案"
+        ]
+      },
+      "writing_methods": [
+        "平视提问消除心防：用体贴温暖的提问打开心门（如‘今天，你好好对自己笑过了吗？’）",
+        "玄关与厨房的真实白描：写拖鞋、写门把手、写水壶烧开时的白汽、写扯松两厘米的领带",
+        "消除行话与外语夹杂：用哪怕小学生都能秒懂的纯净词语表达不可思议的深刻哲思"
+      ],
+      "classic_golden_cases": [
+        {
+          "case_name": "日本电车治愈广告",
+          "slogan": "今天虽然什么也没做成，但好好活着，就已经非常了不起了。",
+          "insight": "完全舍弃商业叫卖，用极致温柔的生活者平视，瞬间让无数疲惫的通勤客破防落泪。"
+        },
+        {
+          "case_name": "日常食品经典",
+          "slogan": "把一家人重新聚在餐桌前，其实只需要一锅咕嘟咕嘟冒着热气的汤。",
+          "insight": "从生活细节出发，将调味品升华为维系家庭温情的温暖纽带。"
+        }
+      ],
+      "algorithmic_heuristics": {
+        "target_metric": "生活者平视共振度 (Life-Perspective Resonance Index)",
+        "rule": "平易生活物象检测 + 消除居高临下说教味与生涩行话。"
+      }
+    },
     {
       "book_id": "positioning",
       "title": "定位 (Positioning: The Battle for Your Mind)",
@@ -567,38 +754,6 @@
       "algorithmic_heuristics": {
         "target_metric": "尖叫反差指数 (Screaming Contrast Index)",
         "rule": "前置利益/痛点与反转冲突强度检测。"
-      }
-    },
-    {
-      "book_id": "bao_kuan_wen_an",
-      "title": "爆款文案",
-      "author": "关健明",
-      "school": "高转化电商与行动闭环派",
-      "core_theory": "爆款文案有一套严谨的工业化推演公式：抓人眼球的黄金标题 -> 激发购买欲的感官痛点 -> 赢得完全信任的权威背书 -> 引导马上行动的催单临门一脚。",
-      "thinking_paradigm": "转化漏斗思维。每一个字都是为了推动读者滑向下一个段落并最终按下‘立即购买’。",
-      "strategy_framework": {
-        "four_steps": [
-          "1. 抓人眼球 (好奇心/新闻/痛点/大促)",
-          "2. 激发欲望 (感官占有/心理渴望/恐怖唤醒)",
-          "3. 赢得信任 (专业认证/硬核实验/客户证言)",
-          "4. 引导下单 (限时/限量/降价诱惑/退款零风险)"
-        ]
-      },
-      "writing_methods": [
-        "感官细节占有法：详细描绘读者拥有产品后的第一口滋味、每一次抚摸",
-        "对比消除纠结：将单价分解为‘每天只需半杯奶茶钱’",
-        "从众效应背书：‘93%的挑剔妈妈共同选择’"
-      ],
-      "classic_golden_cases": [
-        {
-          "case_name": "食品高转化推文",
-          "slogan": "一口咬下，浓郁黑巧如熔岩般在舌尖爆开，微苦回甘，治愈一整天的疲惫。",
-          "insight": "纯感官动词描写（咬、爆开、熔岩）直接引发唾液分泌，缩短决策路径。"
-        }
-      ],
-      "algorithmic_heuristics": {
-        "target_metric": "感官诱惑度与转化推力 (Conversion Drive Score)",
-        "rule": "感官动词密度 + 信任状背书 + 紧迫行动催促词检测。"
       }
     },
     {

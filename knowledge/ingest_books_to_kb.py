@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 ingest_books_to_kb.py
-Ingests all 18 masterclass copywriting books into concepts, concept_chunks,
+Ingests all 24 masterclass copywriting books into concepts, concept_chunks,
 chunk_terms, chunk_vector_meta, and chunk_vector_blob tables.
 """
 

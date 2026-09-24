@@ -460,7 +460,7 @@ class CreativeReasoner:
 
 ---
 
-## 📚 七、 经典文案大师与广告书籍方法论赋能 (18 Masterclass Pillars)
+## 📚 七、 经典文案大师与广告书籍方法论赋能 ({bk.get('available_books_count', 24)} Masterclass Pillars)
 > 📌 **心智钉子 (Mental Nail · 特劳特《定位》)**: `{bk.get('positioning_audit', {}).get('mental_nail', '未指定')}`  
 > 🔨 **视觉锤 (Visual Hammer · 劳拉·里斯)**: `{bk.get('positioning_audit', {}).get('visual_hammer', '未指定')}`  
 > ⚡ **生命原力锚定 (LF8 · 惠特曼《吸金广告》)**: `{bk.get('life_force_audit', {}).get('matched_primary_desires', ['通用心理认同'])[0]}`  

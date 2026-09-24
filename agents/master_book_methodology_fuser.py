@@ -1,14 +1,19 @@
 #!/usr/bin/env python3
 """
 master_book_methodology_fuser.py — Book Methodologies & Strategy Fusion Engine
-Fuses principles from 18 classic copywriting & advertising books into generative heuristics:
-  1. 特劳特《定位》/ 里斯《视觉锤》: 心智钉子 (Mental Nail) & 视觉锤 (Visual Hammer)
-  2. 华与华《超级符号》: 文化母体寄生 & 超级行动指令
-  3. 林桂枝《小强广告100招》: 文案修剪刀 (动词化、去副词、微感官)
-  4. 德鲁·惠特曼《吸金广告》: LF8 生命原力映射
-  5. 罗伯特·布莱《文案创作完全手册》: 4U 转化审计 (Urgent, Unique, Ultra-specific, Useful)
-  6. 许舜英《意识形态》: 概念解构与先锋物哀美学
-  7. 金鹏远《借势》: 社交货币与双关张力
+Fuses principles from 24 classic copywriting & advertising books into generative heuristics:
+  1. 特劳特《定位》/ 劳拉·里斯《视觉锤》: 心智钉子 (Mental Nail) & 视觉锤 (Visual Hammer)
+  2. 阿尔·里斯《聚焦》: 聚焦单刀原则 (Laser Focus vs Greedy Multi-selling)
+  3. 华与华《超级符号》: 文化母体寄生 & 超级行动指令
+  4. 林永强《小强广告100招》: 文案修剪刀 (动词化、去副词、微感官)
+  5. 德鲁·惠特曼《吸金广告》: LF8 生命原力映射
+  6. 鲍勃·布莱《文案创作完全手册》: 4U 转化审计 (Urgent, Unique, Ultra-specific, Useful)
+  7. 约瑟夫·休格曼《文案训练手册》: 滑梯效应与好奇心种子
+  8. 乔纳·伯杰《疯传》: STEPPS 6大社交病毒传播法则
+  9. 罗伯特·西奥迪尼《影响力》: 6大说服心理武器
+  10. 金枪大叔《借势》: 以弱胜强与大白话情绪嘴替
+  11. 关键明《爆款文案》: 4步转化闭环与感官占有
+  12. 新井桥《写给非广告人的广告书》: 生活者平视语言与日常解困
 """
 
 import sys
@@ -24,7 +29,7 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 
 class MasterBookMethodologyFuser:
-    """Fuses 18 classic advertising book theories into generative strategy and copy heuristics."""
+    """Fuses 24 classic advertising book theories into generative strategy and copy heuristics."""
 
     def __init__(self, db_path: Optional[Path] = None):
         self.db_path = db_path or (PROJECT_ROOT / "via54_kb.db")
@@ -201,6 +206,65 @@ class MasterBookMethodologyFuser:
             "verdict": "成功借势社会情绪潜流，立起反叛旗帜，具备以弱胜强的锋利度" if leverage_score >= 4.6 else "建议进一步做减法，让情绪更浓缩"
         }
 
+    def audit_stepps_virality(self, slogan: str) -> Dict[str, Any]:
+        """Jonah Berger's 'Contagious' STEPPS Virality Model Audit."""
+        has_currency = any(w in slogan for w in ["精神离职", "除锈", "防弹衣", "PPT", "骨头", "鳕鱼", "演戏", "真实"])
+        has_trigger = any(w in slogan for w in ["白天", "夜晚", "凌晨", "周五", "工位", "电梯", "下班", "这一刻"])
+        has_emotion = any(w in slogan for w in ["救命", "画饼", "狂欢", "活到", "生脆", "心跳", "撒野", "叹息"])
+        has_practical = any(w in slogan for w in ["管饱", "解药", "0添加", "分期", "护甲", "不用忍", "立刻"])
+        
+        stepps_score = 3.8
+        if has_currency: stepps_score += 0.3
+        if has_trigger: stepps_score += 0.3
+        if has_emotion: stepps_score += 0.3
+        if has_practical: stepps_score += 0.3
+
+        return {
+            "source_book": "乔纳·伯杰《疯传：让你的产品、思想、行为像病毒一样入侵》",
+            "stepps_virality_score": round(min(5.0, stepps_score), 1),
+            "matched_factors": [
+                f"{'✅' if has_currency else '⚪'} 社交货币 (Social Currency)",
+                f"{'✅' if has_trigger else '⚪'} 场景诱因 (Triggers)",
+                f"{'✅' if has_emotion else '⚪'} 高能量情绪 (Emotion)",
+                f"{'✅' if has_practical else '⚪'} 实用价值 (Practical Value)"
+            ],
+            "verdict": "具备高病毒裂变潜能，融合了强社交货币与日常高频场景线索" if stepps_score >= 4.4 else "建议增强社交货币或绑定更高频的日常诱因场景"
+        }
+
+    def audit_cialdini_influence(self, slogan: str) -> Dict[str, Any]:
+        """Robert Cialdini's 'Influence' 6 Persuasion Weapons Audit."""
+        has_social_proof = any(w in slogan for w in ["所有人", "大家", "同行", "都在", "认领"])
+        has_authority = any(w in slogan for w in ["科学", "专业", "医生", "认证", "标准", "指标"])
+        has_scarcity = any(w in slogan for w in ["唯", "绝不", "最后", "透支", "不能忍", "只有"])
+        has_reciprocity = any(w in slogan for w in ["给", "还给", "陪伴", "托付", "守护"])
+
+        weapons = []
+        if has_social_proof: weapons.append("社会认同 (Social Proof)")
+        if has_authority: weapons.append("权威背书 (Authority)")
+        if has_scarcity: weapons.append("稀缺与损失厌恶 (Scarcity)")
+        if has_reciprocity: weapons.append("互惠与真诚托付 (Reciprocity)")
+
+        score = 4.0 + len(weapons) * 0.25
+        return {
+            "source_book": "罗伯特·西奥迪尼《影响力》",
+            "influence_score": round(min(5.0, score), 1),
+            "active_weapons": weapons or ["认知自洽驱动"],
+            "verdict": f"成功激活决策快捷通道: [{', '.join(weapons or ['自洽认同'])}]"
+        }
+
+    def audit_focus_purity(self, slogan: str) -> Dict[str, Any]:
+        """Al Ries's 'Focus' Single-Knife Audit (极度收窄焦点，杜绝贪婪多重卖点)."""
+        has_greedy_connectors = any(w in slogan for w in ["不仅", "而且", "兼具", "同时", "还具备", "全方位", "多重"])
+        clauses = [c for c in re.split(r"[,，。！？；\s]+", slogan) if c]
+        is_laser_focused = len(clauses) <= 2 and not has_greedy_connectors
+
+        return {
+            "source_book": "阿尔·里斯《聚焦：决定公司命运的雄心》",
+            "focus_purity_score": 4.8 if is_laser_focused else 3.8,
+            "greedy_connectors_detected": has_greedy_connectors,
+            "verdict": "如激光般极度聚焦于单一点，无冗余多卖点贪婪干扰" if is_laser_focused else "检测到多重卖点分散心智焦点，建议做减法只留一把尖刀"
+        }
+
     def synthesize_master_strategy_pack(
         self,
         brand: str,
@@ -208,15 +272,27 @@ class MasterBookMethodologyFuser:
         target_audience: str,
         brief_goal: str
     ) -> Dict[str, Any]:
-        """Synthesize masterclass strategic directives from all 20 book methodologies."""
+        """Synthesize masterclass strategic directives from all 24 book methodologies."""
         combined_text = f"{brand} {product} {target_audience} {brief_goal}"
         positioning = self.craft_positioning_nail_and_hammer(brand, product, brief_goal)
         lf8 = self.map_life_force_8(combined_text)
 
         master_schools_directives = [
             {
+                "school": "【阿尔·里斯《聚焦：决定公司命运的雄心》】",
+                "core_directive": "聚焦一把尖刀：宁肯丢掉平庸的全面，整篇文案只赌一个极致特性，绝不贪婪堆砌多重卖点。"
+            },
+            {
                 "school": "【特劳特《定位》& 劳拉·里斯《视觉锤》】",
                 "core_directive": f"钉死心智钉子: {positioning['mental_nail']}；铸造视觉锤: 【{positioning['visual_hammer']}】。{positioning['counter_positioning']}。"
+            },
+            {
+                "school": "【乔纳·伯杰《疯传：让你的产品病毒入侵》】",
+                "core_directive": "激活 STEPPS 六大病毒法则：让文案成为用户的社交货币(S)与身份勋章，强行绑定高频日常线索(T)与高唤醒生理情绪(E)。"
+            },
+            {
+                "school": "【罗伯特·西奥迪尼《影响力》】",
+                "core_directive": "触发大脑非理性开关：善用损失厌恶（翻转为不买的痛）、权威硬核背书与群体社会认同，摧毁最后一公里防御。"
             },
             {
                 "school": "【约瑟夫·休格曼《文案训练手册》滑梯理论】",
@@ -231,11 +307,19 @@ class MasterBookMethodologyFuser:
                 "core_directive": "借用日常民间谚语与口语母体，将口号直接写成无需思考的动词命令句，建立条件反射。"
             },
             {
+                "school": "【关键明《爆款文案》四步转化闭环】",
+                "core_directive": "感官细节占有法：让读者脑海中先行体验第一口滋味或第一触碰，算账对比消除纠结，限时促单临门一脚。"
+            },
+            {
+                "school": "【新井桥《写给非广告人的广告书》】",
+                "core_directive": "生活者平视语言：消灭居高临下的企业自夸与生涩行话，在玄关与厨房的真实微小细节中提出让生活更温暖的提案。"
+            },
+            {
                 "school": "【林永强《小强广告100招》人话修剪刀】",
                 "core_directive": "无情剪去副词与抽象形容词，让位给具象物象（钥匙、水面、领带、电梯）与高动能动词。"
             },
             {
-                "school": "【英国D&AD协会《The Copy Book 全球32位顶尖广告文案之道》】",
+                "school": "【英国D&AD协会《The Copy Book 全球32位顶尖文案之道》】",
                 "core_directive": "大声朗读校验唇齿阻力，让字词长短如心跳律动，用冷峻的陈述句与恰到好处的留白击穿读者灵魂。"
             },
             {
@@ -262,6 +346,7 @@ class MasterBookMethodologyFuser:
             "master_directives": master_schools_directives,
             "available_books_count": len(self.books)
         }
+
 
 
 

@@ -621,7 +621,7 @@ def synthesize_cognitive_slogans(
 # ── Tool: query_copywriting_books ─────────────────────
 @mcp.tool()
 def query_copywriting_books(keyword: str = "", book_id: str = "") -> str:
-    """Query 18 masterclass copywriting & advertising books (e.g. 《定位》, 《小强广告100招》, 《超级符号》, 《吸金广告》).
+    """Query 24 masterclass copywriting & advertising books (e.g. 《定位》, 《小强广告100招》, 《超级符号》, 《聚焦》, 《影响力》, 《疯传》, 《吸金广告》).
 
     Args:
         keyword: Optional search keyword to filter by author, theory, or school (e.g. '特劳特', '林桂枝', '华与华', 'LF8', '修剪刀')
