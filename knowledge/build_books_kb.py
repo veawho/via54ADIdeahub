@@ -917,6 +917,153 @@ ALL_MASTER_BOOKS = [
             "target_metric": "东方文化密码共鸣度 (Eastern Cultural Code Fit)",
             "rule": "传统人文意象检测与东方心理隐喻契合度评估。"
         }
+    },
+
+    # ── 25. 《文学翻译谈 / 许渊冲经典作品集》（许渊冲） ──
+    {
+        "book_id": "xu_yuanchong_translation",
+        "title": "文学翻译谈 / 许渊冲经典作品集",
+        "author": "许渊冲 (北京大学教授 / 国际翻译界北极光杰出文学翻译奖得主 / 诗译英法第一人)",
+        "school": "意美·音美·形美“三美论”与文学再创造流派",
+        "core_theory": "文学翻译是艺术的再创造，绝非机械字面的死译与硬译。翻译的最高追求是‘求真’与‘求美’的统一，甚至应当发挥母语优势‘超越原作’（Surpass the original）。好的文字必须做到三位一体：意美（传达灵魂与深层意境）、音美（抑扬顿挫平仄协畅、唇齿回甘）、形美（结构对称整饬、长短匀称节拍起伏）。",
+        "thinking_paradigm": "超越原作的美感最大化思维与母语自信。文案不是照搬产品物理参数，而是将产品卖点‘投胎转世’为具有传世文学美感的东方意象；打破字面对立，在中文语境中唤醒受众最深层的文化基因与审美狂欢。",
+        "strategy_framework": {
+            "three_beauties_doctrine": [
+                "意美：意象必须饱满生动，直击心灵深处，意境优先于字面死抠",
+                "音美：音节抑扬顿挫，平水韵平仄相间，同辙押韵，朗朗上口具有魔性穿透力",
+                "形美：长短句匀称呼应，排比对仗，版面与视觉骨架庄严平衡"
+            ],
+            "transcreation_advantages": [
+                "发挥汉语四字成语与四言古风的凝练张力",
+                "利用汉语同音异义与字形多义构造绝妙双关",
+                "知之者不如好之者，好之者不如乐之者：让读者在母语中‘乐之’"
+            ]
+        },
+        "writing_methods": [
+            "意译胜直译法：不被死板的字面语法束缚，重构中文专属的诗意场与画面感",
+            "双关点化法：巧妙利用汉语与外语的同音双关，化平淡为神奇（如 To face the powder and not to powder the face 译 不爱红装爱武装）",
+            "声律回响法：严选开口音、闭口音与声调起伏，让文案读起来如击金石",
+            "四言凝练化境：用汉语高度精炼的对偶结构，将散漫的长句提炼为如刀刻斧凿的传世警句"
+        ],
+        "classic_golden_cases": [
+            {
+                "case_name": "毛泽东词《七绝·为女民兵题照》英译",
+                "slogan": "To face the powder and not to powder the face. (不爱红装爱武装)",
+                "insight": "将‘红装（抹粉powder）’与‘武装（硝烟火药powder）’用英语同一词powder的双重含义并置对仗，形神兼备，堪称全球翻译界登峰造极之作。"
+            },
+            {
+                "case_name": "李白《静夜思》英译",
+                "slogan": "Before my bed a pool of light, Can it be hoarfrost on the ground? Looking up, I find the moon bright; Bowing, in homesickness I'm drowned.",
+                "insight": "严格遵循AABB抑扬格四步押韵，将‘低头思故乡’升华为‘在乡愁中彻底淹没’，意美、音美、形美三美齐备。"
+            },
+            {
+                "case_name": "诗经《采薇》英译",
+                "slogan": "When I set out at first, Willows did weep with me; Now on my way home burst, Snowfall and blizzard free.",
+                "insight": "将‘杨柳依依’化为拟人化的‘柳树随我啜泣’，将‘雨雪霏霏’化为风雪肆虐，音韵如歌，把古典东方的离愁别绪完美重现。"
+            }
+        ],
+        "algorithmic_heuristics": {
+            "target_metric": "意美音美形美三美指数 (Three Beauties Aesthetic Index)",
+            "rule": "综合测算文案的意象丰富度（意美）、平仄对仗押韵率（音美）与结构对称性（形美），确保文案兼具音韵回响与视觉张力。"
+        }
+    },
+
+    # ── 26. 《余光中谈翻译 / 翻译乃大道》（余光中） ──
+    {
+        "book_id": "yu_guangzhong_translation",
+        "title": "余光中谈翻译 / 翻译乃大道 (兼论《论中文的常态与变态》)",
+        "author": "余光中 (华语文学宗师 / 著名诗人、散文家、翻译家)",
+        "school": "母语本体纯洁派与汉语张力弹性学派",
+        "core_theory": "翻译与文案写作是一场母语纯洁性的保卫战。坚决抵制‘恶性西化’（欧化病与翻译腔）。汉语是具象、动词主导、意合生动的神仙语言，而劣质文案充斥着生硬的‘进行、关于、对于、具有...性、作为一个...的存在’等臃肿胶水词。好文案必须‘文白相间，张力自生’，用最短的词距产生最大的审美爆破力。",
+        "thinking_paradigm": "母语生态危机意识与炼字炼句法则。消灭假大空的行政欧化套话，回归汉语动词的原始飞跃感；在极刚与极柔之间并置，制造‘心有猛虎，细嗅蔷薇’般的无上戏剧性张力。",
+        "strategy_framework": {
+            "anti_westernization_rules": [
+                "剔除恶性西化虚词：消灭‘进行’、‘关于’、‘对于’、‘所’、‘作为’等无聊冗余词",
+                "消灭畸形被动语态：避免生硬的‘被’字句，回归汉语自然主谓或无主意合句",
+                "修剪多余的结构助词‘的’：防止‘的’字层层嵌套导致节奏窒息"
+            ],
+            "linguistic_elasticity": [
+                "文白相间：文言如嶙峋傲骨，白话如丰盈血肉，文白融汇自成奇峰",
+                "动词驱动：汉语的核心全在动词，换一个活生生的动词，整句立刻破壁飞腾",
+                "意象并置蒙太奇：省去逻辑连接词，直接让猛虎与蔷薇、孤帆与落日硬核碰撞"
+            ]
+        },
+        "writing_methods": [
+            "猛虎蔷薇法（极端反差并置）：在同一短句中并置雄壮阳刚与至柔细腻，拉满情感张力",
+            "动词赋能提纯：把‘对他进行闻嗅’提炼为一个充满触觉的‘嗅’字；把‘引起了激烈的反响’提炼为‘一石激起千层浪’",
+            "长短句呼应律动：长句如大江奔流抒发情怀，短句如匕首见血一击制胜",
+            "大白话骨气还原：把企业生涩的西化行话，翻译为老百姓听得懂、记得住、传得开的干脆人话"
+        ],
+        "classic_golden_cases": [
+            {
+                "case_name": "西格夫里·萨松 (Siegfried Sassoon) 诗歌翻译",
+                "slogan": "心有猛虎，细嗅蔷薇。(In me the tiger sniffs the rose.)",
+                "insight": "直译为‘我心中老虎闻着玫瑰’苍白无力；余光中以‘猛虎’对‘蔷薇’，以‘心有’对‘细嗅’，八个字将人性中雄心勃勃的野性与温柔细腻的慈悲并置，成为华语文案界顶礼膜拜的封神之译。"
+            },
+            {
+                "case_name": "王尔德喜剧《不可儿戏》汉译",
+                "slogan": "做作是世界上最可怕的姿态。",
+                "insight": "将维多利亚时期的繁琐机锋，翻译成冷峻尖刻的现代白话警策，字字见血而不着痕迹。"
+            },
+            {
+                "case_name": "《论中文的常态与变态》文案示范",
+                "slogan": "把‘对于该问题我们正在展开积极的解决工作’，还原为‘这事，我们正在办’。",
+                "insight": "彻底击碎恶性西化与官僚伪学术套话，还母语最原始的弹性、筋骨与纯粹尊严。"
+            }
+        ],
+        "algorithmic_heuristics": {
+            "target_metric": "汉语纯洁度与去欧化指数 (Anti-Westernization Purity Score)",
+            "rule": "扫描文案中的恶性西化欧化虚词（进行/关于/对于/作为一个/具有...性/过多的‘的’），若命中则扣分；检测动词鲜活性与文白张力比。"
+        }
+    },
+
+    # ── 27. 《钱钟书论翻译》（钱钟书） ──
+    {
+        "book_id": "qian_zhongshu_translation",
+        "title": "钱钟书论翻译 (兼论《林纾的翻译》与《管锥编》)",
+        "author": "钱钟书 (一代博雅巨擘 / 《围城》《管锥编》《谈艺录》作者)",
+        "school": "“化境”美学与文字投胎转世流派",
+        "core_theory": "“文学翻译的最高标准是‘化’。把作品从一国文字转变成另一国文字，既不能因语文习惯的差异而露出生硬牵强的痕迹，又能完全保存原作的风味，那就算得入于‘化境’。十七世纪有人赞美这种造诣的翻译，比为原作的‘投胎转世’（transmigration），躯壳换了一个，而精神姿致依然故我。”知‘讹’而能‘化’，在镣铐之上踏出凌波微步。",
+        "thinking_paradigm": "文字转世观与媒诱辩证法。文案人不是冰冷信息的搬运工，而是品牌灵魂的‘媒人’，用不可抗拒的语言之美，‘诱’使读者心智破防。文字要做到‘脱胎换骨’，形式皮囊彻底本土化，但骨子里的刺与神韵毫发无损。",
+        "strategy_framework": {
+            "huajing_doctrine": [
+                "如入化境：完全消融异质语言的翻译腔，仿佛作者原本就是用最地道的中文写就",
+                "投胎转世：躯壳换了一副健康的中文皮肉骨骼，而精神神韵依然故我，栩栩如生",
+                "媒与诱：广告文案是消费者与美好生活的媒人，用诱惑性的语言艺术达成神魂颠倒的共鸣"
+            ],
+            "qian_style_wit": [
+                "警策比喻：用极其意想不到但又无比贴切的喻体，瞬间点破复杂深奥的人性困境",
+                "高级幽默与反讽自嘲：用克制的机智化解崇高，杜绝一本正经的无趣说教",
+                "东海西海心理攸同：直击人类底层相通的爱恨恐惧，超越地域与阶层"
+            ]
+        },
+        "writing_methods": [
+            "脱胎换骨重构法：打碎生硬的从属逻辑句式，重组为行云流水般的中文意合流水句",
+            "奇绝隐喻法：用惊世骇俗的生活细节比喻抽象概念（如把婚姻比作围城，把借书比作调情）",
+            "神韵提纯法：舍弃死板的字面细节，抓住作者神态风味的核心神韵进行中文重塑",
+            "反讽自嘲留白：在文案高潮处留下一丝戏谑与狡黠，让读者掩卷沉思"
+        ],
+        "classic_golden_cases": [
+            {
+                "case_name": "《林纾的翻译》化境论断",
+                "slogan": "投胎转世，躯壳换了一个，而精神姿致依然故我。",
+                "insight": "道破一切文字再创作的终极天机：不要做字句的囚徒，要做灵魂的引路人，让思想在母语母体中新生。"
+            },
+            {
+                "case_name": "《围城》经典比喻",
+                "slogan": "城外的人想冲进去，城里的人想逃出来。",
+                "insight": "将千百年来两性关系与人类生存困境的复杂拉扯，浓缩为极致对称的十四个字，成为永载人类文学史的超级隐喻。"
+            },
+            {
+                "case_name": "《管锥编》论人类心智互通",
+                "slogan": "东海西海，心理攸同；南学北学，道术未裂。",
+                "insight": "揭示全球跨文化创意的底层逻辑：无论东方西方，人类在爱、怕、贪、嗔上的心理机制完全相通，抓准底层欲望即可无坚不摧。"
+            }
+        ],
+        "algorithmic_heuristics": {
+            "target_metric": "化境自然度与神韵转世指数 (Huajing Transmigration Index)",
+            "rule": "检验文案是否消除翻译腔、说教感与生硬拼接，评估其是否具备浑然天成的意境神韵与机智警策的比喻穿透力。"
+        }
     }
 ]
 
@@ -968,13 +1115,17 @@ def rebuild_books_database_and_json():
     conn.close()
 
     json_file.write_text(json.dumps({
-        "version": "v2.7.0",
-        "description": "Masterclass Advertising & Copywriting Books Knowledge Base (24 Pillars)",
+        "version": "v2.8.0",
+        "description": "Masterclass Advertising, Copywriting & Translation Books Knowledge Base (27 Pillars)",
         "total_books": len(ALL_MASTER_BOOKS),
         "books": ALL_MASTER_BOOKS
     }, ensure_ascii=False, indent=2), encoding="utf-8")
 
-    print(f"✅ Successfully built and stored {len(ALL_MASTER_BOOKS)} masterclass copywriting books in DB & JSON!")
+    print(f"✅ Successfully built and stored {len(ALL_MASTER_BOOKS)} masterclass books in DB & JSON!")
+
+    # Also sync divine translations
+    from knowledge.divine_translations_corpus import init_divine_translations_table
+    init_divine_translations_table(db_file)
 
 
 if __name__ == "__main__":

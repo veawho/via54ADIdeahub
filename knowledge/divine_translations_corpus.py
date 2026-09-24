@@ -1,0 +1,319 @@
+#!/usr/bin/env python3
+"""
+divine_translations_corpus.py — Canonical Divine Translations & Bilingual Aesthetic Re-creation Corpus
+Collects 18+ all-time classic "God-tier" translations demonstrating "Secondary Linguistic Reconstruction" (语言的二次重构).
+Captures:
+  - Original Text & Author/Source
+  - Divine Chinese Translation & Renowned Translator
+  - Literal Translation (对照直译)
+  - Aesthetic Reconstruction Mechanism (美学重构密码：三美论、文白相间、动词赋能、化境转世)
+  - Copywriting & Brand Strategy Insight (文案与品牌启示)
+"""
+
+import sys
+import os
+import json
+import sqlite3
+from pathlib import Path
+from typing import List, Dict, Any
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
+DIVINE_TRANSLATIONS_DATA: List[Dict[str, Any]] = [
+    {
+        "id": 1,
+        "category": "现代诗歌 / 人性哲学",
+        "source_language": "English",
+        "target_language": "Chinese",
+        "original_text": "In me the tiger sniffs the rose.",
+        "original_author_or_source": "西格夫里·萨松 (Siegfried Sassoon) 《于我，过去，现在以及未来》",
+        "divine_translation": "心有猛虎，细嗅蔷薇。",
+        "translator": "余光中",
+        "literal_translation": "在我心里，老虎闻着玫瑰。",
+        "reconstruction_mechanism": "动词提纯与反差并置：将平淡的‘闻’升华为浸润心脾的‘细嗅’；将普通名词‘老虎/玫瑰’提炼为具有东方文学质感的‘猛虎/蔷薇’；四字成偶，文白相间，在极端阳刚雄心与极致阴柔细腻之间建立摄人心魄的审美张力。",
+        "copywriting_insight": "顶尖文案要善于制造‘极端反差并置’，在硬核坚强的现实外壳中藏入柔软细腻的慈悲与温度，最能击穿大众心理防线。"
+    },
+    {
+        "id": 2,
+        "category": "文学经典 / 生命哲思",
+        "source_language": "English",
+        "target_language": "Chinese",
+        "original_text": "Let life be beautiful like summer flowers and death like autumn leaves.",
+        "original_author_or_source": "罗宾德拉纳特·泰戈尔 (Rabindranath Tagore) 《飞鸟集》第82首",
+        "divine_translation": "使生如夏花之绚烂，死如秋叶之静美。",
+        "translator": "郑振铎",
+        "literal_translation": "让生命像夏天的花朵一样美丽，死亡像秋天的叶子一样。",
+        "reconstruction_mechanism": "形容词裂变与哲学对偶：将英文中单一平薄的‘beautiful’拆解重构为‘绚烂’与‘静美’的一动一静；生命如夏花般热烈奔放，死亡如秋叶般宁静坦然；四六句律动，把世俗生死升华为宇宙哲思。",
+        "copywriting_insight": "品牌叙事要敢于直面深刻命题；善于将扁平的概念（如‘好品质’）裂变为成对的动态意象（一烈一柔、一动一静）。"
+    },
+    {
+        "id": 3,
+        "category": "爱情神译 / 古典重构",
+        "source_language": "English",
+        "target_language": "Chinese",
+        "original_text": "I love three things in this world: the sun, the moon and you. The sun for the morning, the moon for the night, and you forever.",
+        "original_author_or_source": "英文经典抒情短诗 (Anonymous)",
+        "divine_translation": "浮世三千，吾爱有三：日、月与卿。日为朝，月为暮，卿为朝朝暮暮。",
+        "translator": "网络集体智慧 (古风重构神译)",
+        "literal_translation": "在这个世界上我喜欢三样东西：太阳、月亮和你。太阳对应早晨，月亮对应夜晚，而你对应永远。",
+        "reconstruction_mechanism": "意境升维与时空叠字复沓：将‘this world’点化为具佛禅苍茫感的‘浮世三千’；将‘you’升格为典雅称谓‘卿’；将‘morning / night / forever’化为‘朝 / 暮 / 朝朝暮暮’的汉字音律回环，层层推进，情深而骨立。",
+        "copywriting_insight": "巧用汉语专属的‘叠字与音律复沓’，能为现代产品文案注入几千年的东方深情与时间的辽远纵深感。"
+    },
+    {
+        "id": 4,
+        "category": "电影台词 / 人生宿命",
+        "source_language": "English",
+        "target_language": "Chinese",
+        "original_text": "Sometimes ever, sometimes never.",
+        "original_author_or_source": "韩寒电影《后会无期》经典双语对标金句",
+        "divine_translation": "相聚有时，后会无期。",
+        "translator": "韩寒 / 电影主创神译",
+        "literal_translation": "有时曾经拥有，有时从未发生。",
+        "reconstruction_mechanism": "极端省净的偶句对仗：‘有时’对‘无期’，‘相聚’对‘后会’；虚实呼应，把人与人之间缘分的聚合、错落与无可奈何的决绝，浓缩在八个字之中，字字有千钧之重。",
+        "copywriting_insight": "爆款口号必须极度省字，利用‘时与期、聚与散’的反义词极速对撞，让受众在0.5秒内产生宿命般的唏嘘与共鸣。"
+    },
+    {
+        "id": 5,
+        "category": "文学经典 / 抒情散文",
+        "source_language": "French",
+        "target_language": "Chinese",
+        "original_text": "...avec le visage que vous aviez jeune fille, j'aime mieux votre visage de maintenant, dévasté.",
+        "original_author_or_source": "玛格丽特·杜拉斯 (Marguerite Duras) 《情人》",
+        "divine_translation": "与你年轻的时候相比，我更爱你现在备受摧残的面容。",
+        "translator": "王道乾",
+        "literal_translation": "比起你年轻姑娘时的面孔，我更喜欢你现在被摧毁的面孔。",
+        "reconstruction_mechanism": "沉郁音乐感长句：将法文‘dévasté’译为沉郁顿挫的‘备受摧残的面容’；王道乾以平静从容、毫无谄媚的抒情调性，奠定了现代汉语抒情散文不可逾越的音乐性美感巅峰。",
+        "copywriting_insight": "文案不必畏惧岁月的残酷与伤痕；真诚坦荡的‘备受摧残’，往往比所有滤镜磨皮的虚假完美更让人动容千万倍。"
+    },
+    {
+        "id": 6,
+        "category": "思想箴言 / 豁达人生",
+        "source_language": "English",
+        "target_language": "Chinese",
+        "original_text": "I strove with none, for none was worth my strife; Nature I loved, and, next to Nature, Art; I warmed both hands before the fire of life; It sinks, and I am ready to depart.",
+        "original_author_or_source": "瓦特·兰德 (Walter Savage Landor) 《生与死 (Finis)》",
+        "divine_translation": "我和谁都不争，和谁争我都不屑；我爱大自然，其次就是艺术；我双手烤着生命之火取暖；火萎了，我也准备走了。",
+        "translator": "杨绛",
+        "literal_translation": "我不与任何人争斗，因为无人值得我争斗；我爱大自然，其次是艺术；我在生命火前烤暖双手；火沉了，我准备离开。",
+        "reconstruction_mechanism": "杨绛先生‘点烦’之妙与平淡天真：‘不屑’二字傲骨凌霜却不着痕迹；‘火萎了，我也准备走了’举重若轻，把生命的谢幕写得如晨起出门散步般坦荡安详。",
+        "copywriting_insight": "最高级的品牌姿态是‘平淡天真中的傲骨’，拒绝嘶吼叫卖，用举重若轻的平常心表达傲视世俗的精神境界。"
+    },
+    {
+        "id": 7,
+        "category": "思想箴言 / 读书治学",
+        "source_language": "English",
+        "target_language": "Chinese",
+        "original_text": "Histories make men wise; poets witty; the mathematics subtile; natural philosophy deep; moral grave; logic and rhetoric able to contend.",
+        "original_author_or_source": "弗朗西斯·培根 (Francis Bacon) 《论读书 (Of Studies)》",
+        "divine_translation": "读史使人明智，读诗使人灵秀，数学使人周密，科学使人深刻，伦理学使人庄重，逻辑修辞之学使人善辩：凡有所学，皆成性格。",
+        "translator": "王佐良",
+        "literal_translation": "历史使人聪明，诗歌使人机智，数学使人精细，自然哲学使人深刻，伦理使人庄重，逻辑与修辞使人善辩。",
+        "reconstruction_mechanism": "四字成语矩阵排比：‘明智、灵秀、周密、深刻、庄重、善辩’气势如排山倒海；末尾神来之笔点化出‘凡有所学，皆成性格’，一锤定音。",
+        "copywriting_insight": "构建文案的‘对称矩阵’，用连续的四字动宾短语建立不可动摇的专业信任状，最后用一句结论形成终极心智闭环。"
+    },
+    {
+        "id": 8,
+        "category": "诗词互译 / 双关绝伦",
+        "source_language": "Chinese",
+        "target_language": "English",
+        "original_text": "不爱红装爱武装",
+        "original_author_or_source": "毛泽东 《七绝·为女民兵题照》",
+        "divine_translation": "To face the powder and not to powder the face.",
+        "translator": "许渊冲",
+        "literal_translation": "Do not love cosmetics, love military arms.",
+        "reconstruction_mechanism": "双关反掌回环：巧妙利用英文同一词‘powder’的双重含义（硝烟火药 vs 脂粉粉饼），将动词与名词倒装对置，既‘面对硝烟火药’又‘不涂脂抹粉’，形意双绝。",
+        "copywriting_insight": "发掘同一个核心词汇的多重意向通道，通过结构回环与对仗，给受众创造出惊艳的心智顿悟与审美快感。"
+    },
+    {
+        "id": 9,
+        "category": "历史演讲 / 英雄叙事",
+        "source_language": "English",
+        "target_language": "Chinese",
+        "original_text": "Old soldiers never die, they just fade away.",
+        "original_author_or_source": "道格拉斯·麦克阿瑟 (Douglas MacArthur) 国会告别演说",
+        "divine_translation": "老兵不死，只是慢慢凋零。",
+        "translator": "经典公译 (流传翻译)",
+        "literal_translation": "老兵永远不死，他们只是逐渐消失。",
+        "reconstruction_mechanism": "物哀拟态与意象赋予：将‘fade away’（逐渐消失）转译为落叶秋花的‘慢慢凋零’，把原本冰冷的物理退场，赋予了东方式的生命悲壮与草木深情。",
+        "copywriting_insight": "把冰冷抽象的物理结果（如‘电池耗尽’、‘下班离开’），拟态为有温度的生命动作，瞬间激发出受众的共情泪点。"
+    },
+    {
+        "id": 10,
+        "category": "浪漫主义 / 希望图腾",
+        "source_language": "English",
+        "target_language": "Chinese",
+        "original_text": "If Winter comes, can Spring be far behind?",
+        "original_author_or_source": "珀西·比希·雪莱 (Percy Bysshe Shelley) 《西风颂》",
+        "divine_translation": "冬天来了，春天还会远吗？",
+        "translator": "查良铮 (穆旦)",
+        "literal_translation": "如果冬天来了，春天能够落后很远吗？",
+        "reconstruction_mechanism": "白话提纯与反问振奋：剔除从句连词的机械感，换成最纯粹、平白如水的大白话反问句，成为百年间激励无数绝望者的希望晨钟。",
+        "copywriting_insight": "传世金句必须敢于‘大白话’；越是重大的危机转折，越要用最简单笃定的母语设问，给大众吃下一颗定心丸。"
+    },
+    {
+        "id": 11,
+        "category": "现代诗歌 / 重逢与感伤",
+        "source_language": "English",
+        "target_language": "Chinese",
+        "original_text": "If I should meet thee / After long years, / How should I greet thee? / With silence and tears.",
+        "original_author_or_source": "乔治·戈登·拜伦 (Lord Byron) 《春逝 (When We Two Parted)》",
+        "divine_translation": "若我会见到你，事隔经年。我如何向你致意？以眼泪，以沉默。",
+        "translator": "杨德豫",
+        "literal_translation": "如果漫长岁月后我遇见你，我该如何向你打招呼？用沉默和眼泪。",
+        "reconstruction_mechanism": "时间量词与倒装静止感：‘事隔经年’四字将时间冲刷的苍凉推向极致；‘以眼泪，以沉默’将动作凝固为雕塑般的仪式，余音绕梁。",
+        "copywriting_insight": "善用‘事隔经年’式的时间度量词强化品牌与用户的陪伴羁绊，把高潮情绪后置压轴。"
+    },
+    {
+        "id": 12,
+        "category": "爱情神译 / 至纯深情",
+        "source_language": "English",
+        "target_language": "Chinese",
+        "original_text": "Waking up, I find myself deeply in love with you... Do not fear growing old.",
+        "original_author_or_source": "威廉·莎士比亚戏剧翻译 / 朱生豪致宋清如情书",
+        "divine_translation": "醒来觉得甚是爱你。 / 不要愁老之将至，你老了一定很可爱。",
+        "translator": "朱生豪",
+        "literal_translation": "醒来时我发现我深深爱着你。不要害怕变老。",
+        "reconstruction_mechanism": "去西化与江南私语：将西方浓烈的表白，化作中国文人晨起推窗面对所爱之人的一抹闲笔淡墨；‘甚是爱你’温润如玉；‘你老了一定很可爱’击碎所有年龄焦虑。",
+        "copywriting_insight": "消除文案中的生硬谄媚与居高临下，用‘床头晨起私语’般的平视语调，创造极致的亲密感与情绪安全感。"
+    },
+    {
+        "id": 13,
+        "category": "寓言童话 / 责任与羁绊",
+        "source_language": "French",
+        "target_language": "Chinese",
+        "original_text": "Tu deviens responsable pour toujours de ce que tu as apprivoisé.",
+        "original_author_or_source": "安托万·德·圣-埃克苏佩里 (Antoine de Saint-Exupéry) 《小王子》",
+        "divine_translation": "你要永远为你所驯服的东西负责。",
+        "translator": "周克希",
+        "literal_translation": "你对于你驯服了的东西负有永远的责任。",
+        "reconstruction_mechanism": "野生羁绊与誓约动词：‘驯服’准确传达了人与人之间既危险又温柔的生命纠缠；‘负责’两个字像磐石一样沉稳，定格为现代人深层关系的永恒誓词。",
+        "copywriting_insight": "品牌与用户的关系本质上就是‘相互驯服’；文案要敢于向用户许下庄重的承诺与一生的确定感。"
+    },
+    {
+        "id": 14,
+        "category": "文学经典 / 时代挽歌",
+        "source_language": "English",
+        "target_language": "Chinese",
+        "original_text": "So we beat on, boats against the current, borne back ceaselessly into the past.",
+        "original_author_or_source": "弗朗西斯·斯科特·菲茨杰拉德 (F. Scott Fitzgerald) 《了不起的盖茨比》",
+        "divine_translation": "于是我们奋力向前，逆水行舟，被不断向后推，直至回到往昔岁月。",
+        "translator": "巫宁坤",
+        "literal_translation": "所以我们继续划桨，小船逆着水流，不断被带回到过去。",
+        "reconstruction_mechanism": "借用成语母体：巧借中国古典成语‘逆水行舟’，将盖茨比式悲壮的个人奋斗与时代逆流的无情抗衡，译出大江大河般的史诗叹息。",
+        "copywriting_insight": "文案善于调用大众认知中早已根深蒂固的成语母体，能让异国异质的现代思想瞬间扎根在母语心智的肥沃土壤中。"
+    },
+    {
+        "id": 15,
+        "category": "现代诗歌 / 坚韧意志",
+        "source_language": "French",
+        "target_language": "Chinese",
+        "original_text": "Le vent se lève !... Il faut tenter de vivre !",
+        "original_author_or_source": "保罗·瓦雷里 (Paul Valéry) 《海滨墓园》 / 宫崎骏《起风了》",
+        "divine_translation": "风陵起，唯有努力生存！ / 纵有疾风起，人生不言弃。",
+        "translator": "卞之琳 / 现代文案升华神译",
+        "literal_translation": "风刮起来了！必须试着活下去！",
+        "reconstruction_mechanism": "七言古风与坚韧口号：从法文平铺直叙的哲思句，升华为掷地有声的七言对仗口号；平仄铿锵，成为当代大众在风浪中不屈前行的精神图腾。",
+        "copywriting_insight": "在行业动荡与生活暴风雨来临时，文案应当化作一面战旗，给出不屈服的硬核态度。"
+    },
+    {
+        "id": 16,
+        "category": "思想启蒙 / 时代口号",
+        "source_language": "English",
+        "target_language": "Chinese",
+        "original_text": "Natural selection, survival of the fittest.",
+        "original_author_or_source": "托马斯·赫胥黎 (Thomas Huxley) 《天演论》 / 查尔斯·达尔文",
+        "divine_translation": "物竞天择，适者生存。",
+        "translator": "严复",
+        "literal_translation": "自然选择，最适者生存。",
+        "reconstruction_mechanism": "八字成语千秋定音：严复以惊天地泣鬼神的文言凝练，将厚重的生物演化巨著熔铸为八字成语，彻底改变了近代中国的思想进程。",
+        "copywriting_insight": "极致的语言重构，能够将最繁复的技术原理和商业模式，熔铸为八个字的社会常识。"
+    },
+    {
+        "id": 17,
+        "category": "存在主义 / 孤独与沉潜",
+        "source_language": "German",
+        "target_language": "Chinese",
+        "original_text": "Wer jetzt kein Haus hat, baut sich keines mehr. Wer jetzt allein ist, wird es lange bleiben...",
+        "original_author_or_source": "莱纳·玛利亚·里尔克 (Rainer Maria Rilke) 《秋日》",
+        "divine_translation": "谁这时没有房屋，就不必建造；谁这时孤独，就永远孤独。",
+        "translator": "冯至",
+        "literal_translation": "谁现在没有房子，就不再建造了。谁现在孤独，就会长时间保持孤独。",
+        "reconstruction_mechanism": "清冽律动与克制断言：冯至先生以宛如冰雪的现代汉语律动，两次‘谁这时’的平仄呼应，把德语的存在主义宿命感刻入骨髓，冷冽而庄严。",
+        "copywriting_insight": "克制的断言往往比热情的推销更具穿透力；尊重都市人的清醒与孤独，才能赢得心智最高的尊重。"
+    },
+    {
+        "id": 18,
+        "category": "电影台词 / 深情致敬",
+        "source_language": "English",
+        "target_language": "Chinese",
+        "original_text": "Here's looking at you, kid.",
+        "original_author_or_source": "电影《卡萨布兰卡 (Casablanca)》亨弗莱·鲍嘉经典台词",
+        "divine_translation": "永志不忘。 / 敬你的明眸。",
+        "translator": "经典译制片神译",
+        "literal_translation": "这就是看着你，孩子。",
+        "reconstruction_mechanism": "画外之意与深情敬酒：彻底丢弃字面的‘看着你’，直奔男主角凝视女主角眼睛时的无限心碎与深情敬意，化作一句铭刻一生的誓约。",
+        "copywriting_insight": "文案千万不要只翻译眼睛看到的表象，必须翻译出眼睛背后的灵魂渴望与画外音。"
+    }
+]
+
+
+def init_divine_translations_table(db_path: Path = None):
+    """Create and populate the divine_translations table in SQLite."""
+    db_file = db_path or (PROJECT_ROOT / "via54_kb.db")
+    conn = sqlite3.connect(str(db_file))
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS divine_translations (
+            id INTEGER PRIMARY KEY,
+            category TEXT NOT NULL,
+            source_language TEXT NOT NULL,
+            target_language TEXT NOT NULL,
+            original_text TEXT NOT NULL,
+            original_author_or_source TEXT NOT NULL,
+            divine_translation TEXT NOT NULL,
+            translator TEXT NOT NULL,
+            literal_translation TEXT NOT NULL,
+            reconstruction_mechanism TEXT NOT NULL,
+            copywriting_insight TEXT NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        );
+    """)
+
+    for item in DIVINE_TRANSLATIONS_DATA:
+        cursor.execute("""
+            INSERT OR REPLACE INTO divine_translations
+            (id, category, source_language, target_language, original_text,
+             original_author_or_source, divine_translation, translator,
+             literal_translation, reconstruction_mechanism, copywriting_insight)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """, (
+            item["id"],
+            item["category"],
+            item["source_language"],
+            item["target_language"],
+            item["original_text"],
+            item["original_author_or_source"],
+            item["divine_translation"],
+            item["translator"],
+            item["literal_translation"],
+            item["reconstruction_mechanism"],
+            item["copywriting_insight"]
+        ))
+
+    conn.commit()
+    conn.close()
+
+    json_file = PROJECT_ROOT / "knowledge" / "divine_translations.json"
+    json_file.write_text(json.dumps({
+        "version": "v1.0.0",
+        "description": "Canonical Divine Translations & Bilingual Secondary Linguistic Reconstruction Corpus",
+        "total_items": len(DIVINE_TRANSLATIONS_DATA),
+        "items": DIVINE_TRANSLATIONS_DATA
+    }, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    print(f"✅ Successfully initialized {len(DIVINE_TRANSLATIONS_DATA)} divine translations in DB & JSON!")
+
+
+if __name__ == "__main__":
+    init_divine_translations_table()

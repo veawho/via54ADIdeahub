@@ -265,6 +265,112 @@ class MasterBookMethodologyFuser:
             "verdict": "如激光般极度聚焦于单一点，无冗余多卖点贪婪干扰" if is_laser_focused else "检测到多重卖点分散心智焦点，建议做减法只留一把尖刀"
         }
 
+    def audit_three_beauties(self, slogan: str) -> Dict[str, Any]:
+        """Xu Yuanchong's 'Three Beauties' Doctrine (意美、音美、形美)."""
+        poetic_images = ["花", "叶", "虎", "蔷薇", "月", "日", "朝", "暮", "风", "雪", "海", "山", "水", "草", "木", "石", "星", "火", "光", "雨", "霜", "梦", "鱼", "路"]
+        has_poetic_image = any(img in slogan for img in poetic_images)
+
+        clauses = [c for c in re.split(r"[,，。！？；\s]+", slogan) if c]
+        is_symmetric = False
+        symmetry_desc = "参差长短"
+        if len(clauses) >= 2:
+            len1, len2 = len(clauses[0]), len(clauses[1])
+            if len1 == len2:
+                is_symmetric = True
+                symmetry_desc = f"{len1}+{len2} 严整对称"
+            elif abs(len1 - len2) <= 2:
+                is_symmetric = True
+                symmetry_desc = f"{len1}+{len2} 律动呼应"
+        elif len(clauses) == 1 and len(clauses[0]) in [4, 6, 8]:
+            is_symmetric = True
+            symmetry_desc = f"{len(clauses[0])}言凝练"
+
+        try:
+            from agents.rhetorical_alchemy_synthesizer import RhetoricalAlchemySynthesizer
+            alchemy = RhetoricalAlchemySynthesizer()
+            tonal = alchemy.measure_cadence_and_tone(slogan)
+            cadence_score = tonal.get("metrics", {}).get("cadence_score", 4.0)
+            tone_pattern = tonal.get("tone_pattern", "")
+            rhyme_cat = tonal.get("rhyme_category", "")
+        except Exception:
+            cadence_score = 4.2
+            tone_pattern = "平仄协畅"
+            rhyme_cat = "同辙"
+
+        three_beauties_score = round((
+            (4.8 if has_poetic_image else 4.0) +
+            (4.8 if is_symmetric else 3.8) +
+            cadence_score
+        ) / 3, 1)
+
+        return {
+            "source_book": "许渊冲《文学翻译谈 / 许渊冲经典作品集》",
+            "three_beauties_score": three_beauties_score,
+            "meaning_beauty": "具备鲜明诗意意象与情感深度" if has_poetic_image else "意象偏抽象，建议注入自然或微感官具象物",
+            "form_beauty": symmetry_desc,
+            "sound_beauty": f"平仄声调: {tone_pattern} | 韵辙: {rhyme_cat}",
+            "verdict": "三美兼备，如出金石" if three_beauties_score >= 4.5 else "基本达意，可进一步雕琢字数对称与声律"
+        }
+
+    def apply_yu_guangzhong_de_westernizer(self, text: str) -> Dict[str, Any]:
+        """Yu Guangzhong's Anti-Westernization Trimmer (拒斥恶性西化与欧化病，文白张力提纯)."""
+        westernized_markers = [
+            ("进行", "用‘进行’+动词（如进行讨论/进行闻嗅），窒息了动词活力，应直接用‘谈’、‘嗅’"),
+            ("对于", "滥用‘对于’引起话题，显得官僚拖沓，可直接点名事物"),
+            ("关于", "‘关于...的方面’属于多余虚词，直接做主谓表述"),
+            ("作为一个", "西方 as a... 的生硬直译，中文可直接省略"),
+            ("具有", "伪学术名词后缀（如‘具有创新性’），还原为生动动词或形容词（如‘破旧立新’）"),
+            ("被", "中文重无主意合句，避免生搬硬套英语被动语态")
+        ]
+        hits = []
+        for marker, critique in westernized_markers:
+            if marker in text:
+                hits.append({"marker": marker, "critique": critique})
+
+        purity_score = 5.0 - len(hits) * 0.4
+        return {
+            "source_book": "余光中《余光中谈翻译 / 翻译乃大道 (兼论论中文的常态与变态)》",
+            "anti_westernization_purity_score": round(max(3.0, purity_score), 1),
+            "westernized_hits": hits,
+            "verdict": "剔除欧化胶水词，回归汉语具象动词；并置猛虎与蔷薇，制造文白相间的审美张力" if hits else "无恶性西化病，句式精纯有力，母语筋骨舒展"
+        }
+
+    def audit_qian_zhongshu_huajing(self, slogan: str) -> Dict[str, Any]:
+        """Qian Zhongshu's 'Huajing' Transmigration Audit (化境与文字脱胎换骨)."""
+        has_metaphor = any(m in slogan for m in ["如", "似", "像", "若", "是", "，", "。"])
+        has_cliche = any(c in slogan for c in ["引领潮流", "尽享奢华", "尊贵体验", "完美品质", "匠心打造", "卓越不凡"])
+
+        is_huajing = has_metaphor and not has_cliche
+        return {
+            "source_book": "钱钟书《钱钟书论翻译 (兼论林纾的翻译与管锥编)》",
+            "huajing_score": 4.8 if is_huajing else (4.2 if not has_cliche else 3.5),
+            "is_cliche_free": not has_cliche,
+            "verdict": "入于化境：脱胎换骨浑然天成，以奇绝隐喻直击心智，无陈腐说教" if is_huajing else ("文辞平顺，建议注入钱式机智警策隐喻" if not has_cliche else "检测到广告陈词滥调，建议彻底打碎重写")
+        }
+
+    def fetch_relevant_divine_translations(self, keyword: str = "", limit: int = 3) -> List[Dict[str, Any]]:
+        """Fetch canonical divine translations matching the keyword or random top benchmark."""
+        results = []
+        try:
+            conn = sqlite3.connect(str(self.db_path))
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+            if keyword:
+                cursor.execute("""
+                    SELECT * FROM divine_translations 
+                    WHERE divine_translation LIKE ? OR original_text LIKE ? OR copywriting_insight LIKE ?
+                    LIMIT ?
+                """, (f"%{keyword}%", f"%{keyword}%", f"%{keyword}%", limit))
+            else:
+                cursor.execute("SELECT * FROM divine_translations ORDER BY id ASC LIMIT ?", (limit,))
+            rows = cursor.fetchall()
+            for r in rows:
+                results.append(dict(r))
+            conn.close()
+        except Exception:
+            pass
+        return results
+
     def synthesize_master_strategy_pack(
         self,
         brand: str,
@@ -272,10 +378,11 @@ class MasterBookMethodologyFuser:
         target_audience: str,
         brief_goal: str
     ) -> Dict[str, Any]:
-        """Synthesize masterclass strategic directives from all 24 book methodologies."""
+        """Synthesize masterclass strategic directives from all 27 book methodologies."""
         combined_text = f"{brand} {product} {target_audience} {brief_goal}"
         positioning = self.craft_positioning_nail_and_hammer(brand, product, brief_goal)
         lf8 = self.map_life_force_8(combined_text)
+        divine_benchmarks = self.fetch_relevant_divine_translations(keyword="", limit=3)
 
         master_schools_directives = [
             {
@@ -285,6 +392,18 @@ class MasterBookMethodologyFuser:
             {
                 "school": "【特劳特《定位》& 劳拉·里斯《视觉锤》】",
                 "core_directive": f"钉死心智钉子: {positioning['mental_nail']}；铸造视觉锤: 【{positioning['visual_hammer']}】。{positioning['counter_positioning']}。"
+            },
+            {
+                "school": "【许渊冲《文学翻译谈 / 许渊冲经典作品集》三美论】",
+                "core_directive": "超越直译追求意美、音美、形美：巧用汉语专属对仗与双关回环，让产品卖点‘投胎转世’为具有传世美感的文学图腾，让读者在母语中‘乐之’。"
+            },
+            {
+                "school": "【余光中《余光中谈翻译 / 翻译乃大道》文白张力】",
+                "core_directive": "坚决抵制恶性西化欧化病（剔除‘进行/关于/对于/被’），回归汉语原生动词；制造‘心有猛虎，细嗅蔷薇’般的极刚与极柔反差并置张力。"
+            },
+            {
+                "school": "【钱钟书《钱钟书论翻译》化境与转世】",
+                "core_directive": "文字投胎转世，如入化境：做品牌与美好生活的‘媒人’，打碎生硬行话，用机智警策的奇绝隐喻让消费者心智瞬间破防。"
             },
             {
                 "school": "【乔纳·伯杰《疯传：让你的产品病毒入侵》】",
@@ -344,6 +463,7 @@ class MasterBookMethodologyFuser:
             "positioning_audit": positioning,
             "life_force_audit": lf8,
             "master_directives": master_schools_directives,
+            "divine_translation_benchmarks": divine_benchmarks,
             "available_books_count": len(self.books)
         }
 

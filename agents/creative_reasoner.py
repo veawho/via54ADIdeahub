@@ -420,6 +420,15 @@ class CreativeReasoner:
             for d in bk.get("master_directives", [])
         ]) or "> 暂无特定书籍指引"
 
+        divine_bms = bk.get("divine_translation_benchmarks", [])
+        divine_md = "\n".join([
+            f"- **【{t['divine_translation']}】** *(译者: {t.get('translator', '神译')})*\n"
+            f"  - *原文*: `{t.get('original_text', '')}` *(直译: {t.get('literal_translation', '')})*\n"
+            f"  - *重构密码*: {t.get('reconstruction_mechanism', '')}\n"
+            f"  - *文案启示*: {t.get('copywriting_insight', '')}"
+            for t in divine_bms
+        ]) or "> 暂无特定翻译对照标杆"
+
         md = f"""# 🌌 【{strategy['brand']}】创意品牌全案与差异化口号矩阵
 
 > 📌 **战役目标**: {strategy['brief_goal']}  
@@ -460,13 +469,24 @@ class CreativeReasoner:
 
 ---
 
-## 📚 七、 经典文案大师与广告书籍方法论赋能 ({bk.get('available_books_count', 24)} Masterclass Pillars)
+## 📚 七、 经典文案大师与广告书籍方法论赋能 ({bk.get('available_books_count', 27)} Masterclass Pillars)
 > 📌 **心智钉子 (Mental Nail · 特劳特《定位》)**: `{bk.get('positioning_audit', {}).get('mental_nail', '未指定')}`  
 > 🔨 **视觉锤 (Visual Hammer · 劳拉·里斯)**: `{bk.get('positioning_audit', {}).get('visual_hammer', '未指定')}`  
 > ⚡ **生命原力锚定 (LF8 · 惠特曼《吸金广告》)**: `{bk.get('life_force_audit', {}).get('matched_primary_desires', ['通用心理认同'])[0]}`  
 > 
 > 🏛️ **大师学派策略指引 (Master Directives)**:  
 {book_dirs_md}
+
+---
+
+## 🕊️ 八、 语言二次重构与双语神仙翻译炼金术 (Transcreation Alchemy)
+> 💡 **翻译大师底层心法**:  
+> - **许渊冲“三美论”**: 意美传神、音美协畅、形美整饬；拒绝死译，追求在中文母语中超越原作之美。  
+> - **余光中“去恶性西化”**: 坚决剔除‘进行/关于/对于/被’等欧化胶水词，释放汉语原生动词张力；猛虎与蔷薇并置。  
+> - **钱钟书“化境脱胎换骨”**: 躯壳换了一个，而精神姿致依然故我；用机智警策的奇绝隐喻让心智破防。  
+
+### 🌟 封神级“语言二次重构”对照标杆 (Canonical Divine Translations Benchmark):
+{divine_md}
 """
         return md
 

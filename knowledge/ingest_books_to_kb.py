@@ -114,9 +114,91 @@ def ingest_books():
                 VALUES (?, ?, ?)
             """, (chunk_id, blob, "blake2b-hash-256"))
 
+    print(f"✅ Successfully ingested all {len(books)} master books into concepts & vector store!")
+
+    # Ingest divine translations
+    from knowledge.divine_translations_corpus import DIVINE_TRANSLATIONS_DATA
+    for item in DIVINE_TRANSLATIONS_DATA:
+        title = f"【神仙翻译】{item['divine_translation']} (译者: {item['translator']})"
+        rel_path = f"divine_translations/{item['id']}.md"
+        desc = f"【{item['category']}】原文: {item['original_text']} | {item['reconstruction_mechanism'][:80]}"
+        tags = ["神仙翻译", "双语金句", item["category"], item["translator"], "语言二次重构"]
+        tags_json = json.dumps(tags, ensure_ascii=False)
+
+        full_text = f"""# {title}
+分类: {item['category']} | 语言: {item['source_language']} -> {item['target_language']}
+原文: {item['original_text']} (出处: {item['original_author_or_source']})
+神仙译文: {item['divine_translation']} (译者: {item['translator']})
+直译对照: {item['literal_translation']}
+
+## 语言二次重构美学密码
+{item['reconstruction_mechanism']}
+
+## 文案创作启示
+{item['copywriting_insight']}
+"""
+        body_hash = hashlib.sha256(full_text.encode("utf-8")).hexdigest()
+
+        cursor.execute("""
+            INSERT INTO concepts (
+                bundle_id, rel_path, type, title, description, resource,
+                tags_json, timestamp, source_path, mtime, body_size, body_hash
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, datetime('now'), ?, ?, ?, ?)
+            ON CONFLICT(bundle_id, rel_path) DO UPDATE SET
+                title=excluded.title,
+                description=excluded.description,
+                tags_json=excluded.tags_json,
+                body_hash=excluded.body_hash,
+                body_size=excluded.body_size
+        """, (
+            bundle_id,
+            rel_path,
+            "divine_translation",
+            title,
+            desc,
+            f"knowledge/divine_translations/{item['id']}.md",
+            tags_json,
+            str(db_path),
+            time.time(),
+            len(full_text.encode("utf-8")),
+            body_hash
+        ))
+
+        cursor.execute("SELECT concept_id FROM concepts WHERE bundle_id=? AND rel_path=?", (bundle_id, rel_path))
+        concept_id = cursor.fetchone()[0]
+
+        cursor.execute("DELETE FROM concept_chunks WHERE concept_id=?", (concept_id,))
+        paragraphs = [p.strip() for p in full_text.split("\n\n") if p.strip()]
+        for idx, p in enumerate(paragraphs):
+            cursor.execute("""
+                INSERT INTO concept_chunks (concept_id, chunk_idx, text, char_start, char_end, tokens_json)
+                VALUES (?, ?, ?, ?, ?, ?)
+            """, (concept_id, idx, p, 0, len(p), json.dumps([], ensure_ascii=False)))
+            chunk_id = cursor.lastrowid
+
+            tokens = _tokenize(p)
+            for tok in set(tokens):
+                cursor.execute("""
+                    INSERT OR IGNORE INTO chunk_terms (term, chunk_id, tf)
+                    VALUES (?, ?, ?)
+                """, (tok[:50], chunk_id, 1.0))
+
+            vec = hash_embed(p, dim=256)
+            blob = encode_blob(vec)
+
+            cursor.execute("""
+                INSERT OR REPLACE INTO chunk_vector_meta (chunk_id, dim, norm, model)
+                VALUES (?, ?, ?, ?)
+            """, (chunk_id, 256, 1.0, "blake2b-hash-256"))
+
+            cursor.execute("""
+                INSERT OR REPLACE INTO chunk_vector_blob (chunk_id, vec, model)
+                VALUES (?, ?, ?)
+            """, (chunk_id, blob, "blake2b-hash-256"))
+
     conn.commit()
     conn.close()
-    print(f"✅ Successfully ingested all {len(books)} master books into concepts & vector store!")
+    print(f"✅ Successfully ingested all {len(DIVINE_TRANSLATIONS_DATA)} divine translations into concepts & vector store!")
 
 if __name__ == "__main__":
     ingest_books()

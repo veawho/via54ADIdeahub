@@ -621,7 +621,7 @@ def synthesize_cognitive_slogans(
 # ── Tool: query_copywriting_books ─────────────────────
 @mcp.tool()
 def query_copywriting_books(keyword: str = "", book_id: str = "") -> str:
-    """Query 24 masterclass copywriting & advertising books (e.g. 《定位》, 《小强广告100招》, 《超级符号》, 《聚焦》, 《影响力》, 《疯传》, 《吸金广告》).
+    """Query 27 masterclass copywriting, advertising & translation books (e.g. 《定位》, 《小强广告100招》, 《超级符号》, 《聚焦》, 《影响力》, 《文学翻译谈》, 《余光中谈翻译》, 《钱钟书论翻译》).
 
     Args:
         keyword: Optional search keyword to filter by author, theory, or school (e.g. '特劳特', '林桂枝', '华与华', 'LF8', '修剪刀')
@@ -707,6 +707,54 @@ def query_multi_platform_golden_quotes(
         conn.close()
 
         return json.dumps({"total": len(rows), "quotes": rows}, ensure_ascii=False, indent=2)
+    except Exception as e:
+        return json.dumps({"error": str(e)}, ensure_ascii=False)
+
+
+# ── Tool: query_divine_translations ───────────────────
+@mcp.tool()
+def query_divine_translations(
+    keyword: str = "",
+    category: str = "",
+    translator: str = ""
+) -> str:
+    """Query canonical 'God-tier' bilingual translations and secondary linguistic reconstruction benchmarks.
+    Includes famous translations like '心有猛虎，细嗅蔷薇' (余光中), '生如夏花之绚烂，死如秋叶之静美' (郑振铎),
+    '浮世三千，吾爱有三' (古风重构), '相聚有时，后会无期' (后会无期), '与你年轻的时候相比，我更爱你现在备受摧残的面容' (王道乾) etc.
+
+    Args:
+        keyword: Search keyword in translation, original text, mechanism, or copywriting insight
+        category: Filter by category ('现代诗歌', '文学经典', '爱情神译', '电影台词', '思想箴言')
+        translator: Filter by translator name ('余光中', '郑振铎', '王道乾', '杨绛', '王佐良', '许渊冲', '朱生豪', '周克希' etc.)
+
+    Returns:
+        JSON string containing matching divine translations with bilingual texts, mechanisms, and copywriting insights.
+    """
+    try:
+        import sqlite3
+        db_path = PROJECT_ROOT / "via54_kb.db"
+        conn = sqlite3.connect(str(db_path))
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+
+        query_sql = "SELECT * FROM divine_translations WHERE 1=1"
+        params = []
+        if category:
+            query_sql += " AND category LIKE ?"
+            params.append(f"%{category}%")
+        if translator:
+            query_sql += " AND translator LIKE ?"
+            params.append(f"%{translator}%")
+        if keyword:
+            query_sql += " AND (divine_translation LIKE ? OR original_text LIKE ? OR reconstruction_mechanism LIKE ? OR copywriting_insight LIKE ?)"
+            params.extend([f"%{keyword}%", f"%{keyword}%", f"%{keyword}%", f"%{keyword}%"])
+
+        query_sql += " ORDER BY id ASC"
+        cursor.execute(query_sql, params)
+        rows = [dict(r) for r in cursor.fetchall()]
+        conn.close()
+
+        return json.dumps({"total": len(rows), "translations": rows}, ensure_ascii=False, indent=2)
     except Exception as e:
         return json.dumps({"error": str(e)}, ensure_ascii=False)
 
