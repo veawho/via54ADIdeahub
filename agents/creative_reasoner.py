@@ -24,6 +24,7 @@ from via54_store.store import KBStore
 from via54_store.retrieval import HybridRetriever
 from agents.brand_profile_manager import BrandProfileManager
 from agents.master_linguistic_engine import MasterLinguisticEngine
+from agents.rhetorical_alchemy_synthesizer import RhetoricalAlchemySynthesizer
 
 WATER_WORDS_DICTIONARY = [
     "非常", "十分", "极其", "真是太", "简直", "真的是",
@@ -32,7 +33,7 @@ WATER_WORDS_DICTIONARY = [
 ]
 
 class CreativeReasoner:
-    """Masterclass Creative Director & Linguistic Alchemy Engine v2.3."""
+    """Masterclass Creative Director & Linguistic Alchemy Engine v2.4."""
 
     def __init__(self, db_path: Optional[Path] = None):
         self.db_path = db_path or (PROJECT_ROOT / "via54_kb.db")
@@ -41,7 +42,9 @@ class CreativeReasoner:
         self.subculture_dir = PROJECT_ROOT / "audience_language"
         self.brand_manager = BrandProfileManager()
         self.linguistic_engine = MasterLinguisticEngine()
+        self.rhetorical_synthesizer = RhetoricalAlchemySynthesizer(self.db_path)
         self._load_subculture_index()
+
 
     def _load_subculture_index(self):
         index_file = self.subculture_dir / "subculture_index.json"
@@ -226,48 +229,22 @@ class CreativeReasoner:
 生活或许沉重，但你的每一步探索都该有坚实的底气。
 敬每一个在复杂现实里，依然清醒生活的灵魂。"""
 
-        # Domain & Contextual Slogan Synthesizer
-        context_str = f"{brand} {product} {brief_goal} {target_audience}".lower()
-        is_weight_liver = any(k in context_str for k in ["减重", "脂肪肝", "轻盈", "减脂", "肝脏", "体脂", "体重", "肥胖"])
-        
-        if is_weight_liver:
-            s1_tag = f"逆转脂肪肝不是自我苛责，重返轻盈是赢回日常。"
-            s2_tag = f"减的不是体重秤上的数字，卸下的是脂肪肝与身体的沉重叹息。"
-            s3_tag = f"晨起系紧皮带那一刻的松弛，是轻盈重回生活的清脆回响。"
-            s4_tag = f"把指标交给科学逆转，把轻盈与自在还给生活。"
-            s5_tag = f"肝净减负，身心轻盈。"
-            if "逆转脂肪肝" in brief_goal or "重返轻盈态" in brief_goal:
-                s5_tag = f"逆转脂肪肝，重返轻盈态。"
-        elif audience_type == "gay":
-            s1_tag = f"白天替体面演戏，夜晚让{b_name}全场稳住。"
-            s2_tag = f"不必向偏见证明什么，过得生动，就是最好的答案。"
-            s3_tag = f"在每场尽兴的PLAY之后，依然保有随时出发的从容。"
-            s4_tag = f"99%的专业守护，只为让你100%放心通关。"
-            s5_tag = f"全场稳健，才叫真正的通关。"
-        elif audience_type == "genz":
-            s1_tag = f"老板画饼管饱，{b_name}管你活到下个周五。"
-            s2_tag = f"肉身在线除锈，精神早已离职。"
-            s3_tag = f"凌晨两点三十七分，城市在等待黎明，你在等待一口清甜洗去疲倦。"
-            s4_tag = f"0添加的硬核能量，拒绝一切无效消耗。"
-            s5_tag = f"生活天天给我上课，我给身体上一层护甲。"
-        elif audience_type == "patient":
-            s1_tag = f"自嘲脆皮是幽默，主动按时打卡是清醒。"
-            s2_tag = f"按时守护不是妥协，而是夺回生活掌控权的日常仪式。"
-            s3_tag = f"懂你深夜每一次不想说的叹息，给身体一个安静深呼吸的夜晚。"
-            s4_tag = f"把健康交给科学，把精彩留给自己。"
-            s5_tag = f"留住的不只是指标，更是每一次直视生活的底气。"
-        elif audience_type == "women":
-            s1_tag = f"不当谁的完美模板，只当自己的绝对主角。"
-            s2_tag = f"我的身体，是我唯一的疆域。"
-            s3_tag = f"在喧嚣的世界里慢下来，倾听呼吸深处的真实声音。"
-            s4_tag = f"科学守护每一种节奏，给生命最踏实的支撑。"
-            s5_tag = f"不被定义，自由生长。"
-        else:
-            s1_tag = f"白天替体面演戏，夜晚让{b_name}救命。"
-            s2_tag = f"不必向世界证明什么，活得舒展，就是最好的答案。"
-            s3_tag = f"敬每一具在风暴里，依然生脆发芽的骨头。"
-            s4_tag = f"把健康交给科学，把精彩留给自己。"
-            s5_tag = f"每一次认真生活，都值得被全力托付。"
+        # Cognitive & Rhetorical Alchemy Synthesis with Reflection Loop (GitHub SOTA Inspired)
+        synthesized_cards = self.rhetorical_synthesizer.synthesize_slogans_with_reflection(
+            brand=brand,
+            product=product,
+            target_audience=target_audience,
+            brief_goal=brief_goal,
+            benchmarks=benchmarks,
+            audience_type=audience_type
+        )
+        s1_tag = synthesized_cards[0]["hero_slogan"]
+        s2_tag = synthesized_cards[1]["hero_slogan"]
+        s3_tag = synthesized_cards[2]["hero_slogan"]
+        s4_tag = synthesized_cards[3]["hero_slogan"]
+        s5_tag = synthesized_cards[4]["hero_slogan"]
+        detected_awareness = synthesized_cards[0]["cognitive_stage"]
+
 
         archetypes = [
             {

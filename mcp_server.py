@@ -569,9 +569,59 @@ def manage_brand_profiles(
         return json.dumps({"error": str(e)}, ensure_ascii=False)
 
 
+# ── Tool: synthesize_cognitive_slogans ────────────────
+@mcp.tool()
+def synthesize_cognitive_slogans(
+    brand: str,
+    product: str,
+    target_audience: str,
+    brief_goal: str,
+    audience_type: str = "default",
+) -> str:
+    """Synthesize high-impact slogans using Eugene Schwartz awareness stage detection, 16 universal cognitive angles, and Ping-Ze cadence reflection.
+
+    Args:
+        brand: Brand name (e.g. "仰望", "观夏", "珀莱雅", "某某品牌")
+        product: Product description and core features
+        target_audience: Target audience profile
+        brief_goal: Campaign objective and challenge to overcome
+        audience_type: Optional subculture profile ('default', 'genz', 'women', 'patient', 'gay')
+
+    Returns:
+        JSON string containing awareness stage detection, synthesized slogans across universal angles, acoustic cadence scores, and self-correction reflection audit.
+    """
+    try:
+        from agents.rhetorical_alchemy_synthesizer import RhetoricalAlchemySynthesizer
+        from agents.creative_reasoner import CreativeReasoner
+        reasoner = CreativeReasoner()
+        benchmarks = reasoner.retrieve_benchmarks(f"{product} {target_audience}", top_k=3)
+        synthesizer = RhetoricalAlchemySynthesizer()
+        
+        stage_info = synthesizer.detect_awareness_stage(brief_goal, target_audience)
+        slogans = synthesizer.synthesize_slogans_with_reflection(
+            brand=brand,
+            product=product,
+            target_audience=target_audience,
+            brief_goal=brief_goal,
+            benchmarks=benchmarks,
+            audience_type=audience_type
+        )
+        return json.dumps({
+            "brand": brand,
+            "product": product,
+            "target_audience": target_audience,
+            "brief_goal": brief_goal,
+            "detected_awareness_stage": stage_info,
+            "slogans": slogans
+        }, ensure_ascii=False, indent=2)
+    except Exception as e:
+        return json.dumps({"error": str(e)}, ensure_ascii=False)
+
+
 # ── Entry point ───────────────────────────────────────
 if __name__ == "__main__":
     mcp.run(transport="stdio")
+
 
 
 
