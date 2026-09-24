@@ -618,9 +618,103 @@ def synthesize_cognitive_slogans(
         return json.dumps({"error": str(e)}, ensure_ascii=False)
 
 
+# ── Tool: query_copywriting_books ─────────────────────
+@mcp.tool()
+def query_copywriting_books(keyword: str = "", book_id: str = "") -> str:
+    """Query 18 masterclass copywriting & advertising books (e.g. 《定位》, 《小强广告100招》, 《超级符号》, 《吸金广告》).
+
+    Args:
+        keyword: Optional search keyword to filter by author, theory, or school (e.g. '特劳特', '林桂枝', '华与华', 'LF8', '修剪刀')
+        book_id: Optional exact book identifier (e.g. 'positioning', 'xiaoqiang_100', 'super_sign', 'cashvertising')
+
+    Returns:
+        JSON string containing matching books, thinking paradigms, writing methods, classic cases, and algorithmic heuristics.
+    """
+    try:
+        import sqlite3
+        db_path = PROJECT_ROOT / "via54_kb.db"
+        conn = sqlite3.connect(str(db_path))
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+
+        if book_id:
+            cursor.execute("SELECT * FROM copywriting_methodologies WHERE book_id = ?", (book_id,))
+        elif keyword:
+            like_kw = f"%{keyword}%"
+            cursor.execute("""
+                SELECT * FROM copywriting_methodologies
+                WHERE title LIKE ? OR author LIKE ? OR school LIKE ? OR core_theory LIKE ?
+            """, (like_kw, like_kw, like_kw, like_kw))
+        else:
+            cursor.execute("SELECT * FROM copywriting_methodologies")
+
+        rows = [dict(r) for r in cursor.fetchall()]
+        conn.close()
+
+        # Parse JSON fields
+        for r in rows:
+            for f in ["strategy_framework_json", "writing_methods_json", "classic_golden_cases_json", "algorithmic_heuristics_json"]:
+                if f in r and isinstance(r[f], str):
+                    try:
+                        r[f.replace("_json", "")] = json.loads(r[f])
+                    except Exception:
+                        pass
+
+        return json.dumps({"total": len(rows), "books": rows}, ensure_ascii=False, indent=2)
+    except Exception as e:
+        return json.dumps({"error": str(e)}, ensure_ascii=False)
+
+
+# ── Tool: query_multi_platform_golden_quotes ──────────
+@mcp.tool()
+def query_multi_platform_golden_quotes(
+    platform: str = "",
+    quote_type: str = "",
+    keyword: str = ""
+) -> str:
+    """Query multi-platform golden quotes and stunts across Digitaling, TOPYS, Adquan, Meihua, and SocialBeta/Pangjing.
+
+    Args:
+        platform: Filter by platform ('数英网', '顶尖文案', '广告门', '梅花网', '胖鲸')
+        quote_type: Filter by type ('文案金句', '活动主题金句', '品牌传播主题金句', '事件营销案例', '广告创意案例')
+        keyword: Optional search keyword in headline, brand, or core insight
+
+    Returns:
+        JSON string containing matched golden quotes, campaigns, book methodology annotations, and event stunts.
+    """
+    try:
+        import sqlite3
+        db_path = PROJECT_ROOT / "via54_kb.db"
+        conn = sqlite3.connect(str(db_path))
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+
+        query_sql = "SELECT * FROM golden_quotes_and_stunts WHERE 1=1"
+        params = []
+
+        if platform:
+            query_sql += " AND source_platform LIKE ?"
+            params.append(f"%{platform}%")
+        if quote_type:
+            query_sql += " AND quote_type LIKE ?"
+            params.append(f"%{quote_type}%")
+        if keyword:
+            query_sql += " AND (headline_or_quote LIKE ? OR brand LIKE ? OR sub_text LIKE ? OR matched_book_methodology LIKE ?)"
+            params.extend([f"%{keyword}%", f"%{keyword}%", f"%{keyword}%", f"%{keyword}%"])
+
+        cursor.execute(query_sql, params)
+        rows = [dict(r) for r in cursor.fetchall()]
+        conn.close()
+
+        return json.dumps({"total": len(rows), "quotes": rows}, ensure_ascii=False, indent=2)
+    except Exception as e:
+        return json.dumps({"error": str(e)}, ensure_ascii=False)
+
+
 # ── Entry point ───────────────────────────────────────
 if __name__ == "__main__":
     mcp.run(transport="stdio")
+
 
 
 

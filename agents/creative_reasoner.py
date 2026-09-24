@@ -25,6 +25,7 @@ from via54_store.retrieval import HybridRetriever
 from agents.brand_profile_manager import BrandProfileManager
 from agents.master_linguistic_engine import MasterLinguisticEngine
 from agents.rhetorical_alchemy_synthesizer import RhetoricalAlchemySynthesizer
+from agents.master_book_methodology_fuser import MasterBookMethodologyFuser
 
 WATER_WORDS_DICTIONARY = [
     "非常", "十分", "极其", "真是太", "简直", "真的是",
@@ -33,7 +34,7 @@ WATER_WORDS_DICTIONARY = [
 ]
 
 class CreativeReasoner:
-    """Masterclass Creative Director & Linguistic Alchemy Engine v2.4."""
+    """Masterclass Creative Director & Linguistic Alchemy Engine v2.5."""
 
     def __init__(self, db_path: Optional[Path] = None):
         self.db_path = db_path or (PROJECT_ROOT / "via54_kb.db")
@@ -43,7 +44,9 @@ class CreativeReasoner:
         self.brand_manager = BrandProfileManager()
         self.linguistic_engine = MasterLinguisticEngine()
         self.rhetorical_synthesizer = RhetoricalAlchemySynthesizer(self.db_path)
+        self.book_fuser = MasterBookMethodologyFuser(self.db_path)
         self._load_subculture_index()
+
 
 
     def _load_subculture_index(self):
@@ -343,6 +346,14 @@ class CreativeReasoner:
             f"3. **【圈层解密行动】跨界文化联名**: 联合青年脱口秀/艺术空间，打造话题破圈事件。"
         ]
 
+        # Masterclass Books Methodology Strategy Pack
+        book_pack = self.book_fuser.synthesize_master_strategy_pack(
+            brand=brand,
+            product=product,
+            target_audience=target_audience,
+            brief_goal=brief_goal
+        )
+
         return {
             "brand": brand,
             "brand_profile": brand_prof,
@@ -358,9 +369,11 @@ class CreativeReasoner:
             "versions": versions,
             "super_signs": super_signs,
             "stunts": stunts,
+            "book_strategy": book_pack,
             "benchmarks_used": [b.get("title", "") for b in benchmarks if b.get("title")],
             "pun_benchmarks": [p.get("pun_text", "") for p in pun_benchmarks if p.get("pun_text")],
         }
+
 
     def render_feishu_card(self, strategy: Dict[str, Any]) -> str:
         """Render multi-version markdown formatted response with Critic scores & Similarity benchmarks."""
@@ -401,6 +414,11 @@ class CreativeReasoner:
         benchmarks_md = "、".join(strategy["benchmarks_used"]) if strategy["benchmarks_used"] else "2024-2026 全网顶级案例库"
         puns_md = "、".join([f"「{p}」" for p in strategy.get("pun_benchmarks", [])]) if strategy.get("pun_benchmarks") else "无特定双关"
         prof = strategy.get("brand_profile", {})
+        bk = strategy.get("book_strategy", {})
+        book_dirs_md = "\n".join([
+            f"> - **{d['school']}**: {d['core_directive']}"
+            for d in bk.get("master_directives", [])
+        ]) or "> 暂无特定书籍指引"
 
         md = f"""# 🌌 【{strategy['brand']}】创意品牌全案与差异化口号矩阵
 
@@ -439,8 +457,19 @@ class CreativeReasoner:
 
 ## 🚀 六、 文化级引爆事件与破圈行动 (Cultural Stunts)
 {stunts_md}
+
+---
+
+## 📚 七、 经典文案大师与广告书籍方法论赋能 (18 Masterclass Pillars)
+> 📌 **心智钉子 (Mental Nail · 特劳特《定位》)**: `{bk.get('positioning_audit', {}).get('mental_nail', '未指定')}`  
+> 🔨 **视觉锤 (Visual Hammer · 劳拉·里斯)**: `{bk.get('positioning_audit', {}).get('visual_hammer', '未指定')}`  
+> ⚡ **生命原力锚定 (LF8 · 惠特曼《吸金广告》)**: `{bk.get('life_force_audit', {}).get('matched_primary_desires', ['通用心理认同'])[0]}`  
+> 
+> 🏛️ **大师学派策略指引 (Master Directives)**:  
+{book_dirs_md}
 """
         return md
+
 
 
 if __name__ == "__main__":

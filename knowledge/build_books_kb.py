@@ -1,0 +1,735 @@
+#!/usr/bin/env python3
+"""
+build_books_kb.py
+Builds a structured Masterclass Copywriting & Advertising Books Knowledge Base.
+Covers 18 all-time classic books on positioning, copywriting mechanics, cognitive heuristics, and strategy.
+Stores in JSON and SQLite via54_kb.db with full indexing.
+"""
+
+import sys
+import os
+import json
+import sqlite3
+from pathlib import Path
+from typing import Dict, List, Any
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(PROJECT_ROOT))
+
+BOOKS_DATA = [
+    {
+        "book_id": "positioning",
+        "title": "定位 (Positioning: The Battle for Your Mind)",
+        "author": "阿尔·里斯 (Al Ries) & 杰克·特劳特 (Jack Trout)",
+        "school": "心智定位学派",
+        "core_theory": "营销的终极战场不是货架或工厂，而是潜在顾客的心智。心智痛恨复杂、容易失去焦点、极难被改变。必须在心智中占据一个词，成为某个品类或特性的第一选择。",
+        "thinking_paradigm": "心智阶梯法则与极端简化主义。不试图改变心智，而是顺应并借用心智中既有的观念与认知。",
+        "strategy_framework": {
+            "types": [
+                "领导者定位 (抢占第一心智阶梯，确立标准)",
+                "对立定位 (站在行业老大反面，重新定义竞争对手，如艾维斯‘我们只是第二，所以我们更努力’，七喜‘非可乐’)",
+                "空位定位 (寻找竞争对手忽略的特性/价格/人群空隙，如高价空位、小巧空位)"
+            ],
+            "key_steps": "分析心智环境 -> 确立对立特性 -> 寻找信任状/支撑点 -> 兵力原则全线聚焦"
+        },
+        "writing_methods": [
+            "一个词占领法：整篇文案只围绕一个极简心智词展开（如沃尔沃=安全，宝马=驾驶，联邦快递=隔夜达）",
+            "反向定义：通过明确指出‘我不是什么’来强化‘我是什么’",
+            "数字阶梯化：把品牌置于公认事实的对比坐标系中"
+        ],
+        "classic_golden_cases": [
+            {
+                "case_name": "Avis 艾维斯租车",
+                "slogan": "Avis is only No.2 in rent a cars. So why go with us? We try harder. (艾维斯只是第二，所以我们更努力。)",
+                "insight": "承认老二地位，将劣势重构为比行业老大赫兹更诚恳、更拼命的服务信任状。"
+            },
+            {
+                "case_name": "七喜 7-Up",
+                "slogan": "The Uncola (非可乐)",
+                "insight": "将市场上所有竞争对手归为‘可乐’，自己独占‘非可乐’的全部心智空间。"
+            }
+        ],
+        "algorithmic_heuristics": {
+            "target_metric": "心智独占词清晰度 (Mental Monopoly Score)",
+            "rule": "检测文案是否提炼出排他性的核心特性，并排斥与行业领导者同质化的空洞形容词。"
+        }
+    },
+    {
+        "book_id": "xiaoqiang_100",
+        "title": "小强广告100招",
+        "author": "林桂枝 (前北京奥美首席创意官 / 华语广告文案教母)",
+        "school": "人话美学与细节修剪派",
+        "core_theory": "文案不是舞文弄墨，文案是跟人说贴心的大白话。好文案是写出来的，更是‘修剪’出来的。剪去虚伪、剪去套话、剪去形容词，留下有体温的动词与场景细节。",
+        "thinking_paradigm": "像对着一位老朋友娓娓道来。把‘我要卖’转换为‘你渴望的生活细节’。以平视代替俯视，以同理代替说教。",
+        "strategy_framework": {
+            "types": [
+                "人话转译法：把冰冷的企业说明书翻译成厨房、床头、工位、洗手间的呼吸瞬间",
+                "感官放大镜：把看不见的品质具象化为能听见、闻到、摸到的微动作",
+                "心理换位法：从读者的利益与困惑出发，而非从产品的功能出发"
+            ]
+        },
+        "writing_methods": [
+            "文案修剪刀：无情删掉多余的‘的/得/地’、副词（非常、十分、极其）与假大空公文词",
+            "动词主导法：用强有力的具象动词替代抽象形容词（如不用‘轻盈’，用‘踩在落叶上没有声音’）",
+            "五感通感法：调动眼、耳、鼻、舌、身的生理记忆（如‘铁锈的腥味’、‘新烤面包的脆响’）",
+            "长短句声律律动：短句发力破局，长句延展铺陈，气口自然，绝不让人读得上气不接下气"
+        ],
+        "classic_golden_cases": [
+            {
+                "case_name": "别克昂科拉 SUV",
+                "slogan": "年轻，就去SUV！",
+                "insight": "将车型品类直接变为年轻生活方式的入场券，短促有力，动词化行动。"
+            },
+            {
+                "case_name": "经典人文微文案",
+                "slogan": "走过万水千山，最想念的还是家门钥匙插进锁孔那一转的清脆响声。",
+                "insight": "舍弃宏大归家煽情，用锁孔钥匙扭动的毫秒级声音细节直击乡愁。"
+            }
+        ],
+        "algorithmic_heuristics": {
+            "target_metric": "真人人话感与微感官密度 (Humanity & Micro-Sensory Ratio)",
+            "rule": "水词惩罚机制 + 动词与名词比例校验 + 句子呼吸气口检测。"
+        }
+    },
+    {
+        "book_id": "super_sign",
+        "title": "超级符号就是超级创意",
+        "author": "华杉 & 华楠 (华与华创始人)",
+        "school": "华与华超级符号与文化母体派",
+        "core_theory": "品牌就是超级符号。超级符号是借用人类已经熟悉的文化母体，将新品牌寄生在人类集体潜意识中，从而拥有巨大的原型能量，实现零思考购买与口口相传。",
+        "thinking_paradigm": "买我产品，传我美名。拒绝任何不能发动顾客行动的艺术自嗨。创意要回到街头，接受菜市场老太太的检验。",
+        "strategy_framework": {
+            "types": [
+                "文化母体寄生：借势公共原语与熟悉符号（如十字架、条纹、笑脸、谚语）",
+                "超级购买指令：把文案写成不需要经过理性思考的动词命令句",
+                "品牌寄生仪式：将消费动作绑定到日常民俗节日或日常生理习惯"
+            ]
+        },
+        "writing_methods": [
+            "一句话说动购买：直接给出清晰的行动原因与行动指令（如‘爱干净，住汉庭’）",
+            "顺口溜口语母体：使用民间压韵谚语、对仗儿歌（如‘送长辈，黄金酒’）",
+            "播传法则：文案不仅要让人看懂，更要让人‘愿意说给别人听’，听得懂、记得住、传得快"
+        ],
+        "classic_golden_cases": [
+            {
+                "case_name": "西贝莜面村",
+                "slogan": "I ❤️ 莜 (I Love You)",
+                "insight": "将生僻字‘莜’寄生在全世界最通用的文化超级符号‘I Love You’上，一秒解决认知阻力。"
+            },
+            {
+                "case_name": "汉庭酒店",
+                "slogan": "爱干净，住汉庭！",
+                "insight": "将经济型酒店用户最核心的隐蔽痛点‘干净’转化为不可动摇的行动指令。"
+            },
+            {
+                "case_name": "厨邦酱油",
+                "slogan": "厨邦酱油天然鲜，晒足180天！",
+                "insight": "绿白格子超级符号 + 顺口溜韵脚（鲜 xiān / 天 tiān）+ 具象数字信任状。"
+            }
+        ],
+        "algorithmic_heuristics": {
+            "target_metric": "指令穿透力与口口相传性 (Hypnotic Command Score)",
+            "rule": "检查是否具备明确行动动词、押韵顺畅度与民间母体句式借势。"
+        }
+    },
+    {
+        "book_id": "confessions_ogilvy",
+        "title": "一个广告人的自白 (Confessions of an Advertising Man)",
+        "author": "大卫·奥格威 (David Ogilvy - 现代广告之父)",
+        "school": "事实与大创意 (Big Idea) 派",
+        "core_theory": "我们做广告是为了销售，否则便不是做广告。消费者不是傻子，她是你的妻子。不要写那些你不希望你家人读到的虚假广告。永远要挖掘迷人的产品事实。",
+        "thinking_paradigm": "调查与事实至上。广告标题决定了80%的广告费价值。必须在标题中包含品牌承诺与戏剧性的具体事实。",
+        "strategy_framework": {
+            "types": [
+                "大创意 (Big Idea)：能够引起消费者注意、具有长期生命力且能跨媒介延展的核心概念",
+                "品牌形象塑造：每一个广告都是对品牌个性的长期投资",
+                "事实驱动型承诺：用惊人的数字和真实工艺击穿怀疑"
+            ]
+        },
+        "writing_methods": [
+            "新闻式标题法：引入新信息、新突破、新发现",
+            "具体细节胜过空洞结论：不用‘静音’，而用‘时速60英里时唯一能听见的是电子钟声’",
+            "长文案的信任魔力：只要读者感兴趣，详细的事实文案转化率远高于几句浮夸口号"
+        ],
+        "classic_golden_cases": [
+            {
+                "case_name": "劳斯莱斯 (Rolls-Royce)",
+                "slogan": "At 60 miles an hour the loudest noise in this new Rolls-Royce comes from the electric clock. (在这辆时速60英里的劳斯莱斯里，最大的噪音来自电子钟。)",
+                "insight": "整整阅读了三周工程手册挖掘出来的极致工艺事实，成为汽车广告史上不可磨灭的传奇。"
+            },
+            {
+                "case_name": "哈撒韦衬衫 (Hathaway)",
+                "slogan": "The man in the Hathaway shirt. (穿哈撒韦衬衫的男人)",
+                "insight": "一只眼罩赋予模特神秘的贵族冒险家故事感，视觉符号与极简标题结合的典范。"
+            }
+        ],
+        "algorithmic_heuristics": {
+            "target_metric": "事实密度与戏剧化张力 (Factual Drama Ratio)",
+            "rule": "是否包含具体数字、物理度量衡或无可争议的工艺细节。"
+        }
+    },
+    {
+        "book_id": "cashvertising",
+        "title": "吸金广告 (Cashvertising)",
+        "author": "德鲁·埃里克·惠特曼 (Drew Eric Whitman)",
+        "school": "神经心理学与生命原力派",
+        "core_theory": "人类的大脑被8大生物学本能（Life-Force 8 - LF8）硬编码驱动。所有的购买动机最终都可以追溯到这8大生命原力。广告的目标就是将产品与LF8建立不可分割的条件反射。",
+        "thinking_paradigm": "人类由欲望和恐惧驱动，而非逻辑。文案的任务是在顾客大脑中制造欲望张力，而你的产品是释放这种张力的唯一解药。",
+        "strategy_framework": {
+            "lf8_desires": [
+                "1. 生存、享受生活、延长寿命 (Survival, longevity)",
+                "2. 享受食物和饮料 (Food & beverage)",
+                "3. 免于恐惧、痛苦和危险 (Freedom from fear & pain)",
+                "4. 性的陪伴与吸引力 (Sexual companionship)",
+                "5. 舒适的生活条件 (Comfortable living)",
+                "6. 与人攀比、胜过他人、与赢家为伍 (Superiority & winning)",
+                "7. 保护和关爱所爱之人 (Care of loved ones)",
+                "8. 获得社会赞同与认同 (Social approval)"
+            ]
+        },
+        "writing_methods": [
+            "恐慌释放桥梁：先激活LF8中的恐惧/痛点，再提供无缝安全感",
+            "自我卷入提问法：让读者在心里不由自主说‘是的’",
+            "极端感官投影：在文字中创造直接刺激唾液分泌、心跳加速的描写"
+        ],
+        "classic_golden_cases": [
+            {
+                "case_name": "急救与安全文案",
+                "slogan": "今晚，当你的孩子在黑暗中哭泣，你确定你的药箱里有正确答案吗？",
+                "insight": "直击LF8中的‘保护所爱之人’与‘免于恐惧’，制造强烈的心理紧迫感。"
+            }
+        ],
+        "algorithmic_heuristics": {
+            "target_metric": "生命原力(LF8)对齐度",
+            "rule": "必须明确命中至少 1 项 LF8 原始驱动力，禁止浮于表面的无关修饰。"
+        }
+    },
+    {
+        "book_id": "copywriters_handbook",
+        "title": "文案创作完全手册 (The Copywriter's Handbook)",
+        "author": "罗伯特·布莱 (Robert W. Bly)",
+        "school": "实战工程与 4U 公式派",
+        "core_theory": "文案是敲在键盘上的推销员。一篇好的商业文案必须经过严密的四维检视：4U法则（Urgent 紧迫感、Unique 独特性、Ultra-specific 极度明确、Useful 实用价值）。",
+        "thinking_paradigm": "B2B 与 B2C 双轨推演。清晰胜过聪明，说服胜过卖弄，结果胜过掌声。",
+        "strategy_framework": {
+            "four_u_formula": [
+                "Urgent (紧迫性): 为什么必须今天看/今天买？",
+                "Unique (独特性): 这句话换一个品牌还能用吗？如果能用，立刻重写！",
+                "Ultra-specific (超具象性): 用具体数字与时间地点替代大而化之的词",
+                "Useful (有用性): 读者读完能获得什么实际利益？"
+            ],
+            "classic_structures": ["AIDA (注意-兴趣-欲望-行动)", "PAS (问题-激化-解决)", "FAB (特性-优势-益处)"]
+        },
+        "writing_methods": [
+            "利益转化三步跳：特性(Feature) -> 优势(Advantage) -> 读者私人益处(Benefit)",
+            "悬念与钩子制造：在第一句话设置不可抗拒的阅读闭环",
+            "消除风险承诺：提供退换/保障/背书，摧毁最后一公里顾虑"
+        ],
+        "classic_golden_cases": [
+            {
+                "case_name": "金融与效率经典",
+                "slogan": "每天早起15分钟，如何用这套系统多赚30%的自由时间？",
+                "insight": "完整满足 4U 法则：具体时间、百分比、独特性与强烈实用价值。"
+            }
+        ],
+        "algorithmic_heuristics": {
+            "target_metric": "4U 实战指数 (4U Practicality Index)",
+            "rule": "对文案的独特性、具体数值比例与读者利益度进行打分过滤。"
+        }
+    },
+    {
+        "book_id": "hey_whipple",
+        "title": "文案发烧 (Hey, Whipple, Squeeze This)",
+        "author": "卢克·苏利文 (Luke Sullivan)",
+        "school": "反套路与极简破坏派",
+        "core_theory": "绝大多数广告都是污染眼球的垃圾。如果你的广告不能让人发笑、流泪或倒吸一口凉气，那它就是无声的尸体。杀死陈词滥调，敢于说出荒诞的真理。",
+        "thinking_paradigm": "撕掉包装纸，直奔戏剧冲突。真正的创意是在‘荒谬’与‘真相’之间搭一座不可思议的桥梁。",
+        "strategy_framework": {
+            "techniques": [
+                "反套路解构：找出全行业都在用的 5 个套路，全部反向操作",
+                "一图胜千言的文字互补：文案不重复画面，而是给画面一记灵魂暴击",
+                "自嘲与坦白：敢于承认自己的缺点，反而换来无懈可击的信任"
+            ]
+        },
+        "writing_methods": [
+            "写100个标题才能选出1个真正的宝贝",
+            "将品牌名字从口号中遮住，如果它依然适用于竞争对手，扔进垃圾桶",
+            "短促如子弹的断句"
+        ],
+        "classic_golden_cases": [
+            {
+                "case_name": "大众甲壳虫 (DDB)",
+                "slogan": "Lemon. (柠檬/残次品)",
+                "insight": "用一个极具自我攻击性的词作为全版大标题，展开讲述一辆甲壳虫如何因为手套箱的一道微小划痕被质检员淘汰，将对残次的坦白转化为对完美品质的终极敬意。"
+            },
+            {
+                "case_name": "哈雷摩托 (Harley-Davidson)",
+                "slogan": "Somewhere on an airplane, a man is wishing he was on a Harley. (在某架万米高空的飞机上，有个男人正恨不得自己骑在一辆哈雷上。)",
+                "insight": "抓住出差商务客在密封机舱里的疲惫压抑，对立哈雷风驰电掣的野生自由。"
+            }
+        ],
+        "algorithmic_heuristics": {
+            "target_metric": "破坏力与反套路指数 (Subversiveness Index)",
+            "rule": "严格剔除行业套路模板句式，奖赏反常识转折与自嘲张力。"
+        }
+    },
+    {
+        "book_id": "d_and_ad_copy_book",
+        "title": "文案之道 (The Copy Book: How 32 of the World's Best Advertising Writers Write Their Advertising)",
+        "author": "D&AD 全球顶尖文案大师集锦",
+        "school": "文学纯正派与文字炼金术",
+        "core_theory": "文字是有肉身的。标点符号是呼吸的阀门，字词的长短是心跳的节拍。世界上最伟大的文案不是说服机器，而是一次私密的、灵魂对灵魂的深夜长谈。",
+        "thinking_paradigm": "文学性与商业力量的合体。尊重读者的智商，永远不写下任何平庸的句子。让每个动词都像刀尖一样滴血或放光。",
+        "strategy_framework": {
+            "masters": [
+                "Neil French: 绝不谄媚受众，高傲、精准、充满诱惑与挑衅",
+                "David Abbott: 站在最真挚的人类情感高地上，真诚到让人想哭",
+                "Tim Delaney: 逻辑如钢铁般严密，层层推进无可辩驳的智力快感"
+            ]
+        },
+        "writing_methods": [
+            "字音咬合与平仄回声：不仅要默读，必须大声朗读出来感受唇齿的阻力",
+            "留白与悬停：故意不把话说满，让读者的心智在留白处自行完成顿悟",
+            "冷峻的陈述句胜过喧嚣的感叹号"
+        ],
+        "classic_golden_cases": [
+            {
+                "case_name": "《经济学人》 (The Economist)",
+                "slogan": "‘I never read The Economist.’ Management trainee. Aged 42. (‘我从不读《经济学人》。’——一位42岁管理培训生。)",
+                "insight": "一句话没提杂志有多好，却用‘42岁’与‘实习生’两个细节让所有职场人背脊发凉。"
+            },
+            {
+                "case_name": "芝华士父亲节 (Chivas Regal - David Abbott)",
+                "slogan": "Because you didn't need to ask for my respect, you earned it. (因为你从不索求我的尊敬，而是赢得了它。)",
+                "insight": "通篇没有华丽辞藻，只有父子间无声沉稳的敬重，成为广告史上的情感丰碑。"
+            }
+        ],
+        "algorithmic_heuristics": {
+            "target_metric": "文学穿透力与留白克制指数 (Literary Depth Score)",
+            "rule": "感叹号禁用/控量机制 + 留白推理张力判定。"
+        }
+    },
+    {
+        "book_id": "hsu_shun_ying",
+        "title": "中兴百货意识形态广告全集",
+        "author": "许舜英 (台湾意识形态广告创始人)",
+        "school": "先锋后现代哲思与物哀美学派",
+        "core_theory": "广告不是推销商品，广告是在重构当代都市人的存在主义生活哲学。消费不是物质占有，消费是一种身体政治、一种美学信仰。把百货公司变成现代人的欲望修道院。",
+        "thinking_paradigm": "解构主义、符号学、女性身体自主权与知识分子自省。用先锋晦涩对抗平庸大众流行，反而建立无可撼动的高奢文化溢价。",
+        "strategy_framework": {
+            "themes": [
+                "身体与衣物的哲学契约 (衣服是身体最忠实的信徒)",
+                "后现代消费反思 (到服装店培养气质，到书店展示服装)",
+                "三日不购物便觉面目可憎的都市欲望狂想"
+            ]
+        },
+        "writing_methods": [
+            "冷僻概念跨界拼贴：将哲学、建筑、生物学、神学词汇移入时尚文案",
+            "物哀与微观感官：对布料纹理、光影折射、体温升降进行解剖级白描",
+            "充满反讽与双重意涵的复杂长句"
+        ],
+        "classic_golden_cases": [
+            {
+                "case_name": "中兴百货春装上市",
+                "slogan": "三日不购物便觉面目可憎。到服装店培养气质，到书店展示服装。",
+                "insight": "反讽社会对高雅文化与消费主义的双标，以极致怪诞的真理引发全城知识界讨论。"
+            },
+            {
+                "case_name": "中兴百货换季折扣",
+                "slogan": "衣服是身体最忠实的信徒。没有一种流行能逃得过时间的判决。",
+                "insight": "将促销折扣升格为对时间流逝的哲学哀悼与身体信仰。"
+            }
+        ],
+        "algorithmic_heuristics": {
+            "target_metric": "先锋哲思与文化溢价指数 (Avant-garde Philosophical Depth)",
+            "rule": "检测物象化名词、哲学思辨结构与高阶反讽隐喻。"
+        }
+    },
+    {
+        "book_id": "jieshi_jin",
+        "title": "借势",
+        "author": "金鹏远 / 金联 (环时互动创始人 / 杜蕾斯前主理人)",
+        "school": "社交热点共谋与黑色幽默派",
+        "core_theory": "社交网络时代的文案不是广播，而是社交货币。品牌要成为用户社交网络上的‘搭子’、‘嘴替’与‘密友’。借势不是简单抄袭热搜，而是找到品牌内核与社会情绪的隐秘交集，幽默一击。",
+        "thinking_paradigm": "共谋感与网感。放下身段，不端着、不说教，懂年轻人的梗，用自嘲与高级的双关让用户自发转发。",
+        "strategy_framework": {
+            "methods": [
+                "社交借势三原则：相关性、时效性、趣味性",
+                "双关语的艺术：在两性/工位/生活场景中找到一语双关的黄金锚点",
+                "后现代荒诞解构：用松弛感解构宏大叙事"
+            ]
+        },
+        "writing_methods": [
+            "双关字词嫁接法：利用同音、谐音、双重语义制造会心一笑",
+            "极简留白海报文案：一句话搭配一张极简图，意料之外情理之中",
+            "朋友圈/微博轻量化互动语感"
+        ],
+        "classic_golden_cases": [
+            {
+                "case_name": "杜蕾斯 追热点系列",
+                "slogan": "你昨晚的样子，很性感。 / 今夜，一网打尽。",
+                "insight": "高级两性双关，克制优雅，将成人话题转化为全网赞叹的智力幽默。"
+            },
+            {
+                "case_name": "环时社交金句",
+                "slogan": "生活晃晃悠悠，有些疲惫需要一杯酒来物理除锈。",
+                "insight": "精准击中当代青年的精神内耗，把喝酒重新定义为给肉身除锈的必需仪式。"
+            }
+        ],
+        "algorithmic_heuristics": {
+            "target_metric": "社交货币与双关张力 (Social Currency & Pun Quality)",
+            "rule": "双关意涵检测 + 社交网感词汇匹配 + 避免低俗冒犯。"
+        }
+    }
+]
+
+
+def init_books_db(db_path: Path):
+    """Create copywriting_methodologies table and insert records."""
+    conn = sqlite3.connect(str(db_path))
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS copywriting_methodologies (
+            book_id TEXT PRIMARY KEY,
+            title TEXT NOT NULL,
+            author TEXT NOT NULL,
+            school TEXT NOT NULL,
+            core_theory TEXT NOT NULL,
+            thinking_paradigm TEXT NOT NULL,
+            strategy_framework_json TEXT NOT NULL,
+            writing_methods_json TEXT NOT NULL,
+            classic_golden_cases_json TEXT NOT NULL,
+            algorithmic_heuristics_json TEXT NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        );
+    """)
+
+    for b in BOOKS_DATA:
+        cursor.execute("""
+            INSERT OR REPLACE INTO copywriting_methodologies 
+            (book_id, title, author, school, core_theory, thinking_paradigm, 
+             strategy_framework_json, writing_methods_json, classic_golden_cases_json, algorithmic_heuristics_json)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """, (
+            b["book_id"],
+            b["title"],
+            b["author"],
+            b["school"],
+            b["core_theory"],
+            b["thinking_paradigm"],
+            json.dumps(b["strategy_framework"], ensure_ascii=False),
+            json.dumps(b["writing_methods"], ensure_ascii=False),
+            json.dumps(b["classic_golden_cases"], ensure_ascii=False),
+            json.dumps(b["algorithmic_heuristics"], ensure_ascii=False)
+        ))
+
+    conn.commit()
+    conn.close()
+    print(f"✅ Successfully inserted/updated {len(BOOKS_DATA)} classic books into copywriting_methodologies table!")
+
+
+def save_books_json(output_path: Path):
+    """Save full books knowledge into JSON file."""
+    output_path.write_text(json.dumps({
+        "version": "v2.5.0",
+        "description": "Masterclass Advertising & Copywriting Books Knowledge Base",
+        "total_books": len(BOOKS_DATA),
+        "books": BOOKS_DATA
+    }, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"✅ Successfully saved {output_path} ({len(BOOKS_DATA)} master books)!")
+
+
+if __name__ == "__main__":
+    db_file = PROJECT_ROOT / "via54_kb.db"
+    json_file = PROJECT_ROOT / "knowledge" / "master_copywriting_books.json"
+    init_books_db(db_file)
+    save_books_json(json_file)
+
+MORE_BOOKS = [
+    {
+        "book_id": "jian_jiao_gan",
+        "title": "尖叫感：互联网文案创作指南",
+        "author": "马楠",
+        "school": "互联网网感与情绪引爆派",
+        "core_theory": "互联网文案的终极使命是制造‘尖叫感’。尖叫感来自对用户隐秘情绪的毫厘级洞察、对反差萌的熟练运用，以及让用户瞬间产生转发欲望的‘社交代偿’。",
+        "thinking_paradigm": "把文案写成用户朋友圈想发却不好意思直接说的内心独白。制造认知失调与即时多巴胺。",
+        "strategy_framework": {
+            "screaming_points": [
+                "反差萌造梗：打破品牌刻板印象（如老字号说疯话，硬核科技玩文艺）",
+                "情绪代偿：替受众发泄工位压力、婚恋焦虑或身材焦虑",
+                "利益前置：0.5秒内给出划重点信息"
+            ]
+        },
+        "writing_methods": [
+            "痛点夸张化：将微小不适放大为荒诞戏剧",
+            "反转三连击：前两句制造常规预期，第三句瞬间反转打脸",
+            "代入感场景对话：模拟真实微信聊天与工位摸鱼场景"
+        ],
+        "classic_golden_cases": [
+            {
+                "case_name": "社交热梗短文案",
+                "slogan": "每天都在假装正常营业，其实灵魂早在周一就请了年假。",
+                "insight": "直击年轻打工人表面假装情绪稳定、实则精神离职的共情尖叫点。"
+            }
+        ],
+        "algorithmic_heuristics": {
+            "target_metric": "尖叫反差指数 (Screaming Contrast Index)",
+            "rule": "前置利益/痛点与反转冲突强度检测。"
+        }
+    },
+    {
+        "book_id": "bao_kuan_wen_an",
+        "title": "爆款文案",
+        "author": "关健明",
+        "school": "高转化电商与行动闭环派",
+        "core_theory": "爆款文案有一套严谨的工业化推演公式：抓人眼球的黄金标题 -> 激发购买欲的感官痛点 -> 赢得完全信任的权威背书 -> 引导马上行动的催单临门一脚。",
+        "thinking_paradigm": "转化漏斗思维。每一个字都是为了推动读者滑向下一个段落并最终按下‘立即购买’。",
+        "strategy_framework": {
+            "four_steps": [
+                "1. 抓人眼球 (好奇心/新闻/痛点/大促)",
+                "2. 激发欲望 (感官占有/心理渴望/恐怖唤醒)",
+                "3. 赢得信任 (专业认证/硬核实验/客户证言)",
+                "4. 引导下单 (限时/限量/降价诱惑/退款零风险)"
+            ]
+        },
+        "writing_methods": [
+            "感官细节占有法：详细描绘读者拥有产品后的第一口滋味、每一次抚摸",
+            "对比消除纠结：将单价分解为‘每天只需半杯奶茶钱’",
+            "从众效应背书：‘93%的挑剔妈妈共同选择’"
+        ],
+        "classic_golden_cases": [
+            {
+                "case_name": "食品高转化推文",
+                "slogan": "一口咬下，浓郁黑巧如熔岩般在舌尖爆开，微苦回甘，治愈一整天的疲惫。",
+                "insight": "纯感官动词描写（咬、爆开、熔岩）直接引发唾液分泌，缩短决策路径。"
+            }
+        ],
+        "algorithmic_heuristics": {
+            "target_metric": "感官诱惑度与转化推力 (Conversion Drive Score)",
+            "rule": "感官动词密度 + 信任状背书 + 紧迫行动催促词检测。"
+        }
+    },
+    {
+        "book_id": "neil_french_fetish",
+        "title": "广告拜物教与文案圣经",
+        "author": "尼尔·法兰奇 (Neil French - 亚太广告教父)",
+        "school": "骄傲挑衅与戏剧张力派",
+        "core_theory": "广告不是讨好所有人的小丑。最高明的文案是充满个性的贵族，他站在那里，用极具教养但又锋利刻薄的眼神审视读者。他从不乞求你购买，而是让你觉得自己配不上他的产品。",
+        "thinking_paradigm": "挑衅与过滤。宁可激怒平庸之辈，也要让目标人群产生狂热的仰望与归属感。",
+        "strategy_framework": {
+            "tactics": [
+                "自傲定位法：通过高昂代价或极高门槛筛选真正的信徒",
+                "冷峻叙事：用电影小说般的悬念展开，最后一句话点出品牌",
+                "排他性声明：‘如果你连这个都看不懂，请不要浪费我们的时间’"
+            ]
+        },
+        "writing_methods": [
+            "挑衅式开篇：直接反驳世俗常理或读者的自以为是",
+            "戏剧性悬念铺垫：长篇大段引人入胜的虚构故事",
+            "一击必杀的尾部落款"
+        ],
+        "classic_golden_cases": [
+            {
+                "case_name": "皇家芝华士 / XO 白兰地",
+                "slogan": "This is the most expensive beer in the world. (这是全世界最昂贵的啤酒。)",
+                "insight": "法兰奇虚构了一款天价啤酒 XO，只用纯文字挑衅富人阶层的好奇心，最终引起全城抢购狂潮。"
+            }
+        ],
+        "algorithmic_heuristics": {
+            "target_metric": "挑衅与自傲张力指数 (Provocation Index)",
+            "rule": "非讨好性语气判定 + 高门槛筛选度与悬念检测。"
+        }
+    },
+    {
+        "book_id": "storytelling_signorelli",
+        "title": "认同感：用故事包装事实的艺术",
+        "author": "吉姆·西尼奥雷利 (Jim Signorelli)",
+        "school": "品牌故事与情感共鸣派",
+        "core_theory": "消费者购买的不是产品的事实特性，而是品牌故事所投射的自我认同。好故事必须有原型、有阻碍、有导师、有顿悟。品牌不是英雄，消费者才是英雄，品牌是帮助英雄通关的宝剑与向导。",
+        "thinking_paradigm": "英雄之旅 (The Hero's Journey)。用户在生活中遭遇挫折，品牌以真诚的盟友身份出现，陪伴用户实现自我的精神升华。",
+        "strategy_framework": {
+            "hero_steps": [
+                "平凡世界的困境 -> 冒险召唤 -> 遭遇内心阻碍 -> 遇见导师(品牌) -> 跨越第一道关隘 -> 获得新生自洽"
+            ]
+        },
+        "writing_methods": [
+            "角色投射法：文案里的每一个‘你’，都在扮演生活的主角",
+            "情绪转折点 (The Turning Point)：描绘在至暗时刻那一次深刻的觉醒",
+            "价值观共振：‘我们相信，每一个认真生活的人都不该被辜负’"
+        ],
+        "classic_golden_cases": [
+            {
+                "case_name": "耐克 (Nike)",
+                "slogan": "Find Your Greatness. (活出你的伟大。)",
+                "insight": "不再聚焦奥运冠军，而是聚焦在炎热公路上一圈圈慢跑的微胖普通男孩，将‘伟大’还给每一个平凡英雄。"
+            }
+        ],
+        "algorithmic_heuristics": {
+            "target_metric": "故事原型与英雄共鸣度 (Hero Archetype Score)",
+            "rule": "共情叙事结构判定，确保品牌充当‘助攻盟友’而非高高在上的说教者。"
+        }
+    },
+    {
+        "book_id": "visual_hammer",
+        "title": "视觉锤 (Visual Hammer)",
+        "author": "劳拉·里斯 (Laura Ries)",
+        "school": "心智钉子与视觉钉入派",
+        "core_theory": "定位是一个语言概念——心智钉子；但要将这根钉子钉进消费者坚硬的心智中，必须借助一把‘视觉锤’。没有视觉锤的文案是苍白的，拥有视觉锤的口号才拥有核爆炸般的记忆穿透力。",
+        "thinking_paradigm": "左脑语言与右脑图像的双重合围。文案必须能自动在读者脑海中投影出一个挥之不去的强记忆视觉符号。",
+        "strategy_framework": {
+            "hammer_types": [
+                "特征形状 (如可口可乐弧线瓶)",
+                "专属颜色 (如蒂芙尼蓝、法拉利红)",
+                "创始人图腾 (如肯德基上校、乔布斯黑色高领衫)",
+                "动作仪式 (如科罗娜啤酒塞青柠、奥利奥扭一扭舔一舔泡一泡)"
+            ]
+        },
+        "writing_methods": [
+            "画面联想强绑定：口号中必须自带明确的色彩、形状或手势动作",
+            "仪式化动词组装：把产品使用流程标准化为一目了然的标志性仪式"
+        ],
+        "classic_golden_cases": [
+            {
+                "case_name": "万宝路 (Marlboro)",
+                "slogan": "Come to Marlboro Country. (欢迎来到万宝路国度。)",
+                "insight": "‘粗犷牛仔’这把无坚不摧的视觉锤，将最初的女士香烟一举塑造成全球最雄性的男子气概图腾。"
+            }
+        ],
+        "algorithmic_heuristics": {
+            "target_metric": "视觉锤图腾投射力 (Visual Hammer Projectability)",
+            "rule": "文案中高饱和色彩、几何形状与动作仪式词汇密度检测。"
+        }
+    },
+    {
+        "book_id": "technique_ideas",
+        "title": "创意的生成 (A Technique for Producing Ideas)",
+        "author": "詹姆斯·韦伯·扬 (James Webb Young)",
+        "school": "创意炼金与跨界拼贴派",
+        "core_theory": "世上本没有全新的概念，所谓的创意，不过是旧元素的新组合。创意的能力，完全取决于你发现既有事物之间隐秘关联的能力。",
+        "thinking_paradigm": "搜集原始素材 -> 咀嚼消化 -> 放下潜意识发酵 -> 顿悟尤里卡时刻 -> 现实理性打磨。",
+        "strategy_framework": {
+            "ideation_steps": [
+                "1. 广泛搜集看似无关的领域知识 (横向跨界)",
+                "2. 深度穿透特定产品的工艺细节 (纵向扎根)",
+                "3. 将 A 领域的逻辑强行嫁接到 B 领域"
+            ]
+        },
+        "writing_methods": [
+            "概念跨界拼贴：用医疗术语写快消，用建筑力学写护肤，用哲学思辨写汽水",
+            "意外联想链条：从产品的一道划痕联想到宇宙的诞生"
+        ],
+        "classic_golden_cases": [
+            {
+                "case_name": "科技与人文跨界",
+                "slogan": "站在科技与人文的十字路口。(Apple)",
+                "insight": "将冰冷的半导体硅片与人类文艺复兴精神跨界结合，奠定苹果数十年的精神图腾。"
+            }
+        ],
+        "algorithmic_heuristics": {
+            "target_metric": "跨界拼贴新奇度 (Novelty & Cross-domain Distance)",
+            "rule": "跨品类词汇距离计算，奖赏非寻常领域的概念嫁接。"
+        }
+    },
+    {
+        "book_id": "wen_an_jue_xing",
+        "title": "文案觉醒",
+        "author": "高瑞军",
+        "school": "中国式文案心法与文化脉络派",
+        "core_theory": "中国文案的根在中国人的文化心理中。中国人的情感是含蓄而幽微的，中国人对‘面子、里子、乡愁、骨气、体面、孝顺、自在’有着独特的精神密码。写中国好文案，必须扣动这把文化心锁。",
+        "thinking_paradigm": "东方意境与文化共情。借用汉语独特的四字成语、古诗平仄韵味与当代生活心理的奇妙共振。",
+        "strategy_framework": {
+            "cultural_codes": [
+                "人情世故中的体面与克制",
+                "游子与故乡的时间拔河",
+                "中产对‘采菊东篱下’的精神逃逸"
+            ]
+        },
+        "writing_methods": [
+            "含蓄留白法：情深而不语，言有尽而意无穷",
+            "传统意象现代解构：将‘落叶、清泉、竹影、青砖’置换为都市阳台、玻璃幕墙与深夜长街"
+        ],
+        "classic_golden_cases": [
+            {
+                "case_name": "万科地产经典",
+                "slogan": "踩惯了红地毯，会梦见石板路。",
+                "insight": "用‘红地毯’代表都市名利场的虚荣疲惫，用‘石板路’代表心底最柔软的故乡安宁，一语道破成功人士的精神救赎。"
+            }
+        ],
+        "algorithmic_heuristics": {
+            "target_metric": "东方文化密码共鸣度 (Eastern Cultural Code Fit)",
+            "rule": "传统人文意象检测与东方心理隐喻契合度评估。"
+        }
+    },
+    {
+        "book_id": "scientific_advertising",
+        "title": "科学的广告 (Scientific Advertising)",
+        "author": "克劳德·霍普金斯 (Claude C. Hopkins - 现代量化广告鼻祖)",
+        "school": "实证主义与数据回溯派",
+        "core_theory": "广告不是艺术展览，广告是一门严格的科学。广告的每一个字、每一个承诺都必须接受市场销量的严苛测试。不要猜测，去测试；不要写花哨的文学句子，写直击利益的真诚建议。",
+        "thinking_paradigm": "数据驱动与转化追踪。凡是不能被验证效果的词藻都是浪费预算的毒药。",
+        "strategy_framework": {
+            "scientific_rules": [
+                "先提供样品与无风险体验",
+                "用独占工艺揭秘制造壁垒 (如喜力啤酒用蒸汽清洗啤酒瓶)",
+                "绝不攻击竞争对手，全心证明自己的不可替代"
+            ]
+        },
+        "writing_methods": [
+            "清晰承诺与保证：‘如果不满意，原银奉还’",
+            "揭秘幕后制作过程：把普通工序写成惊心动魄的匠人传奇"
+        ],
+        "classic_golden_cases": [
+            {
+                "case_name": "舒夫啤酒 (Schlitz)",
+                "slogan": "Purity guaranteed. Every bottle washed with live steam. (纯度保证。每一个啤酒瓶都用高压活蒸汽清洗。)",
+                "insight": "虽然所有啤酒厂都用活蒸汽清洗瓶子，但只有霍普金斯第一个向公众讲出这一事实，舒夫啤酒销量一跃成为全美第一。"
+            }
+        ],
+        "algorithmic_heuristics": {
+            "target_metric": "科学信任状硬度 (Scientific Proof Rigidity)",
+            "rule": "工艺细节真实度、无风险承诺与可信度指标评分。"
+        }
+    }
+]
+
+# Append more books into DB and update JSON
+def append_more_books():
+    db_file = PROJECT_ROOT / "via54_kb.db"
+    json_file = PROJECT_ROOT / "knowledge" / "master_copywriting_books.json"
+
+    conn = sqlite3.connect(str(db_file))
+    cursor = conn.cursor()
+    for b in MORE_BOOKS:
+        cursor.execute("""
+            INSERT OR REPLACE INTO copywriting_methodologies 
+            (book_id, title, author, school, core_theory, thinking_paradigm, 
+             strategy_framework_json, writing_methods_json, classic_golden_cases_json, algorithmic_heuristics_json)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """, (
+            b["book_id"],
+            b["title"],
+            b["author"],
+            b["school"],
+            b["core_theory"],
+            b["thinking_paradigm"],
+            json.dumps(b["strategy_framework"], ensure_ascii=False),
+            json.dumps(b["writing_methods"], ensure_ascii=False),
+            json.dumps(b["classic_golden_cases"], ensure_ascii=False),
+            json.dumps(b["algorithmic_heuristics"], ensure_ascii=False)
+        ))
+    conn.commit()
+    conn.close()
+
+    # Re-save complete JSON
+    all_books = BOOKS_DATA + MORE_BOOKS
+    json_file.write_text(json.dumps({
+        "version": "v2.5.0",
+        "description": "Masterclass Advertising & Copywriting Books Knowledge Base (18 Pillars)",
+        "total_books": len(all_books),
+        "books": all_books
+    }, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"✅ Successfully expanded to {len(all_books)} masterclass copywriting books in DB & JSON!")
+
+if __name__ == "__main__":
+    append_more_books()
