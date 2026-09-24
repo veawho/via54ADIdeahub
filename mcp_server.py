@@ -1255,6 +1255,67 @@ def query_psycholinguistic_canon(
         return json.dumps({"error": str(e)}, ensure_ascii=False)
 
 
+# ── Tool: call_feishu_bot ─────────────────────────────
+@mcp.tool()
+def call_feishu_bot(
+    message: str,
+    user_id: str = "",
+    chat_id: str = ""
+) -> str:
+    """Invoke the Feishu Bot Unified Adapter directly with any user command or creative query.
+    Automatically dispatches to:
+      1. Copywriting & Psycholinguistic Mastery Audit (if message asks for '审计', '平仄', '神经激活')
+      2. Exemplar Reverse-Engineering (if message asks for '示例文案', '为什么好', '拆解')
+      3. Copy Polishing & De-Fluffing (if message asks for '诊断', '润色', '去爹味')
+      4. Creative Puns (if message asks for '双关', '谐音')
+      5. Full Creative Strategy Matrix with 5 Slogans (default)
+
+    Args:
+        message: User input message (e.g. '帮霸王茶姬写5个新中式口号', '审计文案：自律给我自由')
+        user_id: Optional user identifier
+        chat_id: Optional chat/channel identifier
+
+    Returns:
+        JSON string containing action type, native Feishu card markdown, and native Feishu interactive card payload.
+    """
+    try:
+        from integrations.feishu_bot_adapter import FeishuBotAdapter
+        adapter = FeishuBotAdapter()
+        res = adapter.handle_feishu_message(message, user_id=user_id, chat_id=chat_id)
+        return json.dumps(res, ensure_ascii=False, indent=2)
+    except Exception as e:
+        return json.dumps({"error": str(e)}, ensure_ascii=False)
+
+
+# ── Tool: push_feishu_webhook ─────────────────────────
+@mcp.tool()
+def push_feishu_webhook(
+    webhook_url: str,
+    message: str
+) -> str:
+    """Generate a Feishu creative card from user message and push it directly to a Feishu Group Webhook URL.
+
+    Args:
+        webhook_url: The Feishu Custom Robot Webhook URL (starts with https://open.feishu.cn/open-apis/bot/v2/hook/...)
+        message: The creative request or message to process and push
+
+    Returns:
+        JSON string containing the push delivery status and generated card preview.
+    """
+    try:
+        from integrations.feishu_bot_adapter import FeishuBotAdapter
+        adapter = FeishuBotAdapter()
+        res = adapter.handle_feishu_message(message)
+        push_status = adapter.send_to_webhook(webhook_url, res["interactive_card"])
+        return json.dumps({
+            "action": res["action"],
+            "push_status": push_status,
+            "card_markdown_preview": res["card_markdown"][:300]
+        }, ensure_ascii=False, indent=2)
+    except Exception as e:
+        return json.dumps({"error": str(e)}, ensure_ascii=False)
+
+
 # ── Entry point ───────────────────────────────────────
 if __name__ == "__main__":
     mcp.run(transport="stdio")

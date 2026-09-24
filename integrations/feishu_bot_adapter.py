@@ -1,19 +1,26 @@
 #!/usr/bin/env python3
 """
 integrations/feishu_bot_adapter.py — Feishu (Lark) Bot Unified Adapter for via54ADIdeahub
-Bridges incoming Feishu messages/commands directly to the 3-D Linguistic Engine,
-Creative Reasoner, Exemplar Reasoner, Copy Polisher, Pun Engine, and Brand Profiles.
+Bridges incoming Feishu messages/commands directly to:
+  1. Creative Reasoner (Full Creative Strategy with Ping-Ze, Self-Refine & Psycholinguistics)
+  2. Copywriting Mastery Auditor (Phonetics, Literary Genre, Cognitive Tension, Master Books, Dehydration, Neuro-Activation)
+  3. Exemplar Reasoner (3-D Reverse-Engineering of Exemplars)
+  4. Copy Polisher (De-Fluffing & Anti-Patronizing Upgrade)
+  5. Pun Engine (Double Entendre & Social Memes)
+  6. Brand Profile Manager
 
-Outputs native Feishu Card Markdown / Interactive Card JSON compliant with:
-- 3-D Deep Reasoning (Sound + Meaning + Intuition)
-- Mandatory >= 3 suggestions per request
-- 4-D Similarity Benchmarks (读音/意义/表达/结构相似性)
+Outputs:
+  - Native Feishu Card Markdown
+  - Native Feishu Interactive Card JSON (Open Platform compatible)
+  - Direct Webhook Pushing Utility
 """
 
 import sys
 import os
 import json
 import re
+import urllib.request
+import urllib.error
 from pathlib import Path
 from typing import Dict, Any, Optional
 
@@ -26,25 +33,50 @@ from agents.exemplar_reasoner import ExemplarReasoner
 from agents.copy_polisher import CopyPolisher
 from agents.pun_engine import PunEngine
 from agents.brand_profile_manager import BrandProfileManager
+from agents.copywriting_art_auditor import CopywritingMasteryAuditor
+from agents.psycholinguistic_activator import PsycholinguisticActivator
+
 
 class FeishuBotAdapter:
     """Unified Feishu Bot Adapter for via54ADIdeahub."""
 
-    def __init__(self):
+    def __init__(self, db_path: Optional[Path] = None):
+        self.db_path = db_path or (PROJECT_ROOT / "via54_kb.db")
         self.linguistic_engine = MasterLinguisticEngine()
-        self.creative_reasoner = CreativeReasoner()
+        self.creative_reasoner = CreativeReasoner(self.db_path)
         self.exemplar_reasoner = ExemplarReasoner()
         self.copy_polisher = CopyPolisher()
         self.pun_engine = PunEngine()
         self.brand_manager = BrandProfileManager()
+        self.mastery_auditor = CopywritingMasteryAuditor(self.db_path)
+        self.psycholinguistic_activator = PsycholinguisticActivator(self.db_path)
 
     def handle_feishu_message(self, text: str, user_id: str = "", chat_id: str = "") -> Dict[str, Any]:
-        """Dispatch incoming Feishu message to the optimal creative agent and return Feishu card markdown."""
+        """Dispatch incoming Feishu message to the optimal creative agent and return Feishu card markdown + interactive JSON."""
         text_clean = text.strip()
 
-        # 1. Intent: Exemplar Reverse-Engineering & Evolution
+        # 1. Intent: Comprehensive Copywriting & Psycholinguistic Mastery Audit
+        # Keywords: 审计, 全维审计, 文案审计, 声律, 平仄, 十三辙, 神经激活, 具身拟真, 心理学激活
+        if any(k in text_clean for k in ["审计", "全维审计", "文案审计", "声律", "平仄", "十三辙", "神经激活", "具身拟真", "心理学激活"]):
+            target_text = self._extract_quoted_or_fallback(text_clean, default=text_clean)
+            brand = self._extract_brand(text_clean, default="")
+            audit_res = self.mastery_auditor.audit_copywriting(target_text, brand=brand)
+            card_md = self.mastery_auditor.render_markdown_report(audit_res)
+            interactive_card = self.build_feishu_interactive_card(
+                title=f"🏛️ 【{brand or '文案'}】全维艺术与神经激活审计报告",
+                markdown_content=card_md,
+                header_color="carmine" if audit_res["composite_mastery_score"] < 70 else "blue"
+            )
+            return {
+                "action": "mastery_audit",
+                "card_markdown": card_md,
+                "interactive_card": interactive_card,
+                "data": audit_res
+            }
+
+        # 2. Intent: Exemplar Reverse-Engineering & Evolution
         # Keywords: 示例文案, 为什么好, 拆解文案, 逆向, 仿写, 参考文案, 为什么
-        if any(k in text_clean for k in ["示例文案", "参考文案", "为什么好", "分析文案", "逆向", "拆解文案", "比这更好", "根据示例"]):
+        elif any(k in text_clean for k in ["示例文案", "参考文案", "为什么好", "分析文案", "逆向", "拆解文案", "比这更好", "根据示例"]):
             exemplar_copy = self._extract_quoted_or_fallback(text_clean, default="自律给我自由")
             brand = self._extract_brand(text_clean, default="稳健先锋")
             res = self.exemplar_reasoner.evolve_beyond_exemplar(
@@ -55,14 +87,20 @@ class FeishuBotAdapter:
                 audience_type=self._detect_audience(text_clean)
             )
             card_md = self.exemplar_reasoner.render_evolution_card(res)
+            interactive_card = self.build_feishu_interactive_card(
+                title=f"🧬 经典文案逆推与对标升维全案 · {brand}",
+                markdown_content=card_md,
+                header_color="turquoise"
+            )
             return {
                 "action": "exemplar_evolution",
                 "card_markdown": card_md,
+                "interactive_card": interactive_card,
                 "data": res
             }
 
-        # 2. Intent: Copy Polishing & Diagnosis
-        # Keywords: 诊断, 润色, 改写, 去爹味, 水词, 帮我改, 优化文案
+        # 3. Intent: Copy Polishing & Diagnosis
+        # Keywords: 诊断, 润色, 改写, 去爹味, 水词, 帮我改, 优化文案, 文案体检
         elif any(k in text_clean for k in ["诊断", "润色", "改写", "去爹味", "水词", "帮我改", "优化文案", "文案体检"]):
             draft = self._extract_quoted_or_fallback(text_clean, default="我们以极致卓越的科技赋能用户美好品质生活")
             brand = self._extract_brand(text_clean, default="品牌方")
@@ -73,13 +111,19 @@ class FeishuBotAdapter:
                 audience_type=self._detect_audience(text_clean)
             )
             card_md = self.copy_polisher.render_polishing_card(res)
+            interactive_card = self.build_feishu_interactive_card(
+                title=f"📝 文案深度体检与三大重构升级 · {brand}",
+                markdown_content=card_md,
+                header_color="orange"
+            )
             return {
                 "action": "copy_polishing",
                 "card_markdown": card_md,
+                "interactive_card": interactive_card,
                 "data": res
             }
 
-        # 3. Intent: Creative Pun & Double Entendre
+        # 4. Intent: Creative Pun & Double Entendre
         # Keywords: 双关, 谐音, 梗, 谐音梗
         elif any(k in text_clean for k in ["双关", "谐音", "梗", "谐音梗"]):
             brand = self._extract_brand(text_clean, default="创意品牌")
@@ -90,14 +134,19 @@ class FeishuBotAdapter:
                 audience_type=self._detect_audience(text_clean)
             )
             card_md = self.pun_engine.render_pun_card(res)
+            interactive_card = self.build_feishu_interactive_card(
+                title=f"🎭 精品双关与社交社交裂变梗 · {brand}",
+                markdown_content=card_md,
+                header_color="yellow"
+            )
             return {
                 "action": "creative_puns",
                 "card_markdown": card_md,
+                "interactive_card": interactive_card,
                 "data": res
             }
 
-        # 4. Intent: Slogan Generation & Full Creative Strategy
-        # Keywords: 口号, Slogan, 广告词, 策略, 写几个, 创意方案, 策划, 主张, 品牌主张
+        # 5. Intent: Full Creative Campaign Strategy & Slogans Matrix (Default)
         else:
             brand = self._extract_brand(text_clean, default="")
             product = self._extract_product(text_clean, default="核心产品与服务")
@@ -112,19 +161,84 @@ class FeishuBotAdapter:
                 enable_critic=True
             )
             card_md = self.creative_reasoner.render_feishu_card(res)
+            interactive_card = self.build_feishu_interactive_card(
+                title=f"🌌 【{res['brand']}】创意品牌全案与口号矩阵",
+                markdown_content=card_md,
+                header_color="blue"
+            )
             return {
                 "action": "creative_strategy",
                 "card_markdown": card_md,
+                "interactive_card": interactive_card,
                 "data": res
             }
+
+    def build_feishu_interactive_card(
+        self,
+        title: str,
+        markdown_content: str,
+        header_color: str = "blue"
+    ) -> Dict[str, Any]:
+        """Construct standard Feishu Open Platform Interactive Card payload."""
+        return {
+            "msg_type": "interactive",
+            "card": {
+                "config": {
+                    "wide_screen_mode": True,
+                    "enable_forward": True
+                },
+                "header": {
+                    "title": {
+                        "tag": "plain_text",
+                        "content": title[:60]
+                    },
+                    "template": header_color
+                },
+                "elements": [
+                    {
+                        "tag": "markdown",
+                        "content": markdown_content
+                    },
+                    {
+                        "tag": "hr"
+                    },
+                    {
+                        "tag": "note",
+                        "elements": [
+                            {
+                                "tag": "plain_text",
+                                "content": "⚡ 由 via54ADIdeahub 认知神经与汉语言艺术中枢智能驱动"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+
+    def send_to_webhook(self, webhook_url: str, card_payload: Dict[str, Any]) -> Dict[str, Any]:
+        """Post card payload directly to a Feishu custom robot webhook URL."""
+        if not webhook_url:
+            return {"error": "Missing webhook_url"}
+
+        try:
+            req_data = json.dumps(card_payload).encode("utf-8")
+            req = urllib.request.Request(
+                webhook_url,
+                data=req_data,
+                headers={"Content-Type": "application/json; charset=utf-8"}
+            )
+            with urllib.request.urlopen(req, timeout=10) as response:
+                resp_text = response.read().decode("utf-8")
+                return json.loads(resp_text)
+        except Exception as e:
+            return {"error": f"Failed to push to Feishu webhook: {str(e)}"}
 
     def _extract_quoted_or_fallback(self, text: str, default: str) -> str:
         """Extract text within quotes or fallback."""
         m = re.search(r'["“「](.+?)["”」]', text)
         if m:
             return m.group(1).strip()
-        # Fallback to text after keyword
-        for kw in ["示例文案", "参考", "比如", "文案", "改改"]:
+        for kw in ["示例文案", "参考", "比如", "文案", "改改", "审计"]:
             if kw in text:
                 parts = text.split(kw, 1)
                 if len(parts) > 1 and len(parts[1].strip()) > 2:
@@ -133,7 +247,7 @@ class FeishuBotAdapter:
 
     def _extract_brand(self, text: str, default: str) -> str:
         """Extract brand name from text."""
-        for b in ["霸王茶姬", "Apple", "Keep", "珀莱雅", "稳健先锋", "稳健伙伴", "内外", "诚品", "杜蕾斯", "Nike", "OPPO"]:
+        for b in ["霸王茶姬", "Apple", "Keep", "珀莱雅", "稳健先锋", "稳健伙伴", "内外", "诚品", "杜蕾斯", "Nike", "OPPO", "东方草本"]:
             if b.lower() in text.lower():
                 return b
         if any(k in text for k in ["减重", "脂肪肝", "减脂", "轻盈"]):
@@ -177,16 +291,23 @@ class FeishuBotAdapter:
             return "outdoor"
         return "default"
 
+
 if __name__ == "__main__":
     adapter = FeishuBotAdapter()
-    test_queries = [
-        "需要产出一句品牌主张。减重产品，品牌的endbenefit是轻盈。结合脂肪肝和减重患者的痛点。比如：逆转脂肪肝，重返轻盈态",
-        "示例文案‘白天替体面演戏，夜晚让身体稳住’，帮我深度分析好在哪，并给出3个超越它的新口号",
-        "帮霸王茶姬写5个新中式口号，要求符合声律且直击直觉",
-        "帮我诊断并润色文案：‘我们以极致卓越的科技赋能用户美好品质生活’"
-    ]
-    for q in test_queries:
-        print(f"\n====================\n💬 Feishu User: {q}\n====================")
-        res = adapter.handle_feishu_message(q)
-        print(f"🤖 Bot Action: {res['action']}")
-        print(f"📄 Feishu Card Markdown Snippet:\n{res['card_markdown'][:400]}...\n")
+    if len(sys.argv) > 1:
+        query = " ".join(sys.argv[1:])
+        print(f"🤖 Processing Feishu Message: {query}")
+        out = adapter.handle_feishu_message(query)
+        print(f"Action: {out['action']}")
+        print(out["card_markdown"])
+    else:
+        test_queries = [
+            "审计文案：‘我们致力于全面赋能每一个用户的优质健康生活’",
+            "帮霸王茶姬写5个新中式口号，要求符合声律且直击直觉",
+            "帮我诊断并润色文案：‘我们以极致卓越的科技赋能用户美好品质生活’"
+        ]
+        for q in test_queries:
+            print(f"\n====================\n💬 Feishu User: {q}\n====================")
+            res = adapter.handle_feishu_message(q)
+            print(f"🤖 Bot Action: {res['action']}")
+            print(f"📄 Card Markdown Snippet:\n{res['card_markdown'][:350]}...\n")
