@@ -1,18 +1,18 @@
 {
-  "version": "v2.5.0",
-  "description": "Masterclass Advertising & Copywriting Books Knowledge Base (18 Pillars)",
-  "total_books": 18,
+  "version": "v2.6.0",
+  "description": "Masterclass Advertising & Copywriting Books Knowledge Base (20 Pillars)",
+  "total_books": 20,
   "books": [
     {
       "book_id": "positioning",
       "title": "定位 (Positioning: The Battle for Your Mind)",
-      "author": "阿尔·里斯 (Al Ries) & 杰克·特劳特 (Jack Trout)",
+      "author": "杰克·特劳特 (Jack Trout) / 阿尔·里斯 (Al Ries)",
       "school": "心智定位学派",
       "core_theory": "营销的终极战场不是货架或工厂，而是潜在顾客的心智。心智痛恨复杂、容易失去焦点、极难被改变。必须在心智中占据一个词，成为某个品类或特性的第一选择。",
       "thinking_paradigm": "心智阶梯法则与极端简化主义。不试图改变心智，而是顺应并借用心智中既有的观念与认知。",
       "strategy_framework": {
         "types": [
-          "领导者定位 (抢占第一心智阶梯，确立标准)",
+          "领导者定位 (抢占第一心智阶梯，确立行业基准)",
           "对立定位 (站在行业老大反面，重新定义竞争对手，如艾维斯‘我们只是第二，所以我们更努力’，七喜‘非可乐’)",
           "空位定位 (寻找竞争对手忽略的特性/价格/人群空隙，如高价空位、小巧空位)"
         ],
@@ -43,9 +43,9 @@
     {
       "book_id": "xiaoqiang_100",
       "title": "小强广告100招",
-      "author": "林桂枝 (前北京奥美首席创意官 / 华语广告文案教母)",
-      "school": "人话美学与细节修剪派",
-      "core_theory": "文案不是舞文弄墨，文案是跟人说贴心的大白话。好文案是写出来的，更是‘修剪’出来的。剪去虚伪、剪去套话、剪去形容词，留下有体温的动词与场景细节。",
+      "author": "林永强 (小强 / 华语广告实战名家)",
+      "school": "人话美学与实战修剪派",
+      "core_theory": "文案不是舞文弄墨，文案是跟人说贴心的大白话。好文案是写出来的，更是‘修剪’出来的。剪去虚伪、剪去套话、剪去形容词，留下有体温的动词与场景细节。100招涵盖标题、正文、修辞、说服力到实效转化。",
       "thinking_paradigm": "像对着一位老朋友娓娓道来。把‘我要卖’转换为‘你渴望的生活细节’。以平视代替俯视，以同理代替说教。",
       "strategy_framework": {
         "types": [
@@ -80,7 +80,7 @@
     {
       "book_id": "super_sign",
       "title": "超级符号就是超级创意",
-      "author": "华杉 & 华楠 (华与华创始人)",
+      "author": "华杉 / 华楠 (华与华创始人)",
       "school": "华与华超级符号与文化母体派",
       "core_theory": "品牌就是超级符号。超级符号是借用人类已经熟悉的文化母体，将新品牌寄生在人类集体潜意识中，从而拥有巨大的原型能量，实现零思考购买与口口相传。",
       "thinking_paradigm": "买我产品，传我美名。拒绝任何不能发动顾客行动的艺术自嗨。创意要回到街头，接受菜市场老太太的检验。",
@@ -155,6 +155,251 @@
       }
     },
     {
+      "book_id": "sugarman_copy_handbook",
+      "title": "文案训练手册 (The Adweek Copywriting Handbook)",
+      "author": "约瑟夫·休格曼 (Joseph Sugarman - 全美直效营销传奇大师)",
+      "school": "滑梯理论与心理诱因派",
+      "core_theory": "文案的第一句话唯一的目的，就是让读者去读第二句话；第二句话唯一的目的，是让读者去读第三句话……让读者像坐滑梯（The Slippery Slide）一样一路滑到底部按下购买键。文案必须充满动能与不可抗拒的好奇心。",
+      "thinking_paradigm": "心理动能与好奇心操纵。通过31个心理诱因（包括诚实承认缺陷、从众、排他、悬念与互惠），建立读者无可防御的信任通道。",
+      "strategy_framework": {
+        "slippery_slide": "极短开篇抓人 -> 播种好奇心(Seeds of Curiosity) -> 深度阐述事实逻辑 -> 消除顾虑承诺 -> 立即购买闭环",
+        "psychological_triggers": [
+          "诚实坦白缺陷（主动指出小缺点，换来大信任）",
+          "专属感与稀缺性（只为少数懂行的人准备）",
+          "好奇心种子（段落末尾留白：‘但故事还没完’、‘原因如下’）"
+        ]
+      },
+      "writing_methods": [
+        "滑梯开篇法：第一句话极短、简单、极具悬念（如‘这太荒谬了。’、‘失去它让我心碎。’）",
+        "好奇心种子植入：在段落间自然嵌入‘请继续往下看’、‘但这还不是最棒的部分’",
+        "概念技术大白话：把复杂的高科技概念解释得连小学生都能懂，并赋予定制化命名"
+      ],
+      "classic_golden_cases": [
+        {
+          "case_name": "BluBlocker 阻蓝光太阳镜",
+          "slogan": "Vision Breakthrough. When I put on the glasses, I couldn't believe what happened. (视觉突破。当我戴上这副眼镜时，我简直不敢相信发生了什么。)",
+          "insight": "休格曼让全美数百万人坐上他的文字滑梯，单款产品卖出数千万副，成为直邮文案传奇。"
+        },
+        {
+          "case_name": "JS&A 激光测距仪",
+          "slogan": "A Flaw in the System. We found a mistake the manufacturer made. (系统缺陷。我们发现了制造商犯的一个错误。)",
+          "insight": "以‘发现错误’开篇，激发强烈的贪婪与好奇心，实际是为读者争取到了不可思议的折扣。"
+        }
+      ],
+      "algorithmic_heuristics": {
+        "target_metric": "滑梯动能与好奇心种子指数 (Slippery Slide Momentum)",
+        "rule": "短促开篇检测 + 段落递进衔接词 + 好奇心张力计算。"
+      }
+    },
+    {
+      "book_id": "jieshi_jinqiang",
+      "title": "借势：以弱胜强的128条黄金法则",
+      "author": "金枪大叔 (汪洋 - 极创引力创始人 / 抖音千万级营销操盘手)",
+      "school": "新媒体情绪穿透与以弱胜强派",
+      "core_theory": "小品牌不要和巨头正面硬刚。借势不是投机，而是借时代趋势、借社会情绪、借人性弱点、借巨头破绽。用最小的支点撬动最大的传播杠杆。文案要一刀见血，平淡是营销的绝症，让人愤怒、流泪或狂喜，才叫有效沟通。",
+      "thinking_paradigm": "穿透式洞察与反共识嘴替。做减法、做极致。广告不是自嗨的艺术，而是在短视频3秒内决定生死的人性战场。",
+      "strategy_framework": {
+        "128_rules_essence": [
+          "借情绪之势：人在情绪激动时才会转发和下单，平淡的赞美一文不值",
+          "以弱胜强三步走：找行业老大的破绽、立自己的反叛旗帜、做大众的嘴替盟友",
+          "痛点与痒点：痛点让人花钱消灾，痒点让人为了想象买单",
+          "文案即说话：口号必须是哪怕出租车司机、甚至菜场大妈听一遍就能复述的话"
+        ]
+      },
+      "writing_methods": [
+        "黄金3秒钩子：开头第一句直接打破常理认知（如‘别再被割韭菜了’、‘如果你还在这样做，趁早停下’）",
+        "反向自黑与解构：把自己的‘小’变成‘专注’，把自己的‘慢’变成‘手工极致’",
+        "极接地气的民间大白话：坚决消灭任何书面腔、翻译腔和学院派生造词"
+      ],
+      "classic_golden_cases": [
+        {
+          "case_name": "新消费以弱胜强战役",
+          "slogan": "老板在工位画饼，我们在旷野撒野。不是所有人都要活成大厂螺丝钉。",
+          "insight": "直击千万年轻打工人的精神反叛，借社会情绪势能以小博大引爆全网。"
+        },
+        {
+          "case_name": "金枪大叔短视频核心心法",
+          "slogan": "把复杂说简单是本事，把简单说深刻是神迹。一句让人记住的话，顶一千万广告费。",
+          "insight": "极端简化主义，一句话击穿受众心理防线。"
+        }
+      ],
+      "algorithmic_heuristics": {
+        "target_metric": "情绪穿透力与口口相传指数 (Emotional Penetration Score)",
+        "rule": "前置冲突钩子 + 反常识转折 + 极简口语复述性。"
+      }
+    },
+    {
+      "book_id": "d_and_ad_copy_book",
+      "title": "The Copy Book 全球32位顶尖广告文案写作之道",
+      "author": "英国D&AD协会 (David Abbott, Neil French, Tim Delaney 等全球32位大师)",
+      "school": "世界顶尖文学纯正派与文字炼金术",
+      "core_theory": "文字是有肉身的。标点符号是呼吸的阀门，字词的长短是心跳的节拍。世界上最伟大的文案不是说服机器，而是一次私密的、灵魂对灵魂的深夜长谈。32位传奇创意总监全景呈现文案从灵感、结构到打磨的终极手艺。",
+      "thinking_paradigm": "文学性与商业力量的合体。尊重读者的智商，永远不写下任何平庸的句子。让每个动词都像刀尖一样滴血或放光。",
+      "strategy_framework": {
+        "masters": [
+          "David Abbott: 站在最真挚的人类情感高地上，真诚到让人想哭",
+          "Neil French: 绝不谄媚受众，高傲、精准、充满诱惑与挑衅",
+          "Tim Delaney: 逻辑如钢铁般严密，层层推进无可辩驳的智力快感",
+          "Adrian Holmes: 极简留白，以最少的字释放最大的原子能"
+        ]
+      },
+      "writing_methods": [
+        "字音咬合与平仄回声：不仅要默读，必须大声朗读出来感受唇齿的阻力与气口",
+        "留白与悬停：故意不把话说满，让读者的心智在留白处自行完成顿悟",
+        "冷峻的陈述句胜过喧嚣的感叹号"
+      ],
+      "classic_golden_cases": [
+        {
+          "case_name": "《经济学人》 (The Economist)",
+          "slogan": "‘I never read The Economist.’ Management trainee. Aged 42. (‘我从不读《经济学人》。’——一位42岁管理培训生。)",
+          "insight": "一句话没提杂志有多好，却用‘42岁’与‘实习生’两个细节让所有职场人背脊发凉。"
+        },
+        {
+          "case_name": "芝华士父亲节 (Chivas Regal - David Abbott)",
+          "slogan": "Because you didn't need to ask for my respect, you earned it. (因为你从不索求我的尊敬，而是赢得了它。)",
+          "insight": "通篇没有华丽辞藻，只有父子间无声沉稳的敬重，成为广告史上的情感丰碑。"
+        }
+      ],
+      "algorithmic_heuristics": {
+        "target_metric": "文学穿透力与留白克制指数 (Literary Depth Score)",
+        "rule": "感叹号禁用/控量机制 + 留白推理张力判定。"
+      }
+    },
+    {
+      "book_id": "hey_whipple",
+      "title": "文案发烧 (Hey, Whipple, Squeeze This)",
+      "author": "路克·苏立文 (Luke Sullivan)",
+      "school": "反套路与极简破坏派",
+      "core_theory": "绝大多数广告都是污染眼球的垃圾。如果你的广告不能让人发笑、流泪或倒吸一口凉气，那它就是无声的尸体。杀死陈词滥调，敢于说出荒诞的真理。把平庸的广告推销员挤出房间。",
+      "thinking_paradigm": "撕掉包装纸，直奔戏剧冲突。真正的创意是在‘荒谬’与‘真相’之间搭一座不可思议的桥梁。",
+      "strategy_framework": {
+        "techniques": [
+          "反套路解构：找出全行业都在用的 5 个套路，全部反向操作",
+          "一图胜千言的文字互补：文案不重复画面，而是给画面一记灵魂暴击",
+          "自嘲与坦白：敢于承认自己的缺点，反而换来无懈可击的信任"
+        ]
+      },
+      "writing_methods": [
+        "写100个标题才能选出1个真正的宝贝",
+        "将品牌名字从口号中遮住，如果它依然适用于竞争对手，扔进垃圾桶",
+        "短促如子弹的断句"
+      ],
+      "classic_golden_cases": [
+        {
+          "case_name": "大众甲壳虫 (DDB)",
+          "slogan": "Lemon. (柠檬/残次品)",
+          "insight": "用一个极具自我攻击性的词作为全版大标题，展开讲述一辆甲壳虫如何因为手套箱的一道微小划痕被质检员淘汰，将对残次的坦白转化为对完美品质的终极敬意。"
+        },
+        {
+          "case_name": "哈雷摩托 (Harley-Davidson)",
+          "slogan": "Somewhere on an airplane, a man is wishing he was on a Harley. (在某架万米高空的飞机上，有个男人正恨不得自己骑在一辆哈雷上。)",
+          "insight": "抓住出差商务客在密封机舱里的疲惫压抑，对立哈雷风驰电掣的野生自由。"
+        }
+      ],
+      "algorithmic_heuristics": {
+        "target_metric": "破坏力与反套路指数 (Subversiveness Index)",
+        "rule": "严格剔除行业套路模板句式，奖赏反常识转折与自嘲张力。"
+      }
+    },
+    {
+      "book_id": "copywriters_handbook",
+      "title": "文案创作完全手册 (The Copywriter's Handbook)",
+      "author": "鲍勃·布莱 (Bob Bly / Robert W. Bly)",
+      "school": "实战工程与 4U 公式派",
+      "core_theory": "文案是敲在键盘上的推销员。一篇好的商业文案必须经过严密的四维检视：4U法则（Urgent 紧迫感、Unique 独特性、Ultra-specific 极度明确、Useful 实用价值）。",
+      "thinking_paradigm": "B2B 与 B2C 双轨推演。清晰胜过聪明，说服胜过卖弄，结果胜过掌声。",
+      "strategy_framework": {
+        "four_u_formula": [
+          "Urgent (紧迫性): 为什么必须今天看/今天买？",
+          "Unique (独特性): 这句话换一个品牌还能用吗？如果能用，立刻重写！",
+          "Ultra-specific (超具象性): 用具体数字与时间地点替代大而化之的词",
+          "Useful (有用性): 读者读完能获得什么实际利益？"
+        ],
+        "classic_structures": [
+          "AIDA (注意-兴趣-欲望-行动)",
+          "PAS (问题-激化-解决)",
+          "FAB (特性-优势-益处)"
+        ]
+      },
+      "writing_methods": [
+        "利益转化三步跳：特性(Feature) -> 优势(Advantage) -> 读者私人益处(Benefit)",
+        "悬念与钩子制造：在第一句话设置不可抗拒的阅读闭环",
+        "消除风险承诺：提供退换/保障/背书，摧毁最后一公里顾虑"
+      ],
+      "classic_golden_cases": [
+        {
+          "case_name": "金融与效率经典",
+          "slogan": "每天早起15分钟，如何用这套系统多赚30%的自由时间？",
+          "insight": "完整满足 4U 法则：具体时间、百分比、独特性与强烈实用价值。"
+        }
+      ],
+      "algorithmic_heuristics": {
+        "target_metric": "4U 实战指数 (4U Practicality Index)",
+        "rule": "对文案的独特性、具体数值比例与读者利益度进行打分过滤。"
+      }
+    },
+    {
+      "book_id": "scientific_advertising",
+      "title": "科学的广告 / 我的广告生涯 (Scientific Advertising & My Life in Advertising)",
+      "author": "克劳德·霍普金斯 (Claude C. Hopkins - 现代量化广告鼻祖)",
+      "school": "实证主义与数据转化派",
+      "core_theory": "广告不是艺术展览，广告是一门严格的科学。广告的每一个字、每一个承诺都必须接受市场销量的严苛测试。不要猜测，去测试；不要写花哨的文学句子，写直击利益的真诚建议。",
+      "thinking_paradigm": "数据驱动与转化追踪。凡是不能被验证效果的词藻都是浪费预算的毒药。用做实验的态度对待文案。",
+      "strategy_framework": {
+        "scientific_rules": [
+          "先提供样品与无风险体验",
+          "用独占工艺揭秘制造壁垒 (如喜力啤酒用高压蒸汽清洗啤酒瓶)",
+          "绝不攻击竞争对手，全心证明自己的不可替代"
+        ]
+      },
+      "writing_methods": [
+        "清晰承诺与保证：‘如果不满意，原银奉还’",
+        "揭秘幕后制作过程：把普通工序写成惊心动魄的匠人传奇"
+      ],
+      "classic_golden_cases": [
+        {
+          "case_name": "舒夫啤酒 (Schlitz)",
+          "slogan": "Purity guaranteed. Every bottle washed with live steam. (纯度保证。每一个啤酒瓶都用高压活蒸汽清洗。)",
+          "insight": "虽然所有啤酒厂都用活蒸汽清洗瓶子，但只有霍普金斯第一个向公众讲出这一事实，舒夫啤酒销量一跃成为全美第一。"
+        }
+      ],
+      "algorithmic_heuristics": {
+        "target_metric": "科学信任状硬度 (Scientific Proof Rigidity)",
+        "rule": "工艺细节真实度、无风险承诺与可信度指标评分。"
+      }
+    },
+    {
+      "book_id": "visual_hammer",
+      "title": "视觉锤 (Visual Hammer)",
+      "author": "劳拉·里斯 (Laura Ries)",
+      "school": "心智钉子与视觉合围派",
+      "core_theory": "定位是一个语言概念——心智钉子；但要将这根钉子钉进消费者坚硬的心智中，必须借助一把‘视觉锤’。没有视觉锤的文案是苍白的，拥有视觉锤的口号才拥有核爆炸般的记忆穿透力。",
+      "thinking_paradigm": "左脑语言与右脑图像的双重合围。文案必须能自动在读者脑海中投影出一个挥之不去的强记忆视觉符号。",
+      "strategy_framework": {
+        "hammer_types": [
+          "特征形状 (如可口可乐弧线瓶)",
+          "专属颜色 (如蒂芙尼蓝、法拉利红)",
+          "创始人图腾 (如肯德基上校、乔布斯黑色高领衫)",
+          "动作仪式 (如科罗娜啤酒塞青柠、奥利奥扭一扭舔一舔泡一泡)"
+        ]
+      },
+      "writing_methods": [
+        "画面联想强绑定：口号中必须自带明确的色彩、形状或手势动作",
+        "仪式化动词组装：把产品使用流程标准化为一目了然的标志性仪式"
+      ],
+      "classic_golden_cases": [
+        {
+          "case_name": "万宝路 (Marlboro)",
+          "slogan": "Come to Marlboro Country. (欢迎来到万宝路国度。)",
+          "insight": "‘粗犷牛仔’这把无坚不摧的视觉锤，将最初的女士香烟一举塑造成全球最雄性的男子气概图腾。"
+        }
+      ],
+      "algorithmic_heuristics": {
+        "target_metric": "视觉锤图腾投射力 (Visual Hammer Projectability)",
+        "rule": "文案中高饱和色彩、几何形状与动作仪式词汇密度检测。"
+      }
+    },
+    {
       "book_id": "cashvertising",
       "title": "吸金广告 (Cashvertising)",
       "author": "德鲁·埃里克·惠特曼 (Drew Eric Whitman)",
@@ -191,115 +436,6 @@
       }
     },
     {
-      "book_id": "copywriters_handbook",
-      "title": "文案创作完全手册 (The Copywriter's Handbook)",
-      "author": "罗伯特·布莱 (Robert W. Bly)",
-      "school": "实战工程与 4U 公式派",
-      "core_theory": "文案是敲在键盘上的推销员。一篇好的商业文案必须经过严密的四维检视：4U法则（Urgent 紧迫感、Unique 独特性、Ultra-specific 极度明确、Useful 实用价值）。",
-      "thinking_paradigm": "B2B 与 B2C 双轨推演。清晰胜过聪明，说服胜过卖弄，结果胜过掌声。",
-      "strategy_framework": {
-        "four_u_formula": [
-          "Urgent (紧迫性): 为什么必须今天看/今天买？",
-          "Unique (独特性): 这句话换一个品牌还能用吗？如果能用，立刻重写！",
-          "Ultra-specific (超具象性): 用具体数字与时间地点替代大而化之的词",
-          "Useful (有用性): 读者读完能获得什么实际利益？"
-        ],
-        "classic_structures": [
-          "AIDA (注意-兴趣-欲望-行动)",
-          "PAS (问题-激化-解决)",
-          "FAB (特性-优势-益处)"
-        ]
-      },
-      "writing_methods": [
-        "利益转化三步跳：特性(Feature) -> 优势(Advantage) -> 读者私人益处(Benefit)",
-        "悬念与钩子制造：在第一句话设置不可抗拒的阅读闭环",
-        "消除风险承诺：提供退换/保障/背书，摧毁最后一公里顾虑"
-      ],
-      "classic_golden_cases": [
-        {
-          "case_name": "金融与效率经典",
-          "slogan": "每天早起15分钟，如何用这套系统多赚30%的自由时间？",
-          "insight": "完整满足 4U 法则：具体时间、百分比、独特性与强烈实用价值。"
-        }
-      ],
-      "algorithmic_heuristics": {
-        "target_metric": "4U 实战指数 (4U Practicality Index)",
-        "rule": "对文案的独特性、具体数值比例与读者利益度进行打分过滤。"
-      }
-    },
-    {
-      "book_id": "hey_whipple",
-      "title": "文案发烧 (Hey, Whipple, Squeeze This)",
-      "author": "卢克·苏利文 (Luke Sullivan)",
-      "school": "反套路与极简破坏派",
-      "core_theory": "绝大多数广告都是污染眼球的垃圾。如果你的广告不能让人发笑、流泪或倒吸一口凉气，那它就是无声的尸体。杀死陈词滥调，敢于说出荒诞的真理。",
-      "thinking_paradigm": "撕掉包装纸，直奔戏剧冲突。真正的创意是在‘荒谬’与‘真相’之间搭一座不可思议的桥梁。",
-      "strategy_framework": {
-        "techniques": [
-          "反套路解构：找出全行业都在用的 5 个套路，全部反向操作",
-          "一图胜千言的文字互补：文案不重复画面，而是给画面一记灵魂暴击",
-          "自嘲与坦白：敢于承认自己的缺点，反而换来无懈可击的信任"
-        ]
-      },
-      "writing_methods": [
-        "写100个标题才能选出1个真正的宝贝",
-        "将品牌名字从口号中遮住，如果它依然适用于竞争对手，扔进垃圾桶",
-        "短促如子弹的断句"
-      ],
-      "classic_golden_cases": [
-        {
-          "case_name": "大众甲壳虫 (DDB)",
-          "slogan": "Lemon. (柠檬/残次品)",
-          "insight": "用一个极具自我攻击性的词作为全版大标题，展开讲述一辆甲壳虫如何因为手套箱的一道微小划痕被质检员淘汰，将对残次的坦白转化为对完美品质的终极敬意。"
-        },
-        {
-          "case_name": "哈雷摩托 (Harley-Davidson)",
-          "slogan": "Somewhere on an airplane, a man is wishing he was on a Harley. (在某架万米高空的飞机上，有个男人正恨不得自己骑在一辆哈雷上。)",
-          "insight": "抓住出差商务客在密封机舱里的疲惫压抑，对立哈雷风驰电掣的野生自由。"
-        }
-      ],
-      "algorithmic_heuristics": {
-        "target_metric": "破坏力与反套路指数 (Subversiveness Index)",
-        "rule": "严格剔除行业套路模板句式，奖赏反常识转折与自嘲张力。"
-      }
-    },
-    {
-      "book_id": "d_and_ad_copy_book",
-      "title": "文案之道 (The Copy Book: How 32 of the World's Best Advertising Writers Write Their Advertising)",
-      "author": "D&AD 全球顶尖文案大师集锦",
-      "school": "文学纯正派与文字炼金术",
-      "core_theory": "文字是有肉身的。标点符号是呼吸的阀门，字词的长短是心跳的节拍。世界上最伟大的文案不是说服机器，而是一次私密的、灵魂对灵魂的深夜长谈。",
-      "thinking_paradigm": "文学性与商业力量的合体。尊重读者的智商，永远不写下任何平庸的句子。让每个动词都像刀尖一样滴血或放光。",
-      "strategy_framework": {
-        "masters": [
-          "Neil French: 绝不谄媚受众，高傲、精准、充满诱惑与挑衅",
-          "David Abbott: 站在最真挚的人类情感高地上，真诚到让人想哭",
-          "Tim Delaney: 逻辑如钢铁般严密，层层推进无可辩驳的智力快感"
-        ]
-      },
-      "writing_methods": [
-        "字音咬合与平仄回声：不仅要默读，必须大声朗读出来感受唇齿的阻力",
-        "留白与悬停：故意不把话说满，让读者的心智在留白处自行完成顿悟",
-        "冷峻的陈述句胜过喧嚣的感叹号"
-      ],
-      "classic_golden_cases": [
-        {
-          "case_name": "《经济学人》 (The Economist)",
-          "slogan": "‘I never read The Economist.’ Management trainee. Aged 42. (‘我从不读《经济学人》。’——一位42岁管理培训生。)",
-          "insight": "一句话没提杂志有多好，却用‘42岁’与‘实习生’两个细节让所有职场人背脊发凉。"
-        },
-        {
-          "case_name": "芝华士父亲节 (Chivas Regal - David Abbott)",
-          "slogan": "Because you didn't need to ask for my respect, you earned it. (因为你从不索求我的尊敬，而是赢得了它。)",
-          "insight": "通篇没有华丽辞藻，只有父子间无声沉稳的敬重，成为广告史上的情感丰碑。"
-        }
-      ],
-      "algorithmic_heuristics": {
-        "target_metric": "文学穿透力与留白克制指数 (Literary Depth Score)",
-        "rule": "感叹号禁用/控量机制 + 留白推理张力判定。"
-      }
-    },
-    {
       "book_id": "hsu_shun_ying",
       "title": "中兴百货意识形态广告全集",
       "author": "许舜英 (台湾意识形态广告创始人)",
@@ -333,6 +469,37 @@
       "algorithmic_heuristics": {
         "target_metric": "先锋哲思与文化溢价指数 (Avant-garde Philosophical Depth)",
         "rule": "检测物象化名词、哲学思辨结构与高阶反讽隐喻。"
+      }
+    },
+    {
+      "book_id": "neil_french_fetish",
+      "title": "广告拜物教与文案圣经",
+      "author": "尼尔·法兰奇 (Neil French - 亚太广告教父)",
+      "school": "骄傲挑衅与戏剧张力派",
+      "core_theory": "广告不是讨好所有人的小丑。最高明的文案是充满个性的贵族，他站在那里，用极具教养但又锋利刻薄的眼神审视读者。他从不乞求你购买，而是让你觉得自己配不上他的产品。",
+      "thinking_paradigm": "挑衅与过滤。宁可激怒平庸之辈，也要让目标人群产生狂热的仰望与归属感。",
+      "strategy_framework": {
+        "tactics": [
+          "自傲定位法：通过高昂代价或极高门槛筛选真正的信徒",
+          "冷峻叙事：用电影小说般的悬念展开，最后一句话点出品牌",
+          "排他性声明：‘如果你连这个都看不懂，请不要浪费我们的时间’"
+        ]
+      },
+      "writing_methods": [
+        "挑衅式开篇：直接反驳世俗常理或读者的自以为是",
+        "戏剧性悬念铺垫：长篇大段引人入胜的虚构故事",
+        "一击必杀的尾部落款"
+      ],
+      "classic_golden_cases": [
+        {
+          "case_name": "皇家芝华士 / XO 白兰地",
+          "slogan": "This is the most expensive beer in the world. (这是全世界最昂贵的啤酒。)",
+          "insight": "法兰奇虚构了一款天价啤酒 XO，只用纯文字挑衅富人阶层的好奇心，最终引起全城抢购狂潮。"
+        }
+      ],
+      "algorithmic_heuristics": {
+        "target_metric": "挑衅与自傲张力指数 (Provocation Index)",
+        "rule": "非讨好性语气判定 + 高门槛筛选度与悬念检测。"
       }
     },
     {
@@ -435,37 +602,6 @@
       }
     },
     {
-      "book_id": "neil_french_fetish",
-      "title": "广告拜物教与文案圣经",
-      "author": "尼尔·法兰奇 (Neil French - 亚太广告教父)",
-      "school": "骄傲挑衅与戏剧张力派",
-      "core_theory": "广告不是讨好所有人的小丑。最高明的文案是充满个性的贵族，他站在那里，用极具教养但又锋利刻薄的眼神审视读者。他从不乞求你购买，而是让你觉得自己配不上他的产品。",
-      "thinking_paradigm": "挑衅与过滤。宁可激怒平庸之辈，也要让目标人群产生狂热的仰望与归属感。",
-      "strategy_framework": {
-        "tactics": [
-          "自傲定位法：通过高昂代价或极高门槛筛选真正的信徒",
-          "冷峻叙事：用电影小说般的悬念展开，最后一句话点出品牌",
-          "排他性声明：‘如果你连这个都看不懂，请不要浪费我们的时间’"
-        ]
-      },
-      "writing_methods": [
-        "挑衅式开篇：直接反驳世俗常理或读者的自以为是",
-        "戏剧性悬念铺垫：长篇大段引人入胜的虚构故事",
-        "一击必杀的尾部落款"
-      ],
-      "classic_golden_cases": [
-        {
-          "case_name": "皇家芝华士 / XO 白兰地",
-          "slogan": "This is the most expensive beer in the world. (这是全世界最昂贵的啤酒。)",
-          "insight": "法兰奇虚构了一款天价啤酒 XO，只用纯文字挑衅富人阶层的好奇心，最终引起全城抢购狂潮。"
-        }
-      ],
-      "algorithmic_heuristics": {
-        "target_metric": "挑衅与自傲张力指数 (Provocation Index)",
-        "rule": "非讨好性语气判定 + 高门槛筛选度与悬念检测。"
-      }
-    },
-    {
       "book_id": "storytelling_signorelli",
       "title": "认同感：用故事包装事实的艺术",
       "author": "吉姆·西尼奥雷利 (Jim Signorelli)",
@@ -492,37 +628,6 @@
       "algorithmic_heuristics": {
         "target_metric": "故事原型与英雄共鸣度 (Hero Archetype Score)",
         "rule": "共情叙事结构判定，确保品牌充当‘助攻盟友’而非高高在上的说教者。"
-      }
-    },
-    {
-      "book_id": "visual_hammer",
-      "title": "视觉锤 (Visual Hammer)",
-      "author": "劳拉·里斯 (Laura Ries)",
-      "school": "心智钉子与视觉钉入派",
-      "core_theory": "定位是一个语言概念——心智钉子；但要将这根钉子钉进消费者坚硬的心智中，必须借助一把‘视觉锤’。没有视觉锤的文案是苍白的，拥有视觉锤的口号才拥有核爆炸般的记忆穿透力。",
-      "thinking_paradigm": "左脑语言与右脑图像的双重合围。文案必须能自动在读者脑海中投影出一个挥之不去的强记忆视觉符号。",
-      "strategy_framework": {
-        "hammer_types": [
-          "特征形状 (如可口可乐弧线瓶)",
-          "专属颜色 (如蒂芙尼蓝、法拉利红)",
-          "创始人图腾 (如肯德基上校、乔布斯黑色高领衫)",
-          "动作仪式 (如科罗娜啤酒塞青柠、奥利奥扭一扭舔一舔泡一泡)"
-        ]
-      },
-      "writing_methods": [
-        "画面联想强绑定：口号中必须自带明确的色彩、形状或手势动作",
-        "仪式化动词组装：把产品使用流程标准化为一目了然的标志性仪式"
-      ],
-      "classic_golden_cases": [
-        {
-          "case_name": "万宝路 (Marlboro)",
-          "slogan": "Come to Marlboro Country. (欢迎来到万宝路国度。)",
-          "insight": "‘粗犷牛仔’这把无坚不摧的视觉锤，将最初的女士香烟一举塑造成全球最雄性的男子气概图腾。"
-        }
-      ],
-      "algorithmic_heuristics": {
-        "target_metric": "视觉锤图腾投射力 (Visual Hammer Projectability)",
-        "rule": "文案中高饱和色彩、几何形状与动作仪式词汇密度检测。"
       }
     },
     {
@@ -583,36 +688,6 @@
       "algorithmic_heuristics": {
         "target_metric": "东方文化密码共鸣度 (Eastern Cultural Code Fit)",
         "rule": "传统人文意象检测与东方心理隐喻契合度评估。"
-      }
-    },
-    {
-      "book_id": "scientific_advertising",
-      "title": "科学的广告 (Scientific Advertising)",
-      "author": "克劳德·霍普金斯 (Claude C. Hopkins - 现代量化广告鼻祖)",
-      "school": "实证主义与数据回溯派",
-      "core_theory": "广告不是艺术展览，广告是一门严格的科学。广告的每一个字、每一个承诺都必须接受市场销量的严苛测试。不要猜测，去测试；不要写花哨的文学句子，写直击利益的真诚建议。",
-      "thinking_paradigm": "数据驱动与转化追踪。凡是不能被验证效果的词藻都是浪费预算的毒药。",
-      "strategy_framework": {
-        "scientific_rules": [
-          "先提供样品与无风险体验",
-          "用独占工艺揭秘制造壁垒 (如喜力啤酒用蒸汽清洗啤酒瓶)",
-          "绝不攻击竞争对手，全心证明自己的不可替代"
-        ]
-      },
-      "writing_methods": [
-        "清晰承诺与保证：‘如果不满意，原银奉还’",
-        "揭秘幕后制作过程：把普通工序写成惊心动魄的匠人传奇"
-      ],
-      "classic_golden_cases": [
-        {
-          "case_name": "舒夫啤酒 (Schlitz)",
-          "slogan": "Purity guaranteed. Every bottle washed with live steam. (纯度保证。每一个啤酒瓶都用高压活蒸汽清洗。)",
-          "insight": "虽然所有啤酒厂都用活蒸汽清洗瓶子，但只有霍普金斯第一个向公众讲出这一事实，舒夫啤酒销量一跃成为全美第一。"
-        }
-      ],
-      "algorithmic_heuristics": {
-        "target_metric": "科学信任状硬度 (Scientific Proof Rigidity)",
-        "rule": "工艺细节真实度、无风险承诺与可信度指标评分。"
       }
     }
   ]

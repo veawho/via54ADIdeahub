@@ -158,6 +158,49 @@ class MasterBookMethodologyFuser:
             "verdict": "满足4U实战标准，能有效推动受众注意力向购买转化跃迁" if overall_4u >= 4.2 else "建议补充更具体的时间、数字或读者切身利益"
         }
 
+    def audit_sugarman_slippery_slide(self, text: str) -> Dict[str, Any]:
+        """Joseph Sugarman's 'Slippery Slide' & 'Seeds of Curiosity' Audit."""
+        clauses = [c.strip() for c in re.split(r"[,，。！？；\s]+", text) if c.strip()]
+        first_clause_len = len(clauses[0]) if clauses else 0
+        has_curiosity_seed = any(w in text for w in ["不仅", "其实", "但是", "为什么", "秘密", "真相", "答案", "原来", "这一刻"])
+        
+        # Sugarman rule: First sentence must be short, punchy and irresistible
+        is_short_opening = 3 <= first_clause_len <= 10
+        slide_score = 4.0
+        if is_short_opening:
+            slide_score += 0.5
+        if has_curiosity_seed:
+            slide_score += 0.4
+
+        return {
+            "source_book": "约瑟夫·休格曼《文案训练手册》",
+            "slippery_slide_score": round(min(5.0, slide_score), 1),
+            "first_sentence_length": f"{first_clause_len} 字 (极短开篇)" if is_short_opening else f"{first_clause_len} 字 (建议缩短至8字以内制造下坠动能)",
+            "curiosity_seeds_detected": has_curiosity_seed,
+            "verdict": "具备强烈滑梯动能，开篇短促有力，读者阅读阻力极低" if slide_score >= 4.5 else "建议首句压缩字数，埋下‘好奇心种子’驱动继续阅读"
+        }
+
+    def audit_jinqiang_leverage(self, slogan: str, brand: str) -> Dict[str, Any]:
+        """Uncle Jinqiang's '128 Rules of Leverage' & Asymmetric Breakthrough Audit."""
+        has_emotion = any(w in slogan for w in ["救命", "画饼", "离职", "活到", "撒野", "生脆", "心跳", "骨头", "退火", "演戏"])
+        has_colloquial = any(w in slogan for w in ["别", "管你", "马上", "天天", "不用", "就是", "替"])
+        is_concise = len(slogan) <= 24
+
+        leverage_score = 4.2
+        if has_emotion:
+            leverage_score += 0.4
+        if has_colloquial:
+            leverage_score += 0.3
+        if is_concise:
+            leverage_score += 0.1
+
+        return {
+            "source_book": "金枪大叔《借势：以弱胜强的128条黄金法则》",
+            "emotional_leverage_score": round(min(5.0, leverage_score), 1),
+            "colloquial_recitability": "大白话一听就懂，出租车司机与菜场大妈听一遍就能复述" if has_colloquial else "具备一定口语感",
+            "verdict": "成功借势社会情绪潜流，立起反叛旗帜，具备以弱胜强的锋利度" if leverage_score >= 4.6 else "建议进一步做减法，让情绪更浓缩"
+        }
+
     def synthesize_master_strategy_pack(
         self,
         brand: str,
@@ -165,31 +208,47 @@ class MasterBookMethodologyFuser:
         target_audience: str,
         brief_goal: str
     ) -> Dict[str, Any]:
-        """Synthesize masterclass strategic directives from all book methodologies."""
+        """Synthesize masterclass strategic directives from all 20 book methodologies."""
         combined_text = f"{brand} {product} {target_audience} {brief_goal}"
         positioning = self.craft_positioning_nail_and_hammer(brand, product, brief_goal)
         lf8 = self.map_life_force_8(combined_text)
 
         master_schools_directives = [
             {
-                "school": "【特劳特定位与心智钉子派】",
-                "core_directive": f"牢牢钉死心智钉子: {positioning['mental_nail']}，以【{positioning['visual_hammer']}】作为穿透媒介。"
+                "school": "【特劳特《定位》& 劳拉·里斯《视觉锤》】",
+                "core_directive": f"钉死心智钉子: {positioning['mental_nail']}；铸造视觉锤: 【{positioning['visual_hammer']}】。{positioning['counter_positioning']}。"
             },
             {
-                "school": "【华与华超级符号与购买指令派】",
-                "core_directive": "借用日常民间谚语与口语母体，将文案直接写成无需思考的动词命令句，建立条件反射。"
+                "school": "【约瑟夫·休格曼《文案训练手册》滑梯理论】",
+                "core_directive": "制造滑梯效应：第一句话必须短促致命（8字以内），并在末尾埋下‘好奇心种子’，让读者停不下来一路滑向成交。"
             },
             {
-                "school": "【林桂枝小强文案修剪派】",
-                "core_directive": "坚决剔除任何公文词与副词，让形容词退场，让具体物象（钥匙、水面、领带、电梯）与动词发力。"
+                "school": "【金枪大叔《借势：以弱胜强的128条黄金法则》】",
+                "core_directive": "以弱胜强借情绪之势：找行业老大破绽，做大众反内卷嘴替，文案必须通俗到连菜场大妈听一遍都能复述给别人。"
             },
             {
-                "school": "【惠特曼吸金广告LF8生命原力派】",
-                "core_directive": f"锁定原始生物本能: {lf8['matched_primary_desires'][0]}，先激活生存/焦虑痛感，再以产品为唯一安全解药。"
+                "school": "【华杉/华楠《超级符号就是超级创意》】",
+                "core_directive": "借用日常民间谚语与口语母体，将口号直接写成无需思考的动词命令句，建立条件反射。"
             },
             {
-                "school": "【许舜英意识形态美学派】",
-                "core_directive": "拒绝庸俗叫卖，将产品重构为当代人在平庸日常中对抗虚无的一把哲学钝器，沉淀高溢价文化资本。"
+                "school": "【林永强《小强广告100招》人话修剪刀】",
+                "core_directive": "无情剪去副词与抽象形容词，让位给具象物象（钥匙、水面、领带、电梯）与高动能动词。"
+            },
+            {
+                "school": "【英国D&AD协会《The Copy Book 全球32位顶尖广告文案之道》】",
+                "core_directive": "大声朗读校验唇齿阻力，让字词长短如心跳律动，用冷峻的陈述句与恰到好处的留白击穿读者灵魂。"
+            },
+            {
+                "school": "【路克·苏立文《文案发烧》反套路破坏派】",
+                "core_directive": "杀死全行业都在用的陈词滥调，敢于自嘲与反向操作，若遮住品牌名竞争对手也能用，立刻扔进垃圾桶。"
+            },
+            {
+                "school": "【克劳德·霍普金斯《科学的广告 / 我的广告生涯》】",
+                "core_directive": "实证主义至上：将普通工序揭秘为惊心动魄的硬核工艺信任状，拒绝无凭无据的文学卖弄。"
+            },
+            {
+                "school": "【鲍勃·布莱《文案创作完全手册》4U法则】",
+                "core_directive": "严守4U实战底线：紧迫感 (Urgent)、独特性 (Unique)、超具象 (Ultra-specific)、实用价值 (Useful)。"
             }
         ]
 
@@ -203,6 +262,7 @@ class MasterBookMethodologyFuser:
             "master_directives": master_schools_directives,
             "available_books_count": len(self.books)
         }
+
 
 
 if __name__ == "__main__":
