@@ -431,7 +431,8 @@ class AlgorithmicElevator:
 class CopywritingMasteryAuditor:
     """Integrated Masterclass Copywriting Auditor & Optimizer."""
 
-    def __init__(self):
+    def __init__(self, db_path: Optional[Any] = None):
+        self.db_path = db_path
         self.phonetic_auditor = PhoneticCadenceAuditor()
         self.genre_auditor = LiteraryGenreFingerprintAuditor()
         self.rhetoric_auditor = RhetoricalAndCognitiveAuditor()

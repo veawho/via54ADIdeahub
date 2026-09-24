@@ -26,6 +26,7 @@ from agents.brand_profile_manager import BrandProfileManager
 from agents.master_linguistic_engine import MasterLinguisticEngine
 from agents.rhetorical_alchemy_synthesizer import RhetoricalAlchemySynthesizer
 from agents.master_book_methodology_fuser import MasterBookMethodologyFuser
+from agents.copywriting_art_auditor import CopywritingMasteryAuditor
 
 WATER_WORDS_DICTIONARY = [
     "非常", "十分", "极其", "真是太", "简直", "真的是",
@@ -45,6 +46,7 @@ class CreativeReasoner:
         self.linguistic_engine = MasterLinguisticEngine()
         self.rhetorical_synthesizer = RhetoricalAlchemySynthesizer(self.db_path)
         self.book_fuser = MasterBookMethodologyFuser(self.db_path)
+        self.mastery_auditor = CopywritingMasteryAuditor(self.db_path)
         self._load_subculture_index()
 
 
@@ -133,48 +135,51 @@ class CreativeReasoner:
         slogan: str,
         style: str,
         audience_type: str,
-        target_audience: str
+        target_audience: str,
+        brand: str = ""
     ) -> Dict[str, Any]:
-        """Independent Critic Node: calculates emotion, humanity, and in-group authenticity scores."""
-        water_audit = self.audit_water_words(slogan)
+        """Independent Masterclass Critic Node: utilizes CopywritingMasteryAuditor for deep multi-dimensional audit."""
+        deep_audit = self.mastery_auditor.audit_copywriting(slogan, brand=brand, target_genre=style)
         
-        base_emotion = 4.3
-        base_humanity = 4.4
-        base_fit = 4.3
-
-        if not water_audit["is_clean"]:
-            base_humanity -= water_audit["water_penalty"]
-            base_emotion -= 0.3
-
-        if len(slogan) > 24:
-            base_humanity -= 0.3
-        elif len(slogan) < 6:
-            base_emotion -= 0.2
-
+        # Subculture check
         sub_info = self.subcultures.get(audience_type, {})
         keywords = sub_info.get("core_keywords", [])
         matched_keywords = [k for k in keywords if k in slogan]
         
+        base_fit = 4.3
         if audience_type != "default" and matched_keywords:
             base_fit = min(5.0, base_fit + 0.5)
             k_str = "、".join(matched_keywords)
-            review_note = f"精准契合【{sub_info.get('name', audience_type)}】语境，自然融入圈内暗号 [{k_str}]，毫无生硬违和感。"
+            review_note = f"精准契合【{sub_info.get('name', audience_type)}】语境，自然融入圈内暗号 [{k_str}]，声律与审美自洽。"
         elif audience_type != "default":
-            review_note = f"符合【{target_audience}】基本生活心理，若能结合更多圈层生活场景细节则更佳。"
+            review_note = f"符合【{target_audience}】基本生活心理。{deep_audit['cognitive_rhetoric_dimension']['cognitive_verdict']}"
         else:
-            review_note = "大众情绪共鸣强烈，通俗易记，适合全域传播。"
+            review_note = f"大众共鸣强烈，通俗易记。{deep_audit['cognitive_rhetoric_dimension']['cognitive_verdict']}"
 
-        emotion_score = round(max(1.0, min(5.0, base_emotion)), 1)
-        humanity_score = round(max(1.0, min(5.0, base_humanity)), 1)
-        audience_fit_score = round(max(1.0, min(5.0, base_fit)), 1)
+        u_dim = deep_audit["purity_dehydration_dimension"]
+        p_dim = deep_audit["phonetic_dimension"]
+        b_dim = deep_audit["master_book_compliance_dimension"]
+        g_dim = deep_audit["literary_genre_dimension"]
 
         return {
-            "emotion_score": emotion_score,
-            "humanity_score": humanity_score,
-            "audience_fit_score": audience_fit_score,
-            "detected_water_words": water_audit["detected_water_words"],
+            "mastery_score": deep_audit["composite_mastery_score"],
+            "mastery_level": deep_audit["mastery_level"],
+            "phonetic_score": p_dim["phonetic_score"],
+            "is_ze_qi_ping_shou": p_dim["is_ze_qi_ping_shou"],
+            "matched_rhyme": p_dim["matched_rhyme"],
+            "primary_genre": g_dim["primary_genre"],
+            "cognitive_score": deep_audit["cognitive_rhetoric_dimension"]["cognitive_score"],
+            "purity_score": u_dim["purity_score"],
+            "detected_water_words": u_dim["fluff_words_detected"] + u_dim["europeanized_glue_detected"],
             "critic_feedback": review_note,
-            "polishing_advice": water_audit["polishing_advice"]
+            "polishing_advice": "、".join(u_dim["dehydration_advice"]) if u_dim["dehydration_advice"] else "文案精炼脱水，声律自洽",
+            "cadence_diagnosis": p_dim["cadence_diagnosis"],
+            "algorithmic_elevations": deep_audit["algorithmic_elevations"],
+            "deep_audit": deep_audit,
+            # Backward compatibility
+            "emotion_score": round(deep_audit["cognitive_rhetoric_dimension"]["cognitive_score"] / 20.0, 1),
+            "humanity_score": round(u_dim["purity_score"] / 20.0, 1),
+            "audience_fit_score": round(base_fit, 1)
         }
 
     def generate_creative_strategy(
@@ -318,7 +323,8 @@ class CreativeReasoner:
                 slogan=arch["tagline"],
                 style=arch["style_category"],
                 audience_type=audience_type,
-                target_audience=target_audience
+                target_audience=target_audience,
+                brand=brand
             ) if enable_critic else {}
             
             sim_bench = self.linguistic_engine.match_similarity_benchmark(
@@ -326,11 +332,23 @@ class CreativeReasoner:
                 arch["style_category"],
                 audience_type=audience_type
             )
+
+            # Self-Refine Loop: propose an elevated candidate if score < 82 or ze_qi_ping_shou violated
+            refinement = None
+            elevations = critic_res.get("algorithmic_elevations", [])
+            if elevations and (critic_res.get("mastery_score", 0) < 82 or not critic_res.get("is_ze_qi_ping_shou", True)):
+                top_elev = elevations[0]
+                refinement = {
+                    "suggested_slogan": top_elev.get("elevated_slogan", ""),
+                    "elevation_style": top_elev.get("elevation_style", ""),
+                    "rationale": top_elev.get("elevation_rationale", "")
+                }
             
             arch_data = {
                 **arch,
                 "critic_eval": critic_res,
-                "similarity_benchmark": sim_bench
+                "similarity_benchmark": sim_bench,
+                "self_refinement": refinement
             }
             versions.append(arch_data)
 
@@ -382,15 +400,24 @@ class CreativeReasoner:
             subs_md = "\n".join([f"  - *「{sub}」*" for sub in v["sub_slogans"]])
             critic = v.get("critic_eval", {})
             sim = v.get("similarity_benchmark", {})
+            refine = v.get("self_refinement")
             score_str = ""
             if critic:
+                refine_str = ""
+                if refine:
+                    refine_str = f"""
+> 🔄 **Self-Refine 算法自纠精炼方案**:
+>   - 升维推荐: **`「{refine['suggested_slogan']}」`** *({refine['elevation_style']})*
+>   - 算法重构理据: {refine['rationale']}"""
+
                 score_str = f"""
-> 📊 **Critic 质检评分**: 情绪深度 `★ {critic.get('emotion_score', '-')}` | 真人感 `★ {critic.get('humanity_score', '-')}` | 圈层契合度 `★ {critic.get('audience_fit_score', '-')}`
-> 💬 **评审点评**: {critic.get('critic_feedback', '')}
-> 💧 **脱水精炼**: {critic.get('polishing_advice', '')}
+> 📊 **Mastery 艺术全维审计**: `★ {critic.get('mastery_score', '-')}/100` ({critic.get('mastery_level', '达标')}) | 声律 `★ {critic.get('phonetic_score', '-')}` | 认知 `★ {critic.get('cognitive_score', '-')}` | 脱水纯度 `★ {critic.get('purity_score', '-')}`
+> 🎵 **声律与文体特征**: 仄起平收: `{'✅ 规整' if critic.get('is_ze_qi_ping_shou') else '❌ 需微调'}` | 押韵: `{critic.get('matched_rhyme', '通用')}` | 文体指纹: `{critic.get('primary_genre', '现代广告体')}`
+> 💬 **评审反馈**: {critic.get('critic_feedback', '')}
+> 💧 **脱水质检建议**: {critic.get('polishing_advice', '')}
 > 🔗 **相似性对标参考**: {sim.get('similarity_dimension', '🏛️ 结构相似性')}
 > 📌 **对标经典案例**: *{sim.get('benchmark_case', '')}*
-> 🔍 **对标借鉴解析**: {sim.get('similarity_analysis', '')}"""
+> 🔍 **对标借鉴解析**: {sim.get('similarity_analysis', '')}{refine_str}"""
 
             versions_md += f"""### 版本 {v['id']} · {v['style_category']}
 > 💡 **策略导向**: {v['style_desc']}  
