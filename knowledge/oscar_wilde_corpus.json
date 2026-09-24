@@ -1,0 +1,142 @@
+{
+  "version": "v1.0.0",
+  "description": "Canonical Oscar Wilde Paradox Epigrams & Works Corpus",
+  "total_items": 15,
+  "items": [
+    {
+      "id": 1,
+      "work": "《理想丈夫 (An Ideal Husband)》",
+      "english_quote": "To love oneself is the beginning of a lifelong romance.",
+      "chinese_translation": "爱自己，是终身浪漫的开始。",
+      "paradox_mechanism": "反向常识与悦己立论：彻底颠覆传统将‘爱他人、奉献牺牲’视为崇高的规训，把‘自恋与自爱’升格为最长情、最忠诚的浪漫契约。",
+      "theme": "悦己与浪漫",
+      "copywriting_application": "当代独立女性、单身经济、轻奢美妆、个人疗愈、悦己生活方式最顶级的主题金句母体；消灭讨好他人，确立自我精神主权。"
+    },
+    {
+      "id": 2,
+      "work": "《温夫人的扇子 (Lady Windermere's Fan)》",
+      "english_quote": "We are all in the gutter, but some of us are looking at the stars.",
+      "chinese_translation": "我们都在阴沟里，但仍有人仰望星空。",
+      "paradox_mechanism": "极端高低反差并置：将现实的污浊卑微（阴沟）与精神的纯粹无限（星空）暴力并置，以残酷的清醒托起不死的浪漫与崇高。",
+      "theme": "理想与现实",
+      "copywriting_application": "创业精神、逆境前行、大厂打工人反内卷嘴替、理想主义品牌宣言；在认清生活的泥泞后依然选择昂首前行。"
+    },
+    {
+      "id": 3,
+      "work": "《道连·格雷的画像 (The Picture of Dorian Gray)》",
+      "english_quote": "I can resist everything except temptation.",
+      "chinese_translation": "我能抗拒一切，除了诱惑。",
+      "paradox_mechanism": "全称否定与致命倒戈：前半句伪装成圣人般的克制与定力（抗拒一切），后半句瞬间缴械投降（除了诱惑），幽默中撕碎人性的伪善面具。",
+      "theme": "欲望与诱惑",
+      "copywriting_application": "高端美食、烘焙甜点、深夜放纵饮品、购物狂欢节促销；给消费者的放纵欲望一个完全合理且可爱的借口。"
+    },
+    {
+      "id": 4,
+      "work": "《散文集与杂感 (Aphorisms)》",
+      "english_quote": "Be yourself; everyone else is already taken.",
+      "chinese_translation": "做你自己，因为别人已经有人做了。",
+      "paradox_mechanism": "无懈可击的荒诞正论：用最无可辩驳的客观事实（每个人都是唯一占位的物理存在），证明‘模仿他人是彻底的荒唐’，极具心智穿透力。",
+      "theme": "独立与个性",
+      "copywriting_application": "潮牌服饰、个性化定制、无性别穿搭、打破标签美学；鼓励受众摆脱容貌身材焦虑与社会标准化流水线。"
+    },
+    {
+      "id": 5,
+      "work": "《温夫人的扇子 (Lady Windermere's Fan)》",
+      "english_quote": "There are only two tragedies in life: one is not getting what one wants, and the other is getting it.",
+      "chinese_translation": "生活中只有两种悲剧：一种是没有得到想要的东西，另一种是得到了它。",
+      "paradox_mechanism": "双重否定与叔本华式欲望困境：得不到是匮乏的痛苦，得到了是虚无的厌倦；将欲望的本质以冷酷的对称句式点破。",
+      "theme": "人生悲剧与欲望",
+      "copywriting_application": "高端艺术品、跑车、收藏级腕表；促使受众超越物质占有，去追求过程中的精神震颤与永恒追寻。"
+    },
+    {
+      "id": 6,
+      "work": "《道连·格雷的画像 (The Picture of Dorian Gray)》",
+      "english_quote": "Nowadays people know the price of everything and the value of nothing.",
+      "chinese_translation": "如今的人知道所有东西的价钱，却对它们的价值一无所知。",
+      "paradox_mechanism": "概念偷换与深刻讽刺：巧妙剥离‘价格（Price：标签上的数字）’与‘价值（Value：灵魂的重量）’，猛烈抨击拜金世俗的浅薄。",
+      "theme": "价值与世俗",
+      "copywriting_application": "匠心手工、文化遗产、艺术电影、独立书店；唤醒公众关注金钱之外无价的陪伴、灵性与时光。"
+    },
+    {
+      "id": 7,
+      "work": "《道连·格雷的画像 (The Picture of Dorian Gray)》",
+      "english_quote": "The only way to get rid of a temptation is to yield to it.",
+      "chinese_translation": "摆脱诱惑的唯一方法，是向它屈服。",
+      "paradox_mechanism": "以顺为克逆反修辞：表面上看是向欲望投降，实质是击破压抑本能的神经官能症；唯有体验过，心智才能真正解脱放下。",
+      "theme": "欲望与解脱",
+      "copywriting_application": "旅游度假、周末逃跑企划、舌尖美味释放；让受众放下道德内耗，果断为当下的快乐买单。"
+    },
+    {
+      "id": 8,
+      "work": "《不可儿戏 (The Importance of Being Earnest)》",
+      "english_quote": "It is absurd to divide people into good and bad. People are either charming or tedious.",
+      "chinese_translation": "把人分成好人和坏人是荒谬的。人要么迷人，要么乏味。",
+      "paradox_mechanism": "审美标准取代道德审判：王尔德唯美主义核心纲领——美与有趣是一切价值的度量衡；道德教条往往产生伪善，唯有魅力能直击灵魂。",
+      "theme": "魅力与审美",
+      "copywriting_application": "香水、社交软件、先锋设计展；倡导做个生动有趣的人，而非循规蹈矩的平庸好人。"
+    },
+    {
+      "id": 9,
+      "work": "《温夫人的扇子 (Lady Windermere's Fan)》",
+      "english_quote": "Experience is simply the name we give our mistakes.",
+      "chinese_translation": "经验，不过是每个人给自己犯过的错误起的名字。",
+      "paradox_mechanism": "庄严崇高去伪存真：将世人挂在嘴边自傲的‘经验’剥去神圣光环，还其‘失败与踩坑’的狼狈原貌，幽默中带着沧桑释怀。",
+      "theme": "成长与释怀",
+      "copywriting_application": "创业教育、个人成长、试错容错文化；鼓励年轻人大胆去闯、去撞南墙，把每一次失误变成身上的勋章。"
+    },
+    {
+      "id": 10,
+      "work": "《女人无足轻重 (A Woman of No Importance)》",
+      "english_quote": "Women are meant to be loved, not to be understood.",
+      "chinese_translation": "女人是用来被爱的，不是用来被理解的。",
+      "paradox_mechanism": "理性解构与感性至上：用‘爱（情感的完全拥抱）’取代‘理解（冰冷的逻辑解剖）’；宣告爱超越了一切分析与审判。",
+      "theme": "两性与爱",
+      "copywriting_application": "高端女装、珠宝礼赠、三八妇女节与情人节情感沟通；强调无条件的倾注与守护。"
+    },
+    {
+      "id": 11,
+      "work": "《自深深处 (De Profundis)》",
+      "english_quote": "Most people are other people. Their thoughts are someone else's opinions, their lives a mimicry, their passions a quotation.",
+      "chinese_translation": "大多数人过着别人的生活。他们的思想是别人的意见，他们的生活是对别人的模仿，他们的激情只是一句引言。",
+      "paradox_mechanism": "惊心动魄的同义反诘：‘大多数人是别人’（Most people are other people），瞬间刺破社会流水线上随波逐流者的空洞灵魂，振聋发聩。",
+      "theme": "真实与假面",
+      "copywriting_application": "深度知识付费、独立思考社群、反消费主义思潮；唤醒年轻人夺回属于自己的真实人生。"
+    },
+    {
+      "id": 12,
+      "work": "《散文集与机锋 (Aphorisms)》",
+      "english_quote": "I have the simplest tastes. I am always satisfied with the best.",
+      "chinese_translation": "我的品味非常朴素。我总是很容易被最好的东西满足。",
+      "paradox_mechanism": "凡尔赛反语修辞：将极端挑剔奢华的‘只选最好（the best）’，轻描淡写为‘最朴素的品味（simplest tastes）’，傲慢与从容浑然一体。",
+      "theme": "极简与奢华",
+      "copywriting_application": "顶级奢侈品、极致黑科技旗舰、私人高定；‘我的品味极其朴素，只要最好’成为挑剔精英的最佳自嘲代颜。"
+    },
+    {
+      "id": 13,
+      "work": "《不可儿戏 (The Importance of Being Earnest)》",
+      "english_quote": "The truth is rarely pure and never simple.",
+      "chinese_translation": "真相很少纯粹，也决不简单。",
+      "paradox_mechanism": "否定简单化认知：一针见血击碎非黑即白的二极管思维；现实的复杂性本身就是人性的丰富注脚。",
+      "theme": "真相与世事",
+      "copywriting_application": "深度调查报道、法务合规、精密科研、深度咨询服务。"
+    },
+    {
+      "id": 14,
+      "work": "《谎言的衰落 (The Decay of Lying)》",
+      "english_quote": "Life imitates Art far more than Art imitates Life.",
+      "chinese_translation": "生活模仿艺术，远胜过艺术模仿生活。",
+      "paradox_mechanism": "本体倒置假说：颠覆亚里士多德‘艺术模仿自然’的千古定论；指出是雾霾先被透纳画出，伦敦人才发现雾是紫色的；艺术塑造了人类对世界的感知方式。",
+      "theme": "艺术与现实",
+      "copywriting_application": "设计驱动型品牌、先锋建筑、影视创作平台；宣告品牌不仅在服务生活，更在用美学重塑生活。"
+    },
+    {
+      "id": 15,
+      "work": "《社会主义下人的灵魂 (The Soul of Man under Socialism)》",
+      "english_quote": "Selfishness is not living as one wishes to live, it is asking others to live as one wishes to live.",
+      "chinese_translation": "过自己想要的生活不是自私；要求别人过自己想要的生活，才是自私。",
+      "paradox_mechanism": "道德边界重新划定：彻底厘清‘个人边界’与‘控制欲’的区别，把自由主权从道德绑架的泥潭中拯救出来。",
+      "theme": "边界与自由",
+      "copywriting_application": "反原生家庭精神内耗、年轻人自由职业、独立居住空间设计；击碎传统的孝道道德绑架与职场规训。"
+    }
+  ]
+}

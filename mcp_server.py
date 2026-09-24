@@ -759,6 +759,107 @@ def query_divine_translations(
         return json.dumps({"error": str(e)}, ensure_ascii=False)
 
 
+# ── Tool: query_classical_chinese_poetry ──────────────
+@mcp.tool()
+def query_classical_chinese_poetry(
+    keyword: str = "",
+    author: str = "",
+    dynasty: str = "",
+    theme: str = ""
+) -> str:
+    """Query canonical Classical Chinese Poetry and Prose Masterpieces (中国古典诗词与千古名篇库).
+    Includes full texts, golden lines, rhetorical mechanisms, and modern brand copywriting applications
+    (e.g., 苏轼《定风波》《赤壁赋》, 李白《将进酒》, 庄子《逍遥游》, 陶渊明《饮酒》, 辛弃疾《青玉案》, 王羲之《兰亭集序》, 范仲淹《岳阳楼记》, 张岱《湖心亭看雪》).
+
+    Args:
+        keyword: Search keyword in title, golden lines, full text, or copywriting application
+        author: Filter by author (e.g., '苏轼', '李白', '庄子', '陶渊明', '辛弃疾', '王羲之')
+        dynasty: Filter by dynasty (e.g., '唐代', '宋代', '先秦', '魏晋', '明清')
+        theme: Filter by emotional archetype (e.g., '豁达超脱', '宇宙意识', '极致自信', '极简孤雅', '家国大任')
+
+    Returns:
+        JSON string containing matching classical masterpieces with full texts, rhetorical analyses, and copywriting application passwords.
+    """
+    try:
+        import sqlite3
+        db_path = PROJECT_ROOT / "via54_kb.db"
+        conn = sqlite3.connect(str(db_path))
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+
+        query_sql = "SELECT * FROM classical_chinese_masterpieces WHERE 1=1"
+        params = []
+        if author:
+            query_sql += " AND author LIKE ?"
+            params.append(f"%{author}%")
+        if dynasty:
+            query_sql += " AND dynasty LIKE ?"
+            params.append(f"%{dynasty}%")
+        if theme:
+            query_sql += " AND emotional_archetype LIKE ?"
+            params.append(f"%{theme}%")
+        if keyword:
+            query_sql += " AND (title LIKE ? OR golden_lines LIKE ? OR full_text LIKE ? OR copywriting_application LIKE ?)"
+            params.extend([f"%{keyword}%", f"%{keyword}%", f"%{keyword}%", f"%{keyword}%"])
+
+        query_sql += " ORDER BY id ASC"
+        cursor.execute(query_sql, params)
+        rows = [dict(r) for r in cursor.fetchall()]
+        conn.close()
+
+        return json.dumps({"total": len(rows), "masterpieces": rows}, ensure_ascii=False, indent=2)
+    except Exception as e:
+        return json.dumps({"error": str(e)}, ensure_ascii=False)
+
+
+# ── Tool: query_oscar_wilde_epigrams ──────────────────
+@mcp.tool()
+def query_oscar_wilde_epigrams(
+    keyword: str = "",
+    work: str = "",
+    theme: str = ""
+) -> str:
+    """Query canonical Oscar Wilde Paradox Epigrams & Works (奥斯卡·王尔德唯美主义与悖论金句库).
+    Includes bilingual texts, paradox mechanisms, and modern brand copywriting applications
+    (e.g., '爱自己是终身浪漫的开始', '我们都在阴沟里但仍有人仰望星空', '我能抗拒一切除了诱惑', '做你自己因为别人已经有人做了', '摆脱诱惑的唯一方法是向它屈服').
+
+    Args:
+        keyword: Search keyword in English quote, Chinese translation, paradox mechanism, or copywriting application
+        work: Filter by source work (e.g., '道连·格雷的画像', '温夫人的扇子', '不可儿戏', '理想丈夫', '自深深处')
+        theme: Filter by theme (e.g., '悦己与浪漫', '欲望与诱惑', '独立与个性', '艺术与现实', '真实与假面')
+
+    Returns:
+        JSON string containing matching Oscar Wilde epigrams with bilingual texts, paradox breakdowns, and copywriting insights.
+    """
+    try:
+        import sqlite3
+        db_path = PROJECT_ROOT / "via54_kb.db"
+        conn = sqlite3.connect(str(db_path))
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+
+        query_sql = "SELECT * FROM oscar_wilde_corpus WHERE 1=1"
+        params = []
+        if work:
+            query_sql += " AND work LIKE ?"
+            params.append(f"%{work}%")
+        if theme:
+            query_sql += " AND theme LIKE ?"
+            params.append(f"%{theme}%")
+        if keyword:
+            query_sql += " AND (chinese_translation LIKE ? OR english_quote LIKE ? OR paradox_mechanism LIKE ? OR copywriting_application LIKE ?)"
+            params.extend([f"%{keyword}%", f"%{keyword}%", f"%{keyword}%", f"%{keyword}%"])
+
+        query_sql += " ORDER BY id ASC"
+        cursor.execute(query_sql, params)
+        rows = [dict(r) for r in cursor.fetchall()]
+        conn.close()
+
+        return json.dumps({"total": len(rows), "epigrams": rows}, ensure_ascii=False, indent=2)
+    except Exception as e:
+        return json.dumps({"error": str(e)}, ensure_ascii=False)
+
+
 # ── Entry point ───────────────────────────────────────
 if __name__ == "__main__":
     mcp.run(transport="stdio")

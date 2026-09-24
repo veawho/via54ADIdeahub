@@ -429,6 +429,24 @@ class CreativeReasoner:
             for t in divine_bms
         ]) or "> 暂无特定翻译对照标杆"
 
+        classical_bms = bk.get("classical_chinese_benchmarks", [])
+        classical_md = "\n".join([
+            f"- **《{c['title']}》** · {c.get('author', '')} ({c.get('dynasty', '')})  \n"
+            f"  - *千古金句*: `{c.get('golden_lines', '')}`  \n"
+            f"  - *情感原型*: {c.get('emotional_archetype', '')} | *修辞机制*: {c.get('rhetorical_mechanisms', '')}  \n"
+            f"  - *文案密码*: {c.get('copywriting_application', '')}"
+            for c in classical_bms
+        ]) or "> 暂无特定古诗文对标"
+
+        wilde_bms = bk.get("wilde_benchmarks", [])
+        wilde_md = "\n".join([
+            f"- **“{w['chinese_translation']}”** *(出自: {w.get('work', '')})*  \n"
+            f"  - *英文原文*: `{w.get('english_quote', '')}`  \n"
+            f"  - *悖论机制*: {w.get('paradox_mechanism', '')} | *主题*: {w.get('theme', '')}  \n"
+            f"  - *品牌赋能*: {w.get('copywriting_application', '')}"
+            for w in wilde_bms
+        ]) or "> 暂无特定王尔德金句对标"
+
         md = f"""# 🌌 【{strategy['brand']}】创意品牌全案与差异化口号矩阵
 
 > 📌 **战役目标**: {strategy['brief_goal']}  
@@ -487,6 +505,18 @@ class CreativeReasoner:
 
 ### 🌟 封神级“语言二次重构”对照标杆 (Canonical Divine Translations Benchmark):
 {divine_md}
+
+---
+
+## 🪶 九、 中国古典诗词文气与千古风骨赋能 (Classical Chinese Archetypes)
+> 💡 **风骨与文气启示**: 借势苏轼的旷达自洽、李白的极致自信、陶渊明的悠然超脱、庄子的宏大格局；用千年诗词意象作为品牌的文化图腾与情绪避风港。
+{classical_md}
+
+---
+
+## 🎭 十、 奥斯卡·王尔德唯美主义悖论引擎 (Wildean Paradox & Aestheticism)
+> 💡 **唯美与悖论心法**: 唯美至上，用优雅的刺击碎虚伪与无聊；以“爱自己是终身浪漫”为精神图腾，反常识、反道德绑架、反平庸好人。
+{wilde_md}
 """
         return md
 

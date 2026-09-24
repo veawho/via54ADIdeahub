@@ -371,6 +371,79 @@ class MasterBookMethodologyFuser:
             pass
         return results
 
+    def fetch_relevant_classical_chinese(self, keyword: str = "", limit: int = 2) -> List[Dict[str, Any]]:
+        """Fetch classical Chinese masterpieces matching keyword or top benchmark."""
+        results = []
+        try:
+            conn = sqlite3.connect(str(self.db_path))
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+            if keyword:
+                cursor.execute("""
+                    SELECT * FROM classical_chinese_masterpieces 
+                    WHERE title LIKE ? OR golden_lines LIKE ? OR author LIKE ? OR emotional_archetype LIKE ?
+                    LIMIT ?
+                """, (f"%{keyword}%", f"%{keyword}%", f"%{keyword}%", f"%{keyword}%", limit))
+            else:
+                cursor.execute("SELECT * FROM classical_chinese_masterpieces ORDER BY id ASC LIMIT ?", (limit,))
+            rows = cursor.fetchall()
+            for r in rows:
+                results.append(dict(r))
+            conn.close()
+        except Exception:
+            pass
+        return results
+
+    def fetch_relevant_wilde_epigrams(self, keyword: str = "", limit: int = 2) -> List[Dict[str, Any]]:
+        """Fetch Oscar Wilde epigrams matching keyword or top benchmark."""
+        results = []
+        try:
+            conn = sqlite3.connect(str(self.db_path))
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+            if keyword:
+                cursor.execute("""
+                    SELECT * FROM oscar_wilde_corpus 
+                    WHERE chinese_translation LIKE ? OR english_quote LIKE ? OR theme LIKE ? OR paradox_mechanism LIKE ?
+                    LIMIT ?
+                """, (f"%{keyword}%", f"%{keyword}%", f"%{keyword}%", f"%{keyword}%", limit))
+            else:
+                cursor.execute("SELECT * FROM oscar_wilde_corpus ORDER BY id ASC LIMIT ?", (limit,))
+            rows = cursor.fetchall()
+            for r in rows:
+                results.append(dict(r))
+            conn.close()
+        except Exception:
+            pass
+        return results
+
+    def audit_wildean_paradox(self, slogan: str) -> Dict[str, Any]:
+        """Oscar Wilde's Paradox & Aesthetic Anti-Common-Sense Audit (王尔德悖论机智与唯美主义)."""
+        paradox_triggers = ["除了", "唯一", "做自己", "爱自己", "向", "生活在", "阴沟", "星空", "价钱", "价值", "错误", "自私", "迷人", "乏味"]
+        has_paradox = any(t in slogan for t in paradox_triggers)
+        clauses = [c for c in re.split(r"[,，。！？；\s]+", slogan) if c]
+
+        is_wildean = has_paradox or (len(clauses) >= 2 and any(w in slogan for w in ["不", "别", "谁", "莫"]))
+        return {
+            "source_school": "奥斯卡·王尔德《唯美主义与悖论心法》",
+            "wildean_paradox_score": 4.8 if is_wildean else 3.8,
+            "has_anti_common_sense": is_wildean,
+            "verdict": "具备王尔德式反常识机智与唯美主义张力，撕破假大空自嗨" if is_wildean else "表达较为常规顺从，建议注入‘悖论倒戈’或‘极度悦己’锋芒"
+        }
+
+    def audit_classical_chinese_resonance(self, slogan: str) -> Dict[str, Any]:
+        """Classical Chinese Poetic Resonance & Bone Audit (中国古典诗词风骨与文气)."""
+        poetic_archetypes = ["风雨", "平生", "江湖", "天地", "清风", "明月", "沧海", "一粟", "星", "舟", "雪", "初见", "回首", "阑珊", "尽欢", "登高"]
+        matched_archetypes = [a for a in poetic_archetypes if a in slogan]
+        
+        has_classical_bone = len(matched_archetypes) > 0
+        return {
+            "source_school": "中国古典诗词与千古文气风骨",
+            "classical_resonance_score": 4.8 if has_classical_bone else 4.0,
+            "matched_archetypes": matched_archetypes or ["东方含蓄意象"],
+            "verdict": f"蕴含千古文气风骨，意境辽远深邃: [{', '.join(matched_archetypes or ['东方文气'])}]" if has_classical_bone else "文辞偏向现代口语，可适度借势古典诗词的苍茫气象与对仗"
+        }
+
     def synthesize_master_strategy_pack(
         self,
         brand: str,
@@ -378,11 +451,13 @@ class MasterBookMethodologyFuser:
         target_audience: str,
         brief_goal: str
     ) -> Dict[str, Any]:
-        """Synthesize masterclass strategic directives from all 27 book methodologies."""
+        """Synthesize masterclass strategic directives from all 27 book methodologies, classical poetry & Wilde."""
         combined_text = f"{brand} {product} {target_audience} {brief_goal}"
         positioning = self.craft_positioning_nail_and_hammer(brand, product, brief_goal)
         lf8 = self.map_life_force_8(combined_text)
         divine_benchmarks = self.fetch_relevant_divine_translations(keyword="", limit=3)
+        classical_benchmarks = self.fetch_relevant_classical_chinese(keyword="", limit=2)
+        wilde_benchmarks = self.fetch_relevant_wilde_epigrams(keyword="", limit=2)
 
         master_schools_directives = [
             {
@@ -392,6 +467,14 @@ class MasterBookMethodologyFuser:
             {
                 "school": "【特劳特《定位》& 劳拉·里斯《视觉锤》】",
                 "core_directive": f"钉死心智钉子: {positioning['mental_nail']}；铸造视觉锤: 【{positioning['visual_hammer']}】。{positioning['counter_positioning']}。"
+            },
+            {
+                "school": "【中国古典诗词文气与千古风骨】",
+                "core_directive": "汲取苏轼‘一蓑烟雨任平生’与李白‘天生我材必有用’的旷达定力；善借诗经楚辞的意象寄托与唐诗宋词的开阔气象，让品牌主张具备千年历史的生命穿透力。"
+            },
+            {
+                "school": "【奥斯卡·王尔德《唯美主义与悖论心法》】",
+                "core_directive": "善用悖论反常识与唯美主义：撕破一本正经的自嗨说教，用优雅迷人的机智讽刺与极致的‘爱自己是终身浪漫’为大众制造精神解药与情绪嘴替。"
             },
             {
                 "school": "【许渊冲《文学翻译谈 / 许渊冲经典作品集》三美论】",
@@ -464,6 +547,8 @@ class MasterBookMethodologyFuser:
             "life_force_audit": lf8,
             "master_directives": master_schools_directives,
             "divine_translation_benchmarks": divine_benchmarks,
+            "classical_chinese_benchmarks": classical_benchmarks,
+            "wilde_benchmarks": wilde_benchmarks,
             "available_books_count": len(self.books)
         }
 
