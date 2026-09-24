@@ -1,0 +1,271 @@
+{
+  "version": "v1.0.0",
+  "description": "Master Writers Originals Knowledge Base (原本库: 原文、章节、哲学体系)",
+  "total_works": 24,
+  "works": [
+    {
+      "id": 1,
+      "writer_name_en": "Oscar Wilde",
+      "writer_name_cn": "奥斯卡·王尔德",
+      "work_title_en": "The Picture of Dorian Gray",
+      "work_title_cn": "道连·格雷的画像",
+      "source_language": "English",
+      "genre": "唯美主义哲理小说",
+      "original_text_extract": "The Preface:\nThe artist is the creator of beautiful things. To reveal art and conceal the artist is art's aim.\nThe critic is he who can translate into another manner or a new material his impression of beautiful things.\nThere is no such thing as a moral or an immoral book. Books are well written, or badly written. That is all.\nNo artist has ethical sympathies. An ethical sympathy in an artist is an unpardonable mannerism of style.\nAll art is quite useless.\n\nChapter 2:\n\"I can resist everything except temptation.\"\n\"The only way to get rid of a temptation is to yield to it. Resist it, and your soul grows sick with longing for the things it has forbidden to itself, with desire for what its monstrous laws have made monstrous and unlawful.\"\n\"Nowadays people know the price of everything and the value of nothing.\" ",
+      "themes_and_philosophy": "唯美主义宣言，主张‘为艺术而艺术 (Art for Art's sake)’。将审美体验置于传统维多利亚时代道德教条之上，深刻剖析欲望、灵魂异化、永恒青春与肉体堕落的宿命对决。"
+    },
+    {
+      "id": 2,
+      "writer_name_en": "Oscar Wilde",
+      "writer_name_cn": "奥斯卡·王尔德",
+      "work_title_en": "Lady Windermere's Fan",
+      "work_title_cn": "温夫人的扇子",
+      "source_language": "English",
+      "genre": "唯美主义世态喜剧",
+      "original_text_extract": "Act III:\nLord Darlington: \"We are all in the gutter, but some of us are looking at the stars.\"\nCecil Graham: \"What is a cynic?\"\nLord Darlington: \"A man who knows the price of everything and the value of nothing.\"\nCecil Graham: \"And a sentimentalist, my dear Darlington?\"\nLord Darlington: \"A man who sees an absurd value in everything, and doesn't know the market price of any single thing.\"\nDumby: \"Experience is simply the name we give our mistakes.\"\nLord Darlington: \"There are only two tragedies in life: one is not getting what one wants, and the other is getting it.\" ",
+      "themes_and_philosophy": "维多利亚时代上流社会假面撕裂，以极其锋利机智的机锋对话击破道德洁癖与虚伪，展现卑污现实中未熄灭的理想主义星光与母爱救赎。"
+    },
+    {
+      "id": 3,
+      "writer_name_en": "Oscar Wilde",
+      "writer_name_cn": "奥斯卡·王尔德",
+      "work_title_en": "The Importance of Being Earnest",
+      "work_title_cn": "不可儿戏 (认真的重要性)",
+      "source_language": "English",
+      "genre": "唯美主义世态荒诞喜剧",
+      "original_text_extract": "Act I:\nAlgernon: \"I may mention that I have always suspected you of being a confirmed and secret Bunburyist.\"\nJack: \"It is a very ungentlemanly thing to read a private cigarette case.\"\nAlgernon: \"It is absurd to divide people into good and bad. People are either charming or tedious. I take the side of charming people, and there is no one among them, but yourself, whom I cannot persuade to do anything.\"\nAlgernon: \"The truth is rarely pure and never simple. Modern life would be very tedious if it were either, and modern literature a complete impossibility!\" ",
+      "themes_and_philosophy": "王尔德喜剧艺术最高峰，‘严肃地对待一切轻浮之事，轻浮地对待一切严肃之事’。彻底解构身份认同、婚姻契约与道德教条，以纯粹的形式美与语言幽默超越意义本身。"
+    },
+    {
+      "id": 4,
+      "writer_name_en": "Oscar Wilde",
+      "writer_name_cn": "奥斯卡·王尔德",
+      "work_title_en": "An Ideal Husband",
+      "work_title_cn": "理想丈夫",
+      "source_language": "English",
+      "genre": "唯美主义世态喜剧",
+      "original_text_extract": "Act III:\nLord Goring: \"To love oneself is the beginning of a lifelong romance.\"\nMrs. Cheveley: \"Morality is simply the attitude we adopt towards people whom we personally dislike.\"\nLord Goring: \"Fashion is what one wears oneself. What is unfashionable is what other people wear.\"\nLord Goring: \"Women have a wonderful instinct about things. They can discover everything except the obvious.\"\nSir Robert Chiltern: \"When men love us, they love us for our credit; when women love us, they forgive us our sins.\" ",
+      "themes_and_philosophy": "探讨完美假象与人性幽微的宽恕，确立自爱与个人独立主权为最高伦理，揭露世俗政客与道德法官的双重标准。"
+    },
+    {
+      "id": 5,
+      "writer_name_en": "Oscar Wilde",
+      "writer_name_cn": "奥斯卡·王尔德",
+      "work_title_en": "De Profundis",
+      "work_title_cn": "自深深处 (狱中记)",
+      "source_language": "English",
+      "genre": "书信体自传散文 / 忏悔录",
+      "original_text_extract": "Suffering is one very long moment. We cannot divide it by seasons. We can only record its moods, and chronicle their return.\nWhere there is sorrow there is holy ground. Some day people will realise what that means. They will know nothing about life till they do.\nBehind sorrow there is always sorrow. A wound that flinches is a wound that cries for healing.\nI have got to make everything that has happened to me good for me. The plank bed, the loathsome food, the hard ropes shredded into oakum until one's fingertips grow dull with pain... the silence, the solitude, the shame—each and all of these things I have to transform into a spiritual experience.",
+      "themes_and_philosophy": "王尔德入狱后向波西写就的心灵巨制。超越了唯美主义的表面欢愉，进入受难与苦难哲学的圣域，把苦难升华为灵魂的再生仪式。"
+    },
+    {
+      "id": 6,
+      "writer_name_en": "Oscar Wilde",
+      "writer_name_cn": "奥斯卡·王尔德",
+      "work_title_en": "The Decay of Lying",
+      "work_title_cn": "谎言的衰落",
+      "source_language": "English",
+      "genre": "文艺对话录 / 批评散文",
+      "original_text_extract": "Vivian: \"Life imitates Art far more than Art imitates Life. This results not merely from Life's imitative instinct, but from the fact that the self-conscious aim of Life is to find expression, and that Art offers it certain beautiful forms through which it may realise that energy.\"\nVivian: \"Lying, the telling of beautiful untrue things, is the proper aim of Art.\"\nVivian: \"Things are because we see them, and what we see, and how we see it, depends on the Arts that have influenced us. To look at a thing is very different from seeing a thing.\" ",
+      "themes_and_philosophy": "颠覆亚里士多德‘艺术模仿自然’的千古传统，提出革命性论断‘生活模仿艺术’；艺术并非复制现实，而是为浑浊的生活赋予美学形式与灵魂。"
+    },
+    {
+      "id": 7,
+      "writer_name_en": "Oscar Wilde",
+      "writer_name_cn": "奥斯卡·王尔德",
+      "work_title_en": "The Soul of Man under Socialism",
+      "work_title_cn": "社会主义下人的灵魂",
+      "source_language": "English",
+      "genre": "政治哲学与个人主义随笔",
+      "original_text_extract": "Selfishness is not living as one wishes to live, it is asking others to live as one wishes to live. And unselfishness is letting other people's lives alone, not interfering with them.\nSelfishness always aims at creating around it an absolute uniformity of type. Unselfishness recognises infinite variety of type as a delightful thing, accepts it, acquiesces in it, enjoys it.\nA map of the world that does not include Utopia is not worth even glancing at, for it leaves out the one country at which Humanity is always landing.",
+      "themes_and_philosophy": "王尔德对极端个人主义与真正自由的哲学阐述，重新厘定自私与无私的边界，反对一切泯灭个性的标准化流水线控制，呼唤乌托邦理想。"
+    },
+    {
+      "id": 8,
+      "writer_name_en": "William Shakespeare",
+      "writer_name_cn": "威廉·莎士比亚",
+      "work_title_en": "Hamlet",
+      "work_title_cn": "哈姆雷特",
+      "source_language": "English",
+      "genre": "人文主义悲剧",
+      "original_text_extract": "Act III, Scene 1:\nTo be, or not to be, that is the question:\nWhether 'tis nobler in the mind to suffer\nThe slings and arrows of outrageous fortune,\nOr to take arms against a sea of troubles\nAnd by opposing end them. To die—to sleep,\nNo more; and by a sleep to say we end\nThe heart-ache and the thousand natural shocks\nThat flesh is heir to: 'tis a consummation\nDevoutly to be wish'd.\n\nAct II, Scene 2:\nWhat a piece of work is a man! How noble in reason! how infinite in faculties! in form and moving how express and admirable! in action how like an angel! in apprehension how like a god! the beauty of the world! the paragon of animals!",
+      "themes_and_philosophy": "文艺复兴时期人类自我意识觉醒的终极哲学命题，理性与行动的撕扯，生命脆弱与宇宙无限尊严的交响。"
+    },
+    {
+      "id": 9,
+      "writer_name_en": "William Shakespeare",
+      "writer_name_cn": "威廉·莎士比亚",
+      "work_title_en": "Romeo and Juliet",
+      "work_title_cn": "罗密欧与朱丽叶",
+      "source_language": "English",
+      "genre": "抒情悲剧",
+      "original_text_extract": "Act II, Scene 2:\nJuliet: \"O Romeo, Romeo! wherefore art thou Romeo? Deny thy father and refuse thy name; Or, if thou wilt not, be but sworn my love, And I'll no longer be a Capulet.\n'Tis but thy name that is my enemy; Thou art thyself, though not a Montague. What's in a name? that which we call a rose By any other word would smell as sweet.\"\n\nAct II, Scene 6:\nFriar Laurence: \"These violent delights have violent ends, And in their triumph die, like fire and powder, Which, as they kiss, consume.\" ",
+      "themes_and_philosophy": "纯洁热烈的人性之爱对抗古老家族宿怨，符号标签与本体价值的剥离，狂暴激情与毁灭命运的共生。"
+    },
+    {
+      "id": 10,
+      "writer_name_en": "William Shakespeare",
+      "writer_name_cn": "威廉·莎士比亚",
+      "work_title_en": "Sonnet 18",
+      "work_title_cn": "十四行诗·第18首",
+      "source_language": "English",
+      "genre": "商籁体抒情诗",
+      "original_text_extract": "Shall I compare thee to a summer's day?\nThou art more lovely and more temperate:\nRough winds do shake the darling buds of May,\nAnd summer's lease hath all too short a date:\n...\nBut thy eternal summer shall not fade,\nNor lose possession of that fair thou ow'st;\nNor shall death brag thou wander'st in his shade,\nWhen in eternal lines to time thou grow'st:\nSo long as men can breathe, or eyes can see,\nSo long lives this, and this gives life to thee.",
+      "themes_and_philosophy": "诗歌艺术战胜时间与死亡的永恒性信仰。世俗夏日转瞬即逝，唯有艺术语言赋予生命不可磨灭的永恒不朽。"
+    },
+    {
+      "id": 11,
+      "writer_name_en": "Marguerite Duras",
+      "writer_name_cn": "玛格丽特·杜拉斯",
+      "work_title_en": "L'Amant (The Lover)",
+      "work_title_cn": "情人",
+      "source_language": "French",
+      "genre": "自传体现代主义小说",
+      "original_text_extract": "Un jour, j'étais âgée déjà, dans le hall d'un lieu public, un homme est venu vers moi. Il s'est fait connaître et il m'a dit : « Je vous connais depuis toujours. Tout le monde dit que vous étiez belle lorsque vous étiez jeune, je suis venu pour vous dire que pour moi je vous trouve plus belle maintenant que lorsque vous étiez jeune, j'aimais moins votre visage de jeune femme que celui que vous avez maintenant, dévasté. »\n\nTrès vite dans ma vie il a été trop tard. À dix-huit ans il était déjà trop tard. Entre dix-huit ans et vingt-cinq ans mon visage est parti dans une direction imprévue. À dix-huit ans j'ai vieilli.",
+      "themes_and_philosophy": "时间、衰老、欲望与绝望之爱。颠覆传统对青春肉体胶原蛋白的世俗崇拜，将岁月摧残的面容升华为带有灵魂风霜与宿命美感的艺术品。"
+    },
+    {
+      "id": 12,
+      "writer_name_en": "F. Scott Fitzgerald",
+      "writer_name_cn": "弗·司各特·菲茨杰拉德",
+      "work_title_en": "The Great Gatsby",
+      "work_title_cn": "了不起的盖茨比",
+      "source_language": "English",
+      "genre": "爵士时代现实主义与象征主义小说",
+      "original_text_extract": "Gatsby believed in the green light, the orgastic future that year by year recedes before us. It eluded us then, but that’s no matter—tomorrow we will run faster, stretch out our arms farther. . . . And one fine morning——\nSo we beat on, boats against the current, borne back ceaselessly into the past.\n\nIn my younger and more vulnerable years my father gave me some advice that I’ve been turning over in my mind ever since.\n\"Whenever you feel like criticizing any one,\" he told me, \"just remember that all the people in this world haven't had the advantages that you've had.\" ",
+      "themes_and_philosophy": "美国梦的幻灭与人类对不可追回之过往的执着悲歌。码头尽头那一抹微弱的绿灯，是人类向着不可抵达之彼岸永远奋力泅渡的终极隐喻。"
+    },
+    {
+      "id": 13,
+      "writer_name_en": "Ernest Hemingway",
+      "writer_name_cn": "欧内斯特·海明威",
+      "work_title_en": "The Old Man and the Sea",
+      "work_title_cn": "老人与海",
+      "source_language": "English",
+      "genre": "硬汉文学中篇小说",
+      "original_text_extract": "He was an old man who fished alone in a skiff in the Gulf Stream and he had gone eighty-four days now without taking a fish.\n\"Man is not made for defeat,\" he said. \"A man can be destroyed but not defeated.\"\n\"It is silly not to hope, he thought. Besides I believe it is a sin.\"\n\"Now is no time to think of what you do not have. Think of what you can do with what there is.\" ",
+      "themes_and_philosophy": "海明威‘冰山理论’与硬汉哲学集大成者。肉体可以被大海与鲨鱼群撕碎摧毁，但人类不屈的尊严与意志绝不能被打败。"
+    },
+    {
+      "id": 14,
+      "writer_name_en": "Ernest Hemingway",
+      "writer_name_cn": "欧内斯特·海明威",
+      "work_title_en": "A Moveable Feast",
+      "work_title_cn": "流动的盛宴",
+      "source_language": "English",
+      "genre": "回忆录散文",
+      "original_text_extract": "If you are lucky enough to have lived in Paris as a young man, then wherever you go for the rest of your life, it stays with you, for Paris is a moveable feast.\nThere is never any ending to Paris and the memory of each person who has lived in it differs from that of any other. We always returned to it no matter who we were or how it was changed or with what difficulties, or ease, it could be reached.",
+      "themes_and_philosophy": "青年时代精神养分对一生的浸润与馈赠。将一座城市化为终身随身携带的精神盛宴，照亮困顿平庸的漫漫余生。"
+    },
+    {
+      "id": 15,
+      "writer_name_en": "Albert Camus",
+      "writer_name_cn": "阿尔贝·加缪",
+      "work_title_en": "L'Étranger (The Stranger)",
+      "work_title_cn": "局外人",
+      "source_language": "French",
+      "genre": "存在主义与荒诞派小说",
+      "original_text_extract": "Aujourd'hui, maman est morte. Ou peut-être hier, je ne sais pas. J'ai reçu un télégramme de l'asile : « Mère décédée. Enterrement demain. Sentiments distingués. » Cela ne veut rien dire. C'était peut-être hier.\nPour que tout soit consommé, pour que je me sente moins seul, il me restait à souhaiter qu'il y ait beaucoup de spectateurs le jour de mon exécution et qu'ils m'accueillent avec des cris de haine.",
+      "themes_and_philosophy": "世界的荒谬与拒绝伪善的纯粹真实。主人公默尔索因拒绝在母亲葬礼上表演悲伤而被社会合谋处死，以冷峻的诚实撕碎整个文明的道德伪善。"
+    },
+    {
+      "id": 16,
+      "writer_name_en": "Albert Camus",
+      "writer_name_cn": "阿尔贝·加缪",
+      "work_title_en": "Le Mythe de Sisyphe",
+      "work_title_cn": "西西弗神话",
+      "source_language": "French",
+      "genre": "哲学随笔",
+      "original_text_extract": "Il n'y a qu'un problème philosophique vraiment sérieux : c'est le suicide. Juger que la vie vaut ou ne vaut pas la peine d'être vécue, c'est répondre à la question fondamentale de la philosophie.\nLa lutte elle-même vers les sommets suffit à remplir un cœur d'homme. Il faut imaginer Sisyphe heureux.",
+      "themes_and_philosophy": "直面荒诞并在荒诞中英勇反抗。推巨石上山虽永无止境且毫无外在意义，但推石上山本身就足以充实人心，反抗赋予生命最高尊严。"
+    },
+    {
+      "id": 17,
+      "writer_name_en": "W. Somerset Maugham",
+      "writer_name_cn": "威廉·萨默塞特·毛姆",
+      "work_title_en": "The Moon and Sixpence",
+      "work_title_cn": "月亮与六便士",
+      "source_language": "English",
+      "genre": "传记体哲理小说",
+      "original_text_extract": "I wanted to tell Strickland that it was an absurd adventure, that he was throwing away a substantial position and a comfortable home for a phantom.\n\"I tell you I've got to paint,\" he repeated.\n\"I can't help myself. When a man falls into the water it doesn't matter how he swims, well or badly: he's got to get out or else he'll drown.\"\nHe looked at the moon, and then down at the sixpence lying in the gutter.",
+      "themes_and_philosophy": "理想天体（月亮）与世俗琐屑（六便士）的永恒决裂。对艺术纯粹激情的狂暴臣服，哪怕抛弃中产阶级安稳体面，也绝不妥协。"
+    },
+    {
+      "id": 18,
+      "writer_name_en": "W. Somerset Maugham",
+      "writer_name_cn": "威廉·萨默塞特·毛姆",
+      "work_title_en": "The Razor's Edge",
+      "work_title_cn": "刀锋",
+      "source_language": "English",
+      "genre": "哲理小说",
+      "original_text_extract": "The sharp edge of a razor is difficult to pass over; thus the wise say the path to Salvation is hard.\n\"I want to make up my mind whether God is or God is not. I want to find out why evil exists. I want to know whether I have an immortal soul or whether when I die it's the end.\"\nLarry: \"I've been thinking about what you said. I don't want to buy things, and I don't want to make money. I want to loaf.\" ",
+      "themes_and_philosophy": "借《迦托奥义书》箴言‘一把刀的锋刃很难越过；得救之道是困难的’，探讨在物质繁华与世界大战创伤之后，人类对精神解脱与终极真理的求索。"
+    },
+    {
+      "id": 19,
+      "writer_name_en": "Stefan Zweig",
+      "writer_name_cn": "斯蒂芬·茨威格",
+      "work_title_en": "Sternstunden der Menschheit",
+      "work_title_cn": "人类群星闪耀时",
+      "source_language": "German",
+      "genre": "历史特写传记",
+      "original_text_extract": "Solche dramatisch konzentrierten, solche schicksalsträchtigen Stunden, in denen eine zeitüberdauernde Entscheidung auf ein einziges Datum, eine einzige Stunde und oft nur eine Minute zusammengedrängt ist, sind selten im Leben eines Einzelnen und selten im Laufe der Geschichte.\nEin größeres Glück kann einem Menschen nicht zuteilwerden, als seine Lebensaufgabe in der Mitte des Lebens zu finden.",
+      "themes_and_philosophy": "历史长河中决定命运的微小时刻与天才意志的爆发。平庸时代如漫长暗夜，唯有少数决定性瞬间，人类意志如群星般照亮整个苍穹。"
+    },
+    {
+      "id": 20,
+      "writer_name_en": "Stefan Zweig",
+      "writer_name_cn": "斯蒂芬·茨威格",
+      "work_title_en": "Brief einer Unbekannten",
+      "work_title_cn": "一个陌生女人的来信",
+      "source_language": "German",
+      "genre": "心理分析小说",
+      "original_text_extract": "Dir, der du mich nie gekannt hast...\nMein Kind ist gestern gestorben—drei Tage lang habe ich mit dem Tode um dies zarte, kleine Leben gerungen... Jetzt habe ich nur mehr dich auf der Welt, nur dich, der du von mir nichts weißt, der du indessen ahnungslos spielst oder mit Dingen und Menschen tändelst, dich, der du mich nie gekannt und den ich immer geliebt.\nEs gibt nichts Schrecklicheres als das Alleinsein unter Menschen.",
+      "themes_and_philosophy": "单向度极致献祭之爱。毫无功利回报指望的纯粹痴绝，将个体的全部生命热量投掷在一个浑然不觉的客体之上，展现惊心动魄的心理深渊。"
+    },
+    {
+      "id": 21,
+      "writer_name_en": "Jorge Luis Borges",
+      "writer_name_cn": "豪尔赫·路易斯·博尔赫斯",
+      "work_title_en": "El jardín de senderos que se bifurcan",
+      "work_title_cn": "小径分岔的花园",
+      "source_language": "Spanish",
+      "genre": "形而上学哲学小说",
+      "original_text_extract": "El jardín de senderos que se bifurcan es una imagen incompleta, pero no falsa, del universo tal como lo concebía Ts'ui Pên. A diferencia de Newton y de Schopenhauer, su antepasado no creía en un tiempo uniforme, absoluto. Creía en infinitas series de tiempos, en una red creciente y vertiginosa de tiempos divergentes, convergentes y paralelos.\nEl tiempo se bifurca perpetuamente hacia innumerables futuros.",
+      "themes_and_philosophy": "迷宫、时间分支与平行宇宙的哲学寓言。时间并非单向奔流的河水，而是无限分岔的网络，每一个选择都诞生出一个崭新的宇宙。"
+    },
+    {
+      "id": 22,
+      "writer_name_en": "Jorge Luis Borges",
+      "writer_name_cn": "豪尔赫·路易斯·博尔赫斯",
+      "work_title_en": "El Aleph",
+      "work_title_cn": "阿莱夫",
+      "source_language": "Spanish",
+      "genre": "奇幻哲学短篇",
+      "original_text_extract": "Vi el Aleph, desde todos los puntos, vi en el Aleph la tierra, y en la tierra otra vez el Aleph y en el Aleph la tierra... Vi un laberinto roto (era Londres), vi interminables ojos inmediatos escrutándose en mí como en un espejo, vi todos los espejos del planeta y ninguno me reflejó...\nSentí infinita veneración, infinita lástima.",
+      "themes_and_philosophy": "全知全视与人类有限语言的悖论。空间中汇聚整个宇宙所有点的那一点（阿莱夫），象征着人类对全知维度的无限向往与面对无限时的震颤怜悯。"
+    },
+    {
+      "id": 23,
+      "writer_name_en": "Rabindranath Tagore",
+      "writer_name_cn": "拉宾德拉纳特·泰戈尔",
+      "work_title_en": "Stray Birds",
+      "work_title_cn": "飞鸟集",
+      "source_language": "Bengali/English",
+      "genre": "哲理格言抒情诗",
+      "original_text_extract": "Stray birds of summer come to my window to sing and fly away. And yellow leaves of autumn, which have no songs, flutter and fall there with a sign.\nLet life be beautiful like summer flowers and death like autumn leaves.\nIf you shed tears when you miss the sun, you also miss the stars.\nThe world puts off its mask of vastness to its lover. It becomes small as one song, as one kiss of the eternal.",
+      "themes_and_philosophy": "人与自然、微尘与宇宙的神秘合一。以极其轻盈纯真的短句，点破生命生死与爱之庄严，具有直通万物有灵的博大慈悲。"
+    },
+    {
+      "id": 24,
+      "writer_name_en": "Franz Kafka",
+      "writer_name_cn": "弗朗茨·卡夫卡",
+      "work_title_en": "Die Verwandlung (The Metamorphosis)",
+      "work_title_cn": "变形记",
+      "source_language": "German",
+      "genre": "表现主义荒诞中篇小说",
+      "original_text_extract": "Als Gregor Samsa eines Morgens aus unruhigen Träumen erwachte, fand er sich in seinem Bett zu einem ungeheuren Ungeziefer verwandelt.\nEr lag auf seinem panzerartig harten Rücken und sah, wenn er den Kopf ein wenig hob, seinen gewölbten, braunen, von bogenförmigen Versteifungen geteilten Bauch...\n„Was ist mit mir geschehen?“, dachte er. Es war kein Traum.",
+      "themes_and_philosophy": "现代工业社会异化与工具人困境的终极预言。当人失去作为职场螺丝钉的生产力价值，即刻沦为家庭与社会弃之如敝履的‘害虫’。"
+    }
+  ]
+}

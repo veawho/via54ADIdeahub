@@ -860,6 +860,280 @@ def query_oscar_wilde_epigrams(
         return json.dumps({"error": str(e)}, ensure_ascii=False)
 
 
+# ── Tool: query_classical_chinese_fulltext ────────────
+@mcp.tool()
+def query_classical_chinese_fulltext(
+    keyword: str = "",
+    genre: str = "",
+    dynasty: str = "",
+    author: str = "",
+    limit: int = 20
+) -> str:
+    """Query full texts of Classical Chinese literature across all major genres (诗经、楚辞、赋、唐诗、宋词、元曲、历代名散文).
+    Contains complete unabridged masterworks, historical backgrounds, and aesthetic rhythmic features.
+
+    Args:
+        keyword: Search keyword in title, author, full text, or annotations
+        genre: Filter by genre ('诗经', '楚辞', '赋', '唐诗', '宋词', '元曲', '散文')
+        dynasty: Filter by dynasty ('先秦', '汉代', '三国·魏', '晋代', '唐代', '宋代', '元代', '明代', '清代')
+        author: Filter by author name (e.g. '屈原', '李白', '杜甫', '苏轼', '辛弃疾', '李清照', '关汉卿', '王羲之', '陶渊明', '范仲淹', '张岱')
+        limit: Max results (default 20)
+
+    Returns:
+        JSON string with matching classical Chinese full texts and background analyses.
+    """
+    try:
+        import sqlite3
+        db_path = PROJECT_ROOT / "via54_kb.db"
+        conn = sqlite3.connect(str(db_path))
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+
+        query_sql = "SELECT * FROM classical_chinese_fulltext WHERE 1=1"
+        params = []
+        if genre:
+            query_sql += " AND genre LIKE ?"
+            params.append(f"%{genre}%")
+        if dynasty:
+            query_sql += " AND dynasty LIKE ?"
+            params.append(f"%{dynasty}%")
+        if author:
+            query_sql += " AND author LIKE ?"
+            params.append(f"%{author}%")
+        if keyword:
+            query_sql += " AND (title LIKE ? OR full_text LIKE ? OR background_and_annotation LIKE ? OR aesthetic_features LIKE ?)"
+            params.extend([f"%{keyword}%", f"%{keyword}%", f"%{keyword}%", f"%{keyword}%"])
+
+        query_sql += " ORDER BY id ASC LIMIT ?"
+        params.append(limit)
+
+        cursor.execute(query_sql, params)
+        rows = [dict(r) for r in cursor.fetchall()]
+        conn.close()
+
+        return json.dumps({"total": len(rows), "fulltexts": rows}, ensure_ascii=False, indent=2)
+    except Exception as e:
+        return json.dumps({"error": str(e)}, ensure_ascii=False)
+
+
+# ── Tool: query_classical_chinese_golden_quotes ───────
+@mcp.tool()
+def query_classical_chinese_golden_quotes(
+    keyword: str = "",
+    emotional_archetype: str = "",
+    genre: str = "",
+    dynasty: str = "",
+    limit: int = 30
+) -> str:
+    """Query extracted canonical golden quotes from Classical Chinese literature with rhetorical mechanisms and modern brand copywriting directives.
+    Linked to original full texts, with deep breakdowns of 赋比兴, 虚实, 互文, 白描, 气象, 通感 and copywriting applications.
+
+    Args:
+        keyword: Search keyword in quote text, work title, rhetoric mechanism, or copywriting application
+        emotional_archetype: Filter by emotional archetype (e.g. '豁达豪迈', '旷达圆满', '知己共情', '纯爱追求', '家国深情', '极简孤雅', '破局逆袭')
+        genre: Filter by genre ('诗经', '楚辞', '赋', '唐诗', '宋词', '元曲', '散文')
+        dynasty: Filter by dynasty ('先秦', '三国·魏', '晋代', '唐代', '宋代', '元代', '明代', '明末清初')
+        limit: Max results (default 30)
+
+    Returns:
+        JSON string with matching classical golden quotes, rhetoric analyses, and copywriting directives.
+    """
+    try:
+        import sqlite3
+        db_path = PROJECT_ROOT / "via54_kb.db"
+        conn = sqlite3.connect(str(db_path))
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+
+        query_sql = "SELECT * FROM classical_chinese_golden_quotes WHERE 1=1"
+        params = []
+        if emotional_archetype:
+            query_sql += " AND emotional_archetype LIKE ?"
+            params.append(f"%{emotional_archetype}%")
+        if genre:
+            query_sql += " AND genre LIKE ?"
+            params.append(f"%{genre}%")
+        if dynasty:
+            query_sql += " AND dynasty LIKE ?"
+            params.append(f"%{dynasty}%")
+        if keyword:
+            query_sql += " AND (quote_text LIKE ? OR work_title LIKE ? OR author LIKE ? OR rhetorical_mechanisms LIKE ? OR copywriting_application LIKE ?)"
+            params.extend([f"%{keyword}%", f"%{keyword}%", f"%{keyword}%", f"%{keyword}%", f"%{keyword}%"])
+
+        query_sql += " ORDER BY id ASC LIMIT ?"
+        params.append(limit)
+
+        cursor.execute(query_sql, params)
+        rows = [dict(r) for r in cursor.fetchall()]
+        conn.close()
+
+        return json.dumps({"total": len(rows), "golden_quotes": rows}, ensure_ascii=False, indent=2)
+    except Exception as e:
+        return json.dumps({"error": str(e)}, ensure_ascii=False)
+
+
+# ── Tool: query_master_writers_originals ──────────────
+@mcp.tool()
+def query_master_writers_originals(
+    writer: str = "",
+    work: str = "",
+    keyword: str = "",
+    language: str = "",
+    limit: int = 20
+) -> str:
+    """Query Master Writers Originals database (外文原作原本库).
+    Contains original foreign texts, chapter excerpts, themes, and literary philosophy across global master writers
+    (Oscar Wilde, Shakespeare, Duras, Fitzgerald, Hemingway, Camus, Maugham, Zweig, Borges, Tagore, Kafka).
+
+    Args:
+        writer: Filter by writer name in English or Chinese (e.g. 'Oscar Wilde', '王尔德', 'Shakespeare', '莎士比亚', 'Duras', '杜拉斯', 'Camus', '加缪')
+        work: Filter by work title in English or Chinese (e.g. 'The Picture of Dorian Gray', '道连·格雷的画像', 'Hamlet', '哈姆雷特', 'L\'Amant', '情人')
+        keyword: Search keyword in original text or philosophy
+        language: Filter by source language ('English', 'French', 'German', 'Spanish', 'Bengali/English')
+        limit: Max results (default 20)
+
+    Returns:
+        JSON string containing original foreign texts, context, and philosophical themes.
+    """
+    try:
+        import sqlite3
+        db_path = PROJECT_ROOT / "via54_kb.db"
+        conn = sqlite3.connect(str(db_path))
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+
+        query_sql = "SELECT * FROM master_writers_originals WHERE 1=1"
+        params = []
+        if writer:
+            query_sql += " AND (writer_name_en LIKE ? OR writer_name_cn LIKE ?)"
+            params.extend([f"%{writer}%", f"%{writer}%"])
+        if work:
+            query_sql += " AND (work_title_en LIKE ? OR work_title_cn LIKE ?)"
+            params.extend([f"%{work}%", f"%{work}%"])
+        if language:
+            query_sql += " AND source_language LIKE ?"
+            params.append(f"%{language}%")
+        if keyword:
+            query_sql += " AND (original_text_extract LIKE ? OR themes_and_philosophy LIKE ?)"
+            params.extend([f"%{keyword}%", f"%{keyword}%"])
+
+        query_sql += " ORDER BY id ASC LIMIT ?"
+        params.append(limit)
+
+        cursor.execute(query_sql, params)
+        rows = [dict(r) for r in cursor.fetchall()]
+        conn.close()
+
+        return json.dumps({"total": len(rows), "originals": rows}, ensure_ascii=False, indent=2)
+    except Exception as e:
+        return json.dumps({"error": str(e)}, ensure_ascii=False)
+
+
+# ── Tool: query_master_writers_translations ───────────
+@mcp.tool()
+def query_master_writers_translations(
+    translator: str = "",
+    work: str = "",
+    keyword: str = "",
+    limit: int = 20
+) -> str:
+    """Query Master Writers Translations database (名家翻译译本库).
+    Contains canonical Chinese translations by legendary translation masters (朱生豪, 王道乾, 余光中, 巫宁坤, 傅雷, 郑振铎, 周煦良, 舒昌善, 王永年, 叶廷芳, 杜小真, 柳鸣九等),
+    along with translation school analyses, stylistic aesthetics, and translator commentaries.
+
+    Args:
+        translator: Filter by translator name (e.g. '王道乾', '朱生豪', '余光中', '巫宁坤', '郑振铎', '周煦良', '舒昌善', '叶廷芳', '杜小真')
+        work: Filter by work title in Chinese (e.g. '情人', '哈姆雷特', '温夫人的扇子', '了不起的盖茨比', '飞鸟集', '月亮与六便士', '变形记')
+        keyword: Search keyword in translation text, style analysis, or translator commentary
+        limit: Max results (default 20)
+
+    Returns:
+        JSON string containing master translations, style critiques, and translator commentaries.
+    """
+    try:
+        import sqlite3
+        db_path = PROJECT_ROOT / "via54_kb.db"
+        conn = sqlite3.connect(str(db_path))
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+
+        query_sql = "SELECT * FROM master_writers_translations WHERE 1=1"
+        params = []
+        if translator:
+            query_sql += " AND translator LIKE ?"
+            params.append(f"%{translator}%")
+        if work:
+            query_sql += " AND work_title_cn LIKE ?"
+            params.append(f"%{work}%")
+        if keyword:
+            query_sql += " AND (translation_text LIKE ? OR translation_school_and_style LIKE ? OR translator_commentary LIKE ?)"
+            params.extend([f"%{keyword}%", f"%{keyword}%", f"%{keyword}%"])
+
+        query_sql += " ORDER BY id ASC LIMIT ?"
+        params.append(limit)
+
+        cursor.execute(query_sql, params)
+        rows = [dict(r) for r in cursor.fetchall()]
+        conn.close()
+
+        return json.dumps({"total": len(rows), "translations": rows}, ensure_ascii=False, indent=2)
+    except Exception as e:
+        return json.dumps({"error": str(e)}, ensure_ascii=False)
+
+
+# ── Tool: query_master_writers_golden_quotes ──────────
+@mcp.tool()
+def query_master_writers_golden_quotes(
+    writer: str = "",
+    theme: str = "",
+    keyword: str = "",
+    limit: int = 30
+) -> str:
+    """Query Master Writers Golden Epigrams & Paradox Matrix (大师金句库).
+    Contains canonical bilingual quotes, paradox mechanisms, cognitive subversion models,
+    theme tags, and modern advertising/brand copywriting application blueprints
+    (featuring Oscar Wilde paradoxes, Shakespeare, Duras, Fitzgerald, Hemingway, Camus, Maugham, Zweig, Borges, Tagore, Kafka).
+
+    Args:
+        writer: Filter by writer name in Chinese or English (e.g. '王尔德', 'Oscar Wilde', '莎士比亚', '杜拉斯', '海明威', '加缪', '毛姆', '泰戈尔')
+        theme: Filter by theme tag (e.g. '悦己与浪漫', '欲望与诱惑', '独立与个性', '理想主义', '硬汉精神', '反容貌焦虑', '流动的盛宴')
+        keyword: Search keyword in English quote, Chinese translation, paradox mechanism, or copywriting application
+        limit: Max results (default 30)
+
+    Returns:
+        JSON string containing matching golden epigrams with bilingual texts, rhetorical breakdown, and actionable brand copywriting directives.
+    """
+    try:
+        import sqlite3
+        db_path = PROJECT_ROOT / "via54_kb.db"
+        conn = sqlite3.connect(str(db_path))
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+
+        query_sql = "SELECT * FROM master_writers_golden_quotes WHERE 1=1"
+        params = []
+        if writer:
+            query_sql += " AND (writer_name_cn LIKE ? OR writer_name_en LIKE ?)"
+            params.extend([f"%{writer}%", f"%{writer}%"])
+        if theme:
+            query_sql += " AND theme_tags_json LIKE ?"
+            params.append(f"%{theme}%")
+        if keyword:
+            query_sql += " AND (translated_quote_cn LIKE ? OR original_quote_lang LIKE ? OR source_work LIKE ? OR rhetorical_and_paradox_mechanism LIKE ? OR copywriting_application LIKE ?)"
+            params.extend([f"%{keyword}%", f"%{keyword}%", f"%{keyword}%", f"%{keyword}%", f"%{keyword}%"])
+
+        query_sql += " ORDER BY id ASC LIMIT ?"
+        params.append(limit)
+
+        cursor.execute(query_sql, params)
+        rows = [dict(r) for r in cursor.fetchall()]
+        conn.close()
+
+        return json.dumps({"total": len(rows), "epigrams": rows}, ensure_ascii=False, indent=2)
+    except Exception as e:
+        return json.dumps({"error": str(e)}, ensure_ascii=False)
+
+
 # ── Entry point ───────────────────────────────────────
 if __name__ == "__main__":
     mcp.run(transport="stdio")

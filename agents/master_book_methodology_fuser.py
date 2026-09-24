@@ -380,12 +380,42 @@ class MasterBookMethodologyFuser:
             cursor = conn.cursor()
             if keyword:
                 cursor.execute("""
-                    SELECT * FROM classical_chinese_masterpieces 
-                    WHERE title LIKE ? OR golden_lines LIKE ? OR author LIKE ? OR emotional_archetype LIKE ?
+                    SELECT id, fulltext_id, quote_text AS golden_lines, work_title AS title, author, dynasty, genre,
+                           rhetorical_mechanisms, emotional_archetype, copywriting_application
+                    FROM classical_chinese_golden_quotes
+                    WHERE work_title LIKE ? OR quote_text LIKE ? OR author LIKE ? OR emotional_archetype LIKE ? OR copywriting_application LIKE ?
                     LIMIT ?
-                """, (f"%{keyword}%", f"%{keyword}%", f"%{keyword}%", f"%{keyword}%", limit))
+                """, (f"%{keyword}%", f"%{keyword}%", f"%{keyword}%", f"%{keyword}%", f"%{keyword}%", limit))
             else:
-                cursor.execute("SELECT * FROM classical_chinese_masterpieces ORDER BY id ASC LIMIT ?", (limit,))
+                cursor.execute("""
+                    SELECT id, fulltext_id, quote_text AS golden_lines, work_title AS title, author, dynasty, genre,
+                           rhetorical_mechanisms, emotional_archetype, copywriting_application
+                    FROM classical_chinese_golden_quotes
+                    ORDER BY id ASC LIMIT ?
+                """, (limit,))
+            rows = cursor.fetchall()
+            for r in rows:
+                results.append(dict(r))
+            conn.close()
+        except Exception:
+            pass
+        return results
+
+    def fetch_relevant_master_writers_quotes(self, keyword: str = "", limit: int = 3) -> List[Dict[str, Any]]:
+        """Fetch Master Writers Golden Epigrams (Oscar Wilde, Shakespeare, Duras, Fitzgerald, Hemingway, Camus, Maugham, etc.)."""
+        results = []
+        try:
+            conn = sqlite3.connect(str(self.db_path))
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+            if keyword:
+                cursor.execute("""
+                    SELECT * FROM master_writers_golden_quotes
+                    WHERE translated_quote_cn LIKE ? OR original_quote_lang LIKE ? OR writer_name_cn LIKE ? OR source_work LIKE ? OR rhetorical_and_paradox_mechanism LIKE ?
+                    LIMIT ?
+                """, (f"%{keyword}%", f"%{keyword}%", f"%{keyword}%", f"%{keyword}%", f"%{keyword}%", limit))
+            else:
+                cursor.execute("SELECT * FROM master_writers_golden_quotes ORDER BY id ASC LIMIT ?", (limit,))
             rows = cursor.fetchall()
             for r in rows:
                 results.append(dict(r))
@@ -403,12 +433,21 @@ class MasterBookMethodologyFuser:
             cursor = conn.cursor()
             if keyword:
                 cursor.execute("""
-                    SELECT * FROM oscar_wilde_corpus 
-                    WHERE chinese_translation LIKE ? OR english_quote LIKE ? OR theme LIKE ? OR paradox_mechanism LIKE ?
+                    SELECT id, source_work AS work, original_quote_lang AS english_quote, translated_quote_cn AS chinese_translation,
+                           rhetorical_and_paradox_mechanism AS paradox_mechanism, writer_name_cn AS author, copywriting_application
+                    FROM master_writers_golden_quotes 
+                    WHERE (writer_name_cn LIKE '%王尔德%' OR writer_name_en LIKE '%Wilde%')
+                      AND (translated_quote_cn LIKE ? OR original_quote_lang LIKE ? OR rhetorical_and_paradox_mechanism LIKE ? OR copywriting_application LIKE ?)
                     LIMIT ?
                 """, (f"%{keyword}%", f"%{keyword}%", f"%{keyword}%", f"%{keyword}%", limit))
             else:
-                cursor.execute("SELECT * FROM oscar_wilde_corpus ORDER BY id ASC LIMIT ?", (limit,))
+                cursor.execute("""
+                    SELECT id, source_work AS work, original_quote_lang AS english_quote, translated_quote_cn AS chinese_translation,
+                           rhetorical_and_paradox_mechanism AS paradox_mechanism, writer_name_cn AS author, copywriting_application
+                    FROM master_writers_golden_quotes
+                    WHERE writer_name_cn LIKE '%王尔德%' OR writer_name_en LIKE '%Wilde%'
+                    ORDER BY id ASC LIMIT ?
+                """, (limit,))
             rows = cursor.fetchall()
             for r in rows:
                 results.append(dict(r))
@@ -456,8 +495,9 @@ class MasterBookMethodologyFuser:
         positioning = self.craft_positioning_nail_and_hammer(brand, product, brief_goal)
         lf8 = self.map_life_force_8(combined_text)
         divine_benchmarks = self.fetch_relevant_divine_translations(keyword="", limit=3)
-        classical_benchmarks = self.fetch_relevant_classical_chinese(keyword="", limit=2)
+        classical_benchmarks = self.fetch_relevant_classical_chinese(keyword="", limit=3)
         wilde_benchmarks = self.fetch_relevant_wilde_epigrams(keyword="", limit=2)
+        master_writers_benchmarks = self.fetch_relevant_master_writers_quotes(keyword="", limit=3)
 
         master_schools_directives = [
             {
@@ -549,6 +589,7 @@ class MasterBookMethodologyFuser:
             "divine_translation_benchmarks": divine_benchmarks,
             "classical_chinese_benchmarks": classical_benchmarks,
             "wilde_benchmarks": wilde_benchmarks,
+            "master_writers_benchmarks": master_writers_benchmarks,
             "available_books_count": len(self.books)
         }
 

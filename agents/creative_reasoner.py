@@ -442,10 +442,19 @@ class CreativeReasoner:
         wilde_md = "\n".join([
             f"- **“{w['chinese_translation']}”** *(出自: {w.get('work', '')})*  \n"
             f"  - *英文原文*: `{w.get('english_quote', '')}`  \n"
-            f"  - *悖论机制*: {w.get('paradox_mechanism', '')} | *主题*: {w.get('theme', '')}  \n"
+            f"  - *悖论机制*: {w.get('paradox_mechanism', '')} | *作者*: {w.get('author', '奥斯卡·王尔德')}  \n"
             f"  - *品牌赋能*: {w.get('copywriting_application', '')}"
             for w in wilde_bms
         ]) or "> 暂无特定王尔德金句对标"
+
+        writers_bms = bk.get("master_writers_benchmarks", [])
+        writers_md = "\n".join([
+            f"- **“{mw['translated_quote_cn']}”** *(出自: {mw.get('writer_name_cn', '')}《{mw.get('source_work', '')}》· 权威译者: {mw.get('translator', '名家')})*  \n"
+            f"  - *外文原句*: `{mw.get('original_quote_lang', '')}`  \n"
+            f"  - *修辞/悖论机制*: {mw.get('rhetorical_and_paradox_mechanism', '')}  \n"
+            f"  - *品牌文案赋能*: {mw.get('copywriting_application', '')}"
+            for mw in writers_bms
+        ]) or "> 暂无特定大师作品对标"
 
         md = f"""# 🌌 【{strategy['brand']}】创意品牌全案与差异化口号矩阵
 
@@ -508,15 +517,21 @@ class CreativeReasoner:
 
 ---
 
-## 🪶 九、 中国古典诗词文气与千古风骨赋能 (Classical Chinese Archetypes)
-> 💡 **风骨与文气启示**: 借势苏轼的旷达自洽、李白的极致自信、陶渊明的悠然超脱、庄子的宏大格局；用千年诗词意象作为品牌的文化图腾与情绪避风港。
+## 🪶 九、 中华古典名篇全文与千古金句赋能 (Classical Chinese Masterpieces & Epigrams)
+> 💡 **全量中华古典文脉 (唐诗、宋词、元曲、散文、赋、诗经、楚辞)**: 借势苏轼的旷达自洽、李白的极致自信、陶渊明的归去超脱、屈原的九死未悔、庄子的无穷格局；以千年名篇原典与传世金句作为品牌的心智锚点与文化图腾。
 {classical_md}
 
 ---
 
-## 🎭 十、 奥斯卡·王尔德唯美主义悖论引擎 (Wildean Paradox & Aestheticism)
-> 💡 **唯美与悖论心法**: 唯美至上，用优雅的刺击碎虚伪与无聊；以“爱自己是终身浪漫”为精神图腾，反常识、反道德绑架、反平庸好人。
+## 🎭 十、 全球大师作家原本/译本/金句三独立索引库赋能 (Master Writers Triplet Canon)
+> 💡 **大师作品三独立索引机制 (Originals · Translations · Epigrams)**:
+> 涵盖奥斯卡·王尔德（唯美与悖论核心）、莎士比亚、杜拉斯、菲茨杰拉德、海明威、加缪、毛姆、茨威格、博尔赫斯、泰戈尔、卡夫卡等全球文学巨匠。外文原著、名家名译（朱生豪/王道乾/余光中/巫宁坤/郑振铎等）与悖论修辞金句独立建库，为现代广告与品牌主张提供无尽思想弹药。
+
+### 👑 奥斯卡·王尔德唯美主义悖论焦点 (Wildean Paradox Focus):
 {wilde_md}
+
+### 🌍 全球文学大师典范对标 (Master Writers Triplet Benchmarks):
+{writers_md}
 """
         return md
 
