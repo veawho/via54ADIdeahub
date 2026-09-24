@@ -1134,6 +1134,41 @@ def query_master_writers_golden_quotes(
         return json.dumps({"error": str(e)}, ensure_ascii=False)
 
 
+# ── Tool: audit_and_optimize_copywriting ──────────────
+@mcp.tool()
+def audit_and_optimize_copywriting(
+    text: str,
+    target_brand: str = "",
+    target_genre: str = ""
+) -> str:
+    """Perform comprehensive linguistic, rhythmic, rhetorical, and advertising audit on any copy or slogan.
+    Evaluates:
+      1. Phonetic Cadence (Ping-Ze tones, Ze-Qi-Ping-Shou rule, 13-Zhe rhymes, breath flow)
+      2. Literary Genre Fingerprint (诗经/楚辞/赋/唐诗/宋词/元曲/散文/王尔德/杜拉斯/海明威)
+      3. Cognitive Tension & Paradox Subversion (A!=B, Day/Night contrast, micro-sensory triggers)
+      4. 27 Classic Advertising Books Compliance (Trout Positioning, LF8 Desires, Sugarman Slide, 4U Laws)
+      5. Text Purity & Dehydration (detection and penalization of clichés, water fluff, and Europeanized glue words)
+      6. Algorithmic Elevation (generates 3 refined variations: 声律工整格、思想悖论格、古典物象格)
+
+    Args:
+        text: Slogan or copywriting to audit
+        target_brand: Optional brand name to contextualize the audit
+        target_genre: Optional target literary genre (e.g. '宋词', '王尔德', '海明威', '唐诗')
+
+    Returns:
+        JSON string containing detailed audit scores, diagnostics, and 3 masterclass algorithmic elevation variants.
+    """
+    try:
+        from agents.copywriting_art_auditor import CopywritingMasteryAuditor
+        auditor = CopywritingMasteryAuditor()
+        audit_result = auditor.audit_copywriting(text, brand=target_brand, target_genre=target_genre)
+        report_md = auditor.render_markdown_report(audit_result)
+        audit_result["markdown_report"] = report_md
+        return json.dumps(audit_result, ensure_ascii=False, indent=2)
+    except Exception as e:
+        return json.dumps({"error": str(e)}, ensure_ascii=False)
+
+
 # ── Entry point ───────────────────────────────────────
 if __name__ == "__main__":
     mcp.run(transport="stdio")

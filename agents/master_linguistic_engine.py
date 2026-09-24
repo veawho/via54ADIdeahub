@@ -19,13 +19,14 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from agents.brand_profile_manager import BrandProfileManager
+from agents.copywriting_art_auditor import PhoneticCadenceAuditor
 
 PLOSIVES = ["p", "b", "t", "d", "k", "g", "破", "爆", "打", "通", "开", "关", "拔", "弹", "跳", "扑", "卡", "哒"]
 RESONANT_VOWELS = ["啊", "呀", "啦", "吧", "场", "光", "亮", "关", "安", "稳", "天", "生", "声", "活", "放", "翔", "昂"]
 MIRROR_NEURON_ACTIONS = ["呼吸", "吞咽", "撕开", "关门", "快门", "甩开", "敲击", "换上", "踏入", "吹透", "握紧", "跳动"]
 
 class PhoneticCadenceAnalyzer:
-    """Masterclass Acoustic & Cadence Analyzer for Chinese and Bilingual Copy."""
+    """Masterclass Acoustic & Cadence Analyzer for Chinese and Bilingual Copy with True Ping-Ze and 13-Zhe Rhyme."""
 
     def analyze(self, text: str) -> Dict[str, Any]:
         has_english = bool(re.search(r"[a-zA-Z]+", text))
@@ -38,25 +39,17 @@ class PhoneticCadenceAnalyzer:
         else:
             lang_mode = "纯中文 (Pure Chinese)"
 
-        clauses = [c.strip() for c in re.split(r"[,，。！？；:\s/]+", text) if c.strip()]
-        lengths = [len(c) for c in clauses]
-        rhythm_pattern = "+".join(str(l) for l in lengths) if lengths else "0"
-
-        is_symmetric = False
-        symmetry_desc = "自由散句"
-        if len(lengths) == 2:
-            if lengths[0] == lengths[1]:
-                is_symmetric = True
-                symmetry_desc = f"{lengths[0]}+{lengths[1]} 绝对对仗律动"
-            elif abs(lengths[0] - lengths[1]) <= 2:
-                is_symmetric = True
-                symmetry_desc = f"{lengths[0]}+{lengths[1]} 均衡对称律动"
-        elif len(lengths) == 1 and lengths[0] <= 12:
-            is_symmetric = True
-            symmetry_desc = f"{lengths[0]}字 极简短促断言"
+        # Accurate Phonetic Audit using PhoneticCadenceAuditor
+        p_audit = PhoneticCadenceAuditor.audit(text)
+        
+        rhythm_pattern = p_audit.get("rhythm_pattern", "0")
+        symmetry_desc = p_audit.get("symmetry_type", "自由散句")
+        is_ze_qi_ping_shou = p_audit.get("is_ze_qi_ping_shou", False)
+        is_rhyming = p_audit.get("is_rhyming", False)
+        matched_rhyme = p_audit.get("matched_rhyme", "无押韵")
+        has_resonant_end = p_audit.get("has_resonant_ending", False)
 
         plosive_count = sum(1 for p in PLOSIVES if p.lower() in text.lower())
-        has_resonant_end = any(text.endswith(v) for v in RESONANT_VOWELS) or any(text.lower().endswith(e) for e in ["on", "in", "it", "ay", "play", "win", "go"])
 
         bilingual_harmony = "无英文"
         bilingual_score_bonus = 0.0
@@ -68,26 +61,26 @@ class PhoneticCadenceAnalyzer:
             else:
                 bilingual_harmony = "中英夹杂略显冗长，建议缩减英文长度"
 
-        score = 3.8
-        if is_symmetric:
-            score += 0.5
-        if has_resonant_end:
-            score += 0.3
-        if plosive_count >= 1:
-            score += 0.2
-        score += bilingual_score_bonus
+        # Convert 100-point scale to 5.0 scale with bilingual bonus
+        raw_cadence = (p_audit.get("phonetic_score", 70.0) / 20.0) + bilingual_score_bonus
+        cadence_score = round(max(1.0, min(5.0, raw_cadence)), 1)
 
-        cadence_score = round(max(1.0, min(5.0, score)), 1)
+        breath_desc = "气口自然流畅，声律仄起平收，韵味绵长" if (is_ze_qi_ping_shou and cadence_score >= 4.3) else (
+            "读音平顺，朗朗上口" if cadence_score >= 4.0 else "平仄起伏稍显松散，建议末字仄起平收"
+        )
 
         return {
             "language_mode": lang_mode,
             "rhythm_pattern": rhythm_pattern,
             "symmetry_description": symmetry_desc,
+            "is_ze_qi_ping_shou": is_ze_qi_ping_shou,
+            "is_rhyming": is_rhyming,
+            "matched_rhyme": matched_rhyme,
             "plosive_density": f"包含 {plosive_count} 个爆破重音锚点",
             "has_resonant_ending": has_resonant_end,
             "bilingual_harmony": bilingual_harmony,
             "cadence_score": cadence_score,
-            "breath_flow": "气口自然流畅，声律抑扬顿挫，极易口口相传" if cadence_score >= 4.5 else "读音平顺，朗朗上口"
+            "breath_flow": breath_desc
         }
 
 
