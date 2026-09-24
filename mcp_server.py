@@ -17,6 +17,7 @@ import sys
 import os
 import json
 import re
+import sqlite3
 from pathlib import Path
 
 # Ensure the project root is on sys.path so we can import via54_rag
@@ -1165,6 +1166,91 @@ def audit_and_optimize_copywriting(
         report_md = auditor.render_markdown_report(audit_result)
         audit_result["markdown_report"] = report_md
         return json.dumps(audit_result, ensure_ascii=False, indent=2)
+    except Exception as e:
+        return json.dumps({"error": str(e)}, ensure_ascii=False)
+
+
+# ── Tool: audit_psycholinguistic_activation ───────────
+@mcp.tool()
+def audit_psycholinguistic_activation(
+    text: str,
+    target_focus: str = ""
+) -> str:
+    """Audit the neurological, psycholinguistic, and behavioral activation power of any copywriting or slogan.
+    Grounded in 10 landmark neuroscience and psychology papers:
+      - 具身神经拟真 (Pulvermüller 2005, González 2006)
+      - 躯体标记与腹内侧前额叶直觉决策 (Antonio Damasio 1994)
+      - 乔纳·伯杰 SPEACC 语言激活矩阵 (Jonah Berger 2023, Bryan 2011)
+      - 语言范畴模型与动词具身层级 (Semin & Fiedler 1988, Packard & Berger 2021)
+      - 加工流畅度与押韵即真理 (Alter & Oppenheimer 2009, McGlone 2000)
+      - 调节聚焦理论 (E. Tory Higgins 1997)
+      - VAD 情绪三维高唤醒生理驱动 (Warriner & Brysbaert 2013)
+      - 语音象征与布巴-奇奇跨模态感官通感 (Ramachandran & Hubbard 2001)
+
+    Args:
+        text: Slogan or copywriting to analyze
+        target_focus: Optional target motivational orientation (e.g. 'promotion', 'prevention')
+
+    Returns:
+        JSON string containing embodied simulation scores, somatic marker relief ratios, Berger SPEACC metrics, LCM verb hierarchy, regulatory fit, and neuro-elevations.
+    """
+    try:
+        from agents.psycholinguistic_activator import PsycholinguisticActivator
+        activator = PsycholinguisticActivator()
+        result = activator.audit_full_psycholinguistics(text, target_focus=target_focus)
+        result["markdown_section"] = activator.render_markdown_section(result)
+        return json.dumps(result, ensure_ascii=False, indent=2)
+    except Exception as e:
+        return json.dumps({"error": str(e)}, ensure_ascii=False)
+
+
+# ── Tool: query_psycholinguistic_canon ────────────────
+@mcp.tool()
+def query_psycholinguistic_canon(
+    school_name: str = "",
+    figure_or_author: str = "",
+    keyword: str = "",
+    limit: int = 5
+) -> str:
+    """Query the Psycholinguistic & Neurological Activation Canon knowledge base.
+    Contains 10 seminal psychology schools, landmark research papers, neural mechanisms,
+    algorithmic formulas, and copywriting applications.
+
+    Args:
+        school_name: Optional school name filter (e.g. '具身认知', '躯体标记', 'SPEACC', '语言范畴模型', '调节聚焦')
+        figure_or_author: Optional researcher name (e.g. 'Damasio', 'Jonah Berger', 'Pulvermüller', 'Higgins', 'Langer')
+        keyword: Optional search keyword in mechanism, papers, or application insights
+        limit: Max results to return (default 5)
+
+    Returns:
+        JSON string with matched psycholinguistic canon entries.
+    """
+    try:
+        conn = sqlite3.connect(str(PROJECT_ROOT / "via54_kb.db"))
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+
+        query_sql = "SELECT * FROM psycholinguistic_activation_canon WHERE 1=1"
+        params = []
+
+        if school_name:
+            query_sql += " AND (school_name_cn LIKE ? OR school_name_en LIKE ?)"
+            params.extend([f"%{school_name}%", f"%{school_name}%"])
+        if figure_or_author:
+            query_sql += " AND key_figures LIKE ?"
+            params.append(f"%{figure_or_author}%")
+        if keyword:
+            query_sql += " AND (core_psychological_mechanism LIKE ? OR seminal_papers_and_books LIKE ? OR copywriting_application_insight LIKE ? OR canonical_benchmark_cases LIKE ?)"
+            params.extend([f"%{keyword}%", f"%{keyword}%", f"%{keyword}%", f"%{keyword}%"])
+
+        query_sql += " ORDER BY id ASC LIMIT ?"
+        params.append(limit)
+
+        cursor.execute(query_sql, params)
+        rows = [dict(r) for r in cursor.fetchall()]
+        conn.close()
+
+        return json.dumps({"total": len(rows), "schools": rows}, ensure_ascii=False, indent=2)
     except Exception as e:
         return json.dumps({"error": str(e)}, ensure_ascii=False)
 

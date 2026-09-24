@@ -160,6 +160,7 @@ class CreativeReasoner:
         p_dim = deep_audit["phonetic_dimension"]
         b_dim = deep_audit["master_book_compliance_dimension"]
         g_dim = deep_audit["literary_genre_dimension"]
+        psy_dim = deep_audit.get("psycholinguistic_activation_dimension", {})
 
         return {
             "mastery_score": deep_audit["composite_mastery_score"],
@@ -170,6 +171,10 @@ class CreativeReasoner:
             "primary_genre": g_dim["primary_genre"],
             "cognitive_score": deep_audit["cognitive_rhetoric_dimension"]["cognitive_score"],
             "purity_score": u_dim["purity_score"],
+            "psycholinguistic_score": psy_dim.get("composite_activation_score", 0),
+            "psycholinguistic_tier": psy_dim.get("activation_tier", ""),
+            "embodied_verdict": psy_dim.get("embodied_simulation", {}).get("verdict", ""),
+            "regulatory_focus": psy_dim.get("regulatory_focus", {}).get("dominant_focus", ""),
             "detected_water_words": u_dim["fluff_words_detected"] + u_dim["europeanized_glue_detected"],
             "critic_feedback": review_note,
             "polishing_advice": "、".join(u_dim["dehydration_advice"]) if u_dim["dehydration_advice"] else "文案精炼脱水，声律自洽",
@@ -181,6 +186,19 @@ class CreativeReasoner:
             "humanity_score": round(u_dim["purity_score"] / 20.0, 1),
             "audience_fit_score": round(base_fit, 1)
         }
+
+    def retrieve_psycholinguistic_benchmarks(self, limit: int = 3) -> List[Dict[str, Any]]:
+        """Retrieve psycholinguistic activation canon benchmarks from SQLite."""
+        try:
+            conn = sqlite3.connect(str(self.db_path))
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM psycholinguistic_activation_canon ORDER BY id ASC LIMIT ?", (limit,))
+            rows = [dict(r) for r in cursor.fetchall()]
+            conn.close()
+            return rows
+        except Exception:
+            return []
 
     def generate_creative_strategy(
         self,
@@ -388,6 +406,7 @@ class CreativeReasoner:
             "super_signs": super_signs,
             "stunts": stunts,
             "book_strategy": book_pack,
+            "psycholinguistic_benchmarks": self.retrieve_psycholinguistic_benchmarks(limit=3),
             "benchmarks_used": [b.get("title", "") for b in benchmarks if b.get("title")],
             "pun_benchmarks": [p.get("pun_text", "") for p in pun_benchmarks if p.get("pun_text")],
         }
@@ -411,7 +430,8 @@ class CreativeReasoner:
 >   - 算法重构理据: {refine['rationale']}"""
 
                 score_str = f"""
-> 📊 **Mastery 艺术全维审计**: `★ {critic.get('mastery_score', '-')}/100` ({critic.get('mastery_level', '达标')}) | 声律 `★ {critic.get('phonetic_score', '-')}` | 认知 `★ {critic.get('cognitive_score', '-')}` | 脱水纯度 `★ {critic.get('purity_score', '-')}`
+> 📊 **Mastery 艺术与神经全维审计**: `★ {critic.get('mastery_score', '-')}/100` ({critic.get('mastery_level', '达标')}) | 声律 `★ {critic.get('phonetic_score', '-')}` | 认知 `★ {critic.get('cognitive_score', '-')}` | 神经激活 `★ {critic.get('psycholinguistic_score', '-')}` ({critic.get('psycholinguistic_tier', '-')})
+> 🧠 **认知神经拟真与动机**: {critic.get('embodied_verdict', '')} | 动机模式: {critic.get('regulatory_focus', '')}
 > 🎵 **声律与文体特征**: 仄起平收: `{'✅ 规整' if critic.get('is_ze_qi_ping_shou') else '❌ 需微调'}` | 押韵: `{critic.get('matched_rhyme', '通用')}` | 文体指纹: `{critic.get('primary_genre', '现代广告体')}`
 > 💬 **评审反馈**: {critic.get('critic_feedback', '')}
 > 💧 **脱水质检建议**: {critic.get('polishing_advice', '')}
@@ -482,6 +502,16 @@ class CreativeReasoner:
             f"  - *品牌文案赋能*: {mw.get('copywriting_application', '')}"
             for mw in writers_bms
         ]) or "> 暂无特定大师作品对标"
+
+        psy_bms = strategy.get("psycholinguistic_benchmarks", [])
+        psy_md = "\n".join([
+            f"- **【{p['school_name_cn']}】** *({p['school_name_en']})*  \n"
+            f"  - *核心学者*: {p.get('key_figures', '')} | *激活脑区*: `{p.get('neural_regions_activated', '')}`  \n"
+            f"  - *认知神经机制*: {p.get('core_psychological_mechanism', '')[:120]}...  \n"
+            f"  - *度量公式*: `{p.get('algorithmic_metric_formula', '')}`  \n"
+            f"  - *文案实战赋能*: {p.get('copywriting_application_insight', '')}"
+            for p in psy_bms
+        ]) or "> 暂无特定心理学对标"
 
         md = f"""# 🌌 【{strategy['brand']}】创意品牌全案与差异化口号矩阵
 
@@ -559,6 +589,15 @@ class CreativeReasoner:
 
 ### 🌍 全球文学大师典范对标 (Master Writers Triplet Benchmarks):
 {writers_md}
+
+---
+
+## 🧠 十一、 认知心理学与神经语言学激活知识库赋能 (Psycholinguistic & Neurological Canon)
+> 💡 **神经认知与决策转化机制**:
+> 依托具身神经拟真 (Pulvermüller)、躯体标记假说 (Damasio)、SPEACC 影响矩阵 (Jonah Berger)、语言范畴模型 (Semin & Fiedler LCM) 与调节聚焦匹配 (Higgins)，以微观神经生物学原理激活消费决策中枢。
+
+### 🧬 核心心理语言学流派与奠基文献对标 (Seminal Papers & Neuro-Cognitive Directives):
+{psy_md}
 """
         return md
 

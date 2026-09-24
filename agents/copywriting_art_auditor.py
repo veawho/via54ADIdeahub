@@ -27,6 +27,8 @@ except ImportError:
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
+from agents.psycholinguistic_activator import PsycholinguisticActivator
+
 # ── 1. 十三辙韵部字典 (Shi-San-Zhe Rhyme Categories) ──
 SHI_SAN_ZHE = {
     "发花辙": ["a", "ia", "ua", "va"],
@@ -438,6 +440,7 @@ class CopywritingMasteryAuditor:
         self.rhetoric_auditor = RhetoricalAndCognitiveAuditor()
         self.book_auditor = MasterBookComplianceAuditor()
         self.purity_auditor = PurityAndDehydrationAuditor()
+        self.psycholinguistic_activator = PsycholinguisticActivator(self.db_path)
         self.elevator = AlgorithmicElevator()
 
     def audit_copywriting(self, text: str, brand: str = "", target_genre: str = "") -> Dict[str, Any]:
@@ -447,15 +450,17 @@ class CopywritingMasteryAuditor:
         r_res = self.rhetoric_auditor.audit(text)
         b_res = self.book_auditor.audit(text)
         u_res = self.purity_auditor.audit(text)
+        psy_res = self.psycholinguistic_activator.audit_full_psycholinguistics(text)
 
         # Comprehensive Mastery Index (0 - 100)
-        # Weights: Phonetics (25%), Cognitive/Rhetoric (25%), Master Books (20%), Literary Genre (15%), Purity (15%)
+        # Weights: Phonetics (20%), Cognitive/Rhetoric (20%), Psycholinguistic Activation (20%), Master Books (15%), Literary Genre (15%), Purity (10%)
         composite_score = round(
-            p_res["phonetic_score"] * 0.25 +
-            r_res["cognitive_score"] * 0.25 +
-            b_res["master_compliance_score"] * 0.20 +
+            p_res["phonetic_score"] * 0.20 +
+            r_res["cognitive_score"] * 0.20 +
+            psy_res["composite_activation_score"] * 0.20 +
+            b_res["master_compliance_score"] * 0.15 +
             g_res["literary_score"] * 0.15 +
-            u_res["purity_score"] * 0.15,
+            u_res["purity_score"] * 0.10,
             1
         )
 
@@ -477,6 +482,7 @@ class CopywritingMasteryAuditor:
             "cognitive_rhetoric_dimension": r_res,
             "master_book_compliance_dimension": b_res,
             "purity_dehydration_dimension": u_res,
+            "psycholinguistic_activation_dimension": psy_res,
             "algorithmic_elevations": elevations
         }
 
@@ -487,6 +493,7 @@ class CopywritingMasteryAuditor:
         r = audit_result["cognitive_rhetoric_dimension"]
         b = audit_result["master_book_compliance_dimension"]
         u = audit_result["purity_dehydration_dimension"]
+        psy = audit_result["psycholinguistic_activation_dimension"]
         elev = audit_result["algorithmic_elevations"]
 
         diag_p_str = "\n".join([f"> - ⚠️ {d}" for d in p["cadence_diagnosis"]])
@@ -549,8 +556,19 @@ class CopywritingMasteryAuditor:
 
 ---
 
-## 🚀 六、 算法升维与大师级重构方案 (Algorithmic Elevation)
-针对上述审计暴露出的声律松散、概念平庸或缺乏物象问题，创意算法自动完成三重不同流派的高维重构：
+## 🧠 六、 认知神经与心理语言学激活审计 (Psycholinguistic Activation)
+- **神经激活总分**: `★ {psy['composite_activation_score']} / 100` ({psy['activation_tier']})
+- **具身神经拟真度 (Pulvermüller)**: `★ {psy['embodied_simulation']['score']}` | {psy['embodied_simulation']['verdict']} (运动/物理感官词: `{'/'.join(psy['embodied_simulation']['motor_hits'] + psy['embodied_simulation']['sensory_hits']) or '无'}`)
+- **躯体标记释怀比 (Damasio)**: `★ {psy['somatic_marker']['score']}` | {psy['somatic_marker']['verdict']}
+- **SPEACC 转化势能 (Jonah Berger)**: `★ {psy['berger_speacc']['score']}` | {psy['berger_speacc']['verdict']} (身份锚定: `{'/'.join(psy['berger_speacc']['identity_frames']) or '无'}`)
+- **动词具身层级 (Semin & Fiedler LCM)**: `★ {psy['lcm_hierarchy']['score']}` | {psy['lcm_hierarchy']['verdict']}
+- **调节聚焦动机匹配 (Higgins RFT)**: {psy['regulatory_focus']['dominant_focus']} ({psy['regulatory_focus']['audience_fit_advice']})
+- **语音联觉通感 (Bouba-Kiki)**: {psy['sound_symbolism']['phonetic_aura']}
+
+---
+
+## 🚀 七、 算法升维与大师级重构方案 (Algorithmic Elevation)
+针对上述审计暴露出的声律松散、概念平庸、缺乏物象或神经刺激钝化问题，创意算法自动完成三重不同流派的高维重构：
 
 {elev_str}
 """

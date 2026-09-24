@@ -298,6 +298,41 @@ def ingest_all():
         )
     print(f"✅ Ingested {len(WRITER_QUOTES)} Master Writers Golden Epigrams into concepts & vector store.")
 
+    # 8. Psycholinguistic Activation Canon
+    from knowledge.build_psycholinguistic_activation_kb import PSYCHOLINGUISTIC_CANON
+    for item in PSYCHOLINGUISTIC_CANON:
+        title = f"【认知心理学与神经语言学】{item['school_name_cn']} ({item['school_name_en']})"
+        rel_path = f"psycholinguistic_canon/{item['id']}.md"
+        desc = f"【{item['school_name_cn']}】核心代表: {item['key_figures']} | 机制: {item['core_psychological_mechanism'][:80]}"
+        tags = ["心理语言学", "神经营销学", "认知科学", "文案转化", item["school_name_cn"]]
+        papers_list = json.loads(item["seminal_papers_and_books"])
+        papers_md = "\n".join([f"- {p}" for p in papers_list])
+        full_text = f"""# {title}
+学派与理论: {item['school_name_cn']} ({item['school_name_en']})
+核心学者与奠基人: {item['key_figures']}
+激活大脑神经区域: {item['neural_regions_activated']}
+
+## 核心心理学与神经认知机制
+{item['core_psychological_mechanism']}
+
+## 经典专著与顶会/顶刊奠基论文 (Seminal Papers & Books)
+{papers_md}
+
+## 算法度量与量化计算公式
+`{item['algorithmic_metric_formula']}`
+
+## 文案实战转化启示与心法
+{item['copywriting_application_insight']}
+
+## 标杆案例对标
+{item['canonical_benchmark_cases']}
+"""
+        _ingest_concept(
+            cursor, bundle_id, rel_path, "psycholinguistic_canon", title, desc,
+            f"knowledge/psycholinguistic_canon/{item['id']}.md", tags, full_text, db_path
+        )
+    print(f"✅ Ingested {len(PSYCHOLINGUISTIC_CANON)} Psycholinguistic Activation Canon items into concepts & vector store.")
+
     conn.commit()
     conn.close()
     print("🌟 All Knowledge Corpora successfully ingested and indexed into concepts and Blake2b-256 vector store!")
