@@ -43,7 +43,9 @@ class KBStore:
         # `check_same_thread=False` allows a single KBStore to be shared; we
         # still create one connection per public call below so we stay
         # thread-safe with the stdlib sqlite module.
-        self._conn: sqlite3.Connection = sqlite3.connect(db_path, isolation_level=None)
+        self._conn: sqlite3.Connection = sqlite3.connect(
+            db_path, isolation_level=None, check_same_thread=False
+        )
         self._conn.row_factory = sqlite3.Row
         # Foreign keys are off by default in pysqlite; enable them so the
         # `ON DELETE CASCADE` we wrote into the schema behaves.

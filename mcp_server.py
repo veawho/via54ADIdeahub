@@ -1264,11 +1264,11 @@ def call_feishu_bot(
 ) -> str:
     """Invoke the Feishu Bot Unified Adapter directly with any user command or creative query.
     Automatically dispatches to:
-      1. Copywriting & Psycholinguistic Mastery Audit (if message asks for '审计', '平仄', '神经激活')
-      2. Exemplar Reverse-Engineering (if message asks for '示例文案', '为什么好', '拆解')
-      3. Copy Polishing & De-Fluffing (if message asks for '诊断', '润色', '去爹味')
-      4. Creative Puns (if message asks for '双关', '谐音')
-      5. Full Creative Strategy Matrix with 5 Slogans (default)
+      1. Copy Polishing & De-Fluffing (if message asks for '诊断', '润色', '去爹味', '改写')
+      2. Exemplar Reverse-Engineering (if message asks for '示例文案', '为什么好', '拆解', '超越示例')
+      3. Mastery Copywriting & Neuro Audit (if message explicitly asks for '审计', '打分', '评分', '平仄检查')
+      4. Creative Puns & Double Entendre (if message asks for '双关', '谐音梗')
+      5. Full Creative Strategy Matrix with Slogans (default for all slogan/campaign creation requests like '帮霸王茶姬写5个新中式口号，要求符合声律且直击直觉')
 
     Args:
         message: User input message (e.g. '帮霸王茶姬写5个新中式口号', '审计文案：自律给我自由')
